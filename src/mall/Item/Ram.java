@@ -1,4 +1,4 @@
 package mall.Item;
 
-public class Ram {
+public class Ram extends Product{
 }

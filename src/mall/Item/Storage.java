@@ -1,4 +1,4 @@
 package mall.Item;
 
-public class Storage {
+public class Storage extends Product{
 }

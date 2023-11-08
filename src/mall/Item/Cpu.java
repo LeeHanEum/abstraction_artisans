@@ -1,4 +1,4 @@
 package mall.Item;
 
-public class Cpu {
+public class Cpu extends Product{
 }

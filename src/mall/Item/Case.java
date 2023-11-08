@@ -1,4 +1,4 @@
 package mall.Item;
 
-public class Case {
+public class Case extends Product{
 }

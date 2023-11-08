@@ -1,4 +1,4 @@
 package mall.Item;
 
-public class MainBoard {
+public class MainBoard extends Product{
 }
