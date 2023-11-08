@@ -1,4 +1,4 @@
 package mall;
 
-abstract public class Interest {
+public class Interest {
 }

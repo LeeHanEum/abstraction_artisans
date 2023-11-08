@@ -1,5 +1,5 @@
 package mall;
 
-abstract public class Admin {
+public class Admin {
 
 }
