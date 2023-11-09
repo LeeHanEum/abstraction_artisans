@@ -28,7 +28,7 @@ public class Login {
     public static User findUserByID(String inputID){
         //TODO: mList 권한 설정 해야함
         /*
-        for(Manageable T : UserList.mList) {
+        for(Manageable T : Admin.mList) {
             User usr = (User) T;
             if (usr.matchID(inputID)){
                 return usr;
