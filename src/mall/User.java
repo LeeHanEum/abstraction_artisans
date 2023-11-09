@@ -12,7 +12,7 @@ public class User implements Manageable {
     String phoneNum;
     String address;
     Cart cart;
-    Interest interest;
+    //Interest interest;
 
     public void read(Scanner scan){
 
