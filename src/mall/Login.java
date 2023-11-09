@@ -6,7 +6,6 @@ import mgr.Manageable;
 import java.util.Scanner;
 
 public class Login {
-    static Manager UserList = new Manager();
 
     //아이디와 비밀번호를 입력받고 해당 객체를 리턴함.
     public User login(Scanner scan){
