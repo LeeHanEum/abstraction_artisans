@@ -1,8 +1,11 @@
 package mall;
 
+import mgr.Manageable;
 import mgr.Manager;
 
-public class User {
+import java.util.Scanner;
+
+public class User implements Manageable {
     String id;
     String pw;
     String userName;
@@ -10,4 +13,14 @@ public class User {
     String address;
     Manager cartList;
     Manager interList;
+
+    public void read(Scanner scan){
+
+    }
+    public void print(){
+
+    }
+    public boolean matches(String kwd){
+        return false;
+    }
 }
