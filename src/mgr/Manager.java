@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager{
-    public static ArrayList<Manageable> mList = new ArrayList<>();
+    public  ArrayList<Manageable> mList = new ArrayList<>();
 
-    void readAll(String filename, Factory fac) {
+    public void readAll(String filename, Factory fac) {
         Scanner filein = openFile(filename);
         Manageable m = null;
         while (filein.hasNext()) {
@@ -18,7 +18,8 @@ public class Manager{
         }
         filein.close();
     }
-    Scanner openFile(String filename) {
+  
+    public Scanner openFile(String filename) {
         Scanner filein = null;
         try {
             filein = new Scanner(new File(filename));
@@ -30,12 +31,12 @@ public class Manager{
         return filein;
     }
 
-    void printAll() {
+    public void printAll() {
         for (Manageable m: mList)
             m.print();
     }
 
-    void search(Scanner scan) {
+    public void search(Scanner scan) {
         String kwd = null;
         while (true) {
             System.out.print(">> ");
@@ -48,7 +49,8 @@ public class Manager{
             }
         }
     }
-    static Manageable find(String kwd){
+  
+    public static Manageable find(String kwd){
         for (Manageable m: mList) {
             if (m.matches(kwd))
                 return m;
