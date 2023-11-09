@@ -9,7 +9,7 @@ public class Login {
     static Manager UserList = new Manager();
 
     //아이디와 비밀번호를 입력받고 해당 객체를 리턴함.
-    public static User login(Scanner scan){
+    public User login(Scanner scan){
         String[] input = new String[2];
 
         System.out.print("아이디를 입력해주세요");
@@ -22,8 +22,7 @@ public class Login {
             return null;
         }
 
-
-        return null;
+        return usr;
     }
 
     //해당 ID를 가진 User 객체를 반환.
