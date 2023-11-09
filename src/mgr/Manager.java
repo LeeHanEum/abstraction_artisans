@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Manager{
-    public static ArrayList<Manageable> mList = new ArrayList<>();
+    public  ArrayList<Manageable> mList = new ArrayList<>();
 
     public void readAll(String filename, Factory fac) {
         Scanner filein = openFile(filename);
@@ -17,6 +18,7 @@ public class Manager{
         }
         filein.close();
     }
+  
     public Scanner openFile(String filename) {
         Scanner filein = null;
         try {
@@ -47,6 +49,7 @@ public class Manager{
             }
         }
     }
+  
     public static Manageable find(String kwd){
         for (Manageable m: mList) {
             if (m.matches(kwd))
