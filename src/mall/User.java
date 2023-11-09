@@ -11,8 +11,8 @@ public class User implements Manageable {
     String userName;
     String phoneNum;
     String address;
-    Manager cartList;
-    Manager interList;
+    Cart cart;
+    Interest interest;
 
     public void read(Scanner scan){
 
