@@ -7,13 +7,13 @@ import mgr.Manager;
 
 public class Product implements Manageable {
     Scanner scan = new Scanner(System.in);
-    static Manager graphicsmgr = new Manager();
-    static Manager rammgr = new Manager();
-    static Manager powermgr = new Manager();
-    static Manager storagemgr = new Manager();
-    static Manager cpumgr = new Manager();
-    static Manager mainboardmgr = new Manager();
-    static Manager casemgr = new Manager();
+    static Manager graphicsMgr = new Manager();
+    static Manager ramMgr = new Manager();
+    static Manager powerMgr = new Manager();
+    static Manager storageMgr = new Manager();
+    static Manager cpuMgr = new Manager();
+    static Manager mainboardMgr = new Manager();
+    static Manager caseMgr = new Manager();
     String name;
     int price;
     @Override
@@ -34,55 +34,55 @@ public class Product implements Manageable {
         return false;
     }
     void run() {
-        graphicsmgr.readAll("graphicscard.txt", new Factory() {
+        graphicsMgr.readAll("graphicscard.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new GraphicsCard();
             }
         });
-        graphicsmgr.printAll();
-        rammgr.readAll("ram.txt", new Factory() {
+        graphicsMgr.printAll();
+        ramMgr.readAll("ram.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Ram();
             }
         });
-        rammgr.printAll();
-        powermgr.readAll("power.txt", new Factory() {
+        ramMgr.printAll();
+        powerMgr.readAll("power.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Power();
             }
         });
-        powermgr.printAll();
-        storagemgr.readAll("ssd.txt", new Factory() {
+        powerMgr.printAll();
+        storageMgr.readAll("ssd.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Storage();
             }
         });
-        storagemgr.printAll();
-        cpumgr.readAll("cpu.txt", new Factory() {
+        storageMgr.printAll();
+        cpuMgr.readAll("cpu.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Cpu();
             }
         });
-        cpumgr.printAll();
-        mainboardmgr.readAll("mainboard.txt", new Factory() {
+        cpuMgr.printAll();
+        mainboardMgr.readAll("mainboard.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new MainBoard();
             }
         });
-        mainboardmgr.printAll();
-        casemgr.readAll("case.txt", new Factory() {
+        mainboardMgr.printAll();
+        caseMgr.readAll("case.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Case();
             }
         });
-        casemgr.printAll();
+        caseMgr.printAll();
         searchMenu();
     }
     void searchMenu() {
@@ -91,20 +91,16 @@ public class Product implements Manageable {
             System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (기타) 종료 ");
             num = scan.nextInt();
             switch (num){
-                case 1: graphicsmgr.search(scan); break;
-                case 2: rammgr.search(scan); break;
-                case 3: powermgr.search(scan); break;
-                case 4: storagemgr.search(scan); break;
-                case 5: cpumgr.search(scan);
-                case 6: casemgr.search(scan);
-                case 7: mainboardmgr.search(scan);
+                case 1: graphicsMgr.search(scan); break;
+                case 2: ramMgr.search(scan); break;
+                case 3: powerMgr.search(scan); break;
+                case 4: storageMgr.search(scan); break;
+                case 5: cpuMgr.search(scan);
+                case 6: caseMgr.search(scan);
+                case 7: mainboardMgr.search(scan);
                 default: break;
             }
         }
     }
 
-    public static void main(String args[]) {
-        Product my = new Product();
-        my.run();
-    }
 }
