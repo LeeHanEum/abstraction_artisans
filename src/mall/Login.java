@@ -28,6 +28,7 @@ public class Login {
 
     //해당 ID를 가진 User 객체를 반환.
     public static User findUserByID(String inputID){
+        //TODO: mList 권한 설정 해야함
         for(Manageable T : UserList.mList) {
             User usr = (User) T;
             if (usr.matchID(inputID)){
