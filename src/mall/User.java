@@ -23,4 +23,10 @@ public class User implements Manageable {
     public boolean matches(String kwd){
         return false;
     }
+    public boolean matchID(String kwd){
+        return false;
+    }
+    public boolean matchPW(String kwd){
+        return false;
+    }
 }
