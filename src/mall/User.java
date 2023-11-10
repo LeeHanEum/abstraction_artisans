@@ -18,15 +18,16 @@ public class User implements Manageable {
 
     }
     public void print(){
-
+        System.out.printf("%s | %s | %s | %s | %s\n", id, pw, userName, phoneNum, address);
     }
     public boolean matches(String kwd){
+
         return false;
     }
     public boolean matchID(String kwd){
-        return false;
+        return id.equals(kwd);
     }
     public boolean matchPW(String kwd){
-        return false;
+        return pw.equals(kwd);
     }
 }
