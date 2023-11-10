@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Manager{
-    static ArrayList<Manageable> mList = new ArrayList<>();
+    public static ArrayList<Manageable> mList = new ArrayList<>();
 
     public void readAll(String filename, Factory fac) {
         Scanner filein = openFile(filename);
