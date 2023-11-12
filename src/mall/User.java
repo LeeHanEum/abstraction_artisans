@@ -2,20 +2,19 @@ package mall;
 
 import mgr.Manageable;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User implements Manageable{
     private String id;
-    private String pwd;
+    private String pw;
     private String name;
     private String tel;
     private String address;
-    static ArrayList<Manageable> userList = new ArrayList<>();
+
     @Override
     public void read(Scanner scan) {
         id = scan.next();
-        pwd = scan.next();
+        pw = scan.next();
         name = scan.next();
         tel = scan.next();
         address = scan.next();
@@ -24,12 +23,17 @@ public class User implements Manageable{
     public boolean matches(String kwd) {
         if (id.equals(kwd))
             return true;
+        if (name.equals(kwd))
+            return true;
+        if (tel.contains(kwd))
+            return true;
+        if (address.contains(kwd))
+            return true;
         return false;
     }
     @Override
     public void print() {
-        System.out.format("[%s] (%s) %s %s (%s)\n", id, pwd, name, tel, address);
+        System.out.format("[%s] (%s) %s %s (%s)\n", id, pw, name, tel, address);
     }
-
 
 }
