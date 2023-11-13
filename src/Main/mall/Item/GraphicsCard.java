@@ -1,4 +1,4 @@
-package mall.Item;
+package Main.mall.Item;
 
 import java.util.ArrayList;
 import java.util.Scanner;

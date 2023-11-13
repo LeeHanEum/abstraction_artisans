@@ -1,4 +1,4 @@
-package mall;
+package Main.mall;
 
 public class Admin {
 

@@ -1,6 +1,6 @@
-package mall;
+package Main.mall;
 
-import mgr.Manageable;
+import Main.mgr.Manageable;
 
 import java.util.Scanner;
 

@@ -1,9 +1,9 @@
-package mall.Item;
+package Main.mall.Item;
 
 import java.util.Scanner;
-import mgr.Factory;
-import mgr.Manageable;
-import mgr.Manager;
+import Main.mgr.Factory;
+import Main.mgr.Manageable;
+import Main.mgr.Manager;
 
 public class Product implements Manageable {
     Scanner scan = new Scanner(System.in);

@@ -1,4 +1,4 @@
-package mall.dto;
+package Main.mall.dto;
 
 public class PaymentDto {
 }

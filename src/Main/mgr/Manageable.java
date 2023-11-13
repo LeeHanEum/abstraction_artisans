@@ -1,4 +1,4 @@
-package mgr;
+package Main.mgr;
 
 import java.util.Scanner;
 
