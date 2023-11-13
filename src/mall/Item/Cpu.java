@@ -3,16 +3,16 @@ package mall.Item;
 import java.util.Scanner;
 
 public class Cpu extends Product{
-    int clock;
+    float clock;
     int core;
-    int cache;
+    float cache;
     String socket;
     String ramType;
     @Override
     public void read(Scanner scan) {
-        clock = scan.nextInt();
+        clock = scan.nextFloat();
         core = scan.nextInt();
-        cache = scan.nextInt();
+        cache = scan.nextFloat();
         socket = scan.next();
         ramType = scan.next();
         super.read(scan);
@@ -21,7 +21,7 @@ public class Cpu extends Product{
     @Override
     public void print() {
         super.print();
-        System.out.printf("기본클럭:%d GHz 코어수:%d 캐시:%d MB (소캣%s) 메모리규격:%s\n"
+        System.out.printf("기본클럭:%.1f GHz 코어수:%d 캐시:%.1f MB (소캣%s) 메모리규격:%s\n"
                 , clock, core, cache, socket, ramType);
     }
 
@@ -29,7 +29,7 @@ public class Cpu extends Product{
     public boolean matches(String kwd) {
         if(kwd.equals(socket))
             return true;
-        if(kwd.equals(ramType))
+        if(ramType.contains(kwd))
             return true;
         return super.matches(kwd);
     }
