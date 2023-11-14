@@ -1,6 +1,18 @@
 package Main.mall;
 
+import Main.mall.Item.Product;
+
+import java.time.LocalDateTime;
+
 public class Interest {
+
+    private Long interestId;
+
+    private User user;
+
+    private Product product;
+
+    private LocalDateTime createdAt;
 
     // 상품 찜하기
     public void markInterest() {

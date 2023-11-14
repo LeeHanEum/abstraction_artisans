@@ -1,8 +1,16 @@
 package Main.mall;
 
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 
 public class Cart {
+
+    private Long cartId;
+
+    private User user;
+
+    private LocalDateTime createdAt;
+
 
     // 장바구니에 상품 담기
     public void addItemToCart() {

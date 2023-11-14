@@ -1,6 +1,19 @@
 package Main.mall;
 
+import Main.mall.Item.Product;
+
+import java.util.List;
+
 public class Payment {
+
+    private Long paymentId;
+
+    private User user;
+
+    private List<Product> productList;
+
+    private String paymentMethod;
+
 
     // 결제 이메일 전송
     public void sendEmail() {
