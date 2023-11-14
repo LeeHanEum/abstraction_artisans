@@ -26,6 +26,8 @@ public class Manager{
         } catch (IOException e)
         {
             System.out.println("파일 입력 오류");
+            // exception 출력
+            e.printStackTrace();
             System.exit(0);
         }
         return filein;

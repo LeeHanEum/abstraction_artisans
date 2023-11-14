@@ -1,5 +1,7 @@
 package Main;
 
+import Main.mall.Admin;
+
 import java.util.Scanner;
 
 public class Mall {
@@ -24,11 +26,15 @@ public class Mall {
     }
 
     private void run(int menuSelect){
+    }
 
+    private void run(){
+        new Admin().run();
     }
 
     public static void main(String[] args) {
-        Mall.getInstance().run(menuSelect());
+//        Mall.getInstance().run(menuSelect());
+        Mall.getInstance().run();
     }
 
 }
