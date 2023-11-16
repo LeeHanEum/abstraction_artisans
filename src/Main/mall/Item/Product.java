@@ -2,19 +2,18 @@ package Main.mall.Item;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import Main.mgr.Factory;
+
 import Main.mgr.Manageable;
-import Main.mgr.Manager;
 
 public class Product implements Manageable {
 
-    Long productId; // 상품 아이디
+    private Long productId; // 상품 아이디
 
-    String name;
+    private String name;
 
-    int price;
+    private int price;
 
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Override
     public void read(Scanner scan){
@@ -33,6 +32,5 @@ public class Product implements Manageable {
             return true;
         return false;
     }
-
 
 }
