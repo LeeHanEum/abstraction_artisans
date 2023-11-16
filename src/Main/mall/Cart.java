@@ -1,13 +1,18 @@
 package Main.mall;
 
+import Main.mall.Item.Product;
+
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Cart {
 
     private Long cartId;
 
     private User user;
+
+    private List<Product> productList;
 
     private LocalDateTime createdAt;
 
