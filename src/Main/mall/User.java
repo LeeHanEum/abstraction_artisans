@@ -38,6 +38,12 @@ public class User implements Manageable{
             return true;
         return false;
     }
+    public boolean matchID(String kwd){
+        return id.equals(kwd);
+    }
+    public boolean matchPW(String kwd){
+        return Password.decrypt(this.pw).equals(kwd);
+    }
     @Override
     public void print() {
         System.out.format("[%s] (%s) %s %s (%s)\n", id, pw, name, tel, address);

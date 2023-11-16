@@ -11,7 +11,6 @@ import Main.mall.Item.Storage;
 import Main.mgr.Factory;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
-import sun.applet.Main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.Scanner;
 public class Admin {
 
     Scanner scan = new Scanner(System.in);
+    static Login loginMgr = new Login();
 
     static Manager userMgr = new Manager();
 
@@ -156,6 +156,15 @@ public class Admin {
     // 회원 결제 내역 조회
     public void getUserPaymentInfo(){
 
+    }
+
+    public void adminPage(){
+        if(!Login.currentUser.matchID("admin")){
+            System.out.println("Permission denied");
+            return;
+        }
+        //TODO : make manage page for admin
+        System.out.println("Hello admin");
     }
 
 }
