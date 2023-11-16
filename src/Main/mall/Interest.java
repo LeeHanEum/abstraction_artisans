@@ -1,6 +1,7 @@
 package Main.mall;
 
 import Main.mall.Item.Product;
+import Main.mall.dto.InterestDto;
 
 import java.time.LocalDateTime;
 
@@ -29,4 +30,23 @@ public class Interest {
         System.out.println("찜한 상품 삭제");
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public static Interest builder(InterestDto interestDto){
+        Interest interest = new Interest();
+        interest.user = interestDto.getUser();
+        interest.product = interestDto.getProduct();
+        interest.createdAt = interestDto.getCreatedAt();
+        return interest;
+    }
 }

@@ -1,6 +1,8 @@
 package Main.mall;
 
 import Main.mall.Item.Product;
+import Main.mall.dto.CartDto;
+import javafx.util.Builder;
 
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
@@ -40,6 +42,26 @@ public class Cart {
     // 장바구니에서 상품 구매
     public void payItemFromCart() {
         System.out.println("장바구니에서 상품을 구매했습니다.");
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public static Cart builder(CartDto cartDto){
+        Cart cart = new Cart();
+        cart.user = cartDto.getUser();
+        cart.productList = cartDto.getProductList();
+        cart.createdAt = cartDto.getCreatedAt();
+        return cart;
     }
 
 }
