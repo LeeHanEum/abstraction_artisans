@@ -35,4 +35,8 @@ public class Login {
         }
         return null;
     }
+
+    public static void logout(){
+        currentUser = null;
+    }
 }
