@@ -21,6 +21,7 @@ public class Ram extends Product{
         System.out.printf("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
     }
 
+    //return 에 super.matches로 이름도 비교하게 만듦
     @Override
     public boolean matches(String kwd){
         try {
@@ -35,6 +36,6 @@ public class Ram extends Product{
                 return true;
             }
         }
-        return false;
+        return super.matches(kwd);
     }
 }

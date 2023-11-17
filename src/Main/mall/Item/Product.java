@@ -15,22 +15,23 @@ public class Product implements Manageable {
 
     private LocalDateTime createdAt;
 
+    //trim 추가 앞 뒤 공백 삭제
     @Override
     public void read(Scanner scan){
         price = scan.nextInt();
-        name = scan.nextLine();
+        name = scan.nextLine().trim();
     }
 
+    //원 하고 띄어쓰기 추가
     @Override
     public void print() {
-        System.out.printf("%s %d", name, price);
+        System.out.printf("%s %d원 ", name, price);
     }
 
     @Override
     public boolean matches(String kwd) {
-        if (name.equals(kwd))
+        if (name.contains(kwd))
             return true;
         return false;
     }
-
 }

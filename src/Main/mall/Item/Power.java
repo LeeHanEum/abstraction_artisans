@@ -18,10 +18,11 @@ public class Power extends Product{
     }
 
     //정격파워하고 비교해서 더 크면 반환
+    //return 에 super.matches로 이름도 비교하게 만듦
     @Override
     public boolean matches(String kwd){
         if (power >= Integer.parseInt(kwd))
             return true;
-        return false;
+        return super.matches(kwd);
     }
 }
