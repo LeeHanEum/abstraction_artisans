@@ -98,15 +98,6 @@ public class Admin {
             }
         });
     }
-    private void printAllProducts() {
-        cpuMgr.printAll();
-        mainboardMgr.printAll();
-        ramMgr.printAll();
-        storageMgr.printAll();
-        graphicsMgr.printAll();
-        powerMgr.printAll();
-        caseMgr.printAll();
-    }
 
     //여기서 출력을 한 품목씩 나눌 수 있게 해줬습니다(카테고리필터링)
     //검색도 입력한 부품에 따라 검색할 수 있게 만들었습니다(상품검색)
@@ -125,7 +116,7 @@ public class Admin {
                 case 5: cpuMgr.printAll(); break;
                 case 6: caseMgr.printAll(); break;
                 case 7: mainboardMgr.printAll(); break;
-                case 8: printAllProducts(); break;
+                case 8: getAllItem(); break; //getAlllItem 으로 수정했습니다.
                 case 9:
                     System.out.print("검색할 품목을 입력해주세요: ");
                     kwd = scan.next();
@@ -142,8 +133,16 @@ public class Admin {
     }
 
     // 전체 상품 조회
+    // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
     public void getAllItem(){
         System.out.println("전체 상품을 조회합니다.");
+        cpuMgr.printAll();
+        mainboardMgr.printAll();
+        ramMgr.printAll();
+        storageMgr.printAll();
+        graphicsMgr.printAll();
+        powerMgr.printAll();
+        caseMgr.printAll();
     }
 
     // 상품 추가 등록
