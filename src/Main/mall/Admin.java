@@ -194,7 +194,29 @@ public class Admin {
 
     // 상품 삭제
     public void deleteItem(){
+        System.out.print("삭제할 품목을 입력해주세요: ");
+        String kwd = scan.next();
 
+        Manager mgr = null;
+
+        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
+        else if (kwd.equals("램")) mgr = ramMgr;
+        else if (kwd.equals("파워")) mgr = powerMgr;
+        else if (kwd.equals("SSD")) mgr = storageMgr;
+        else if (kwd.equals("cpu")) mgr = cpuMgr;
+        else if (kwd.equals("case")) mgr = caseMgr;
+        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
+        else {System.out.println("옳지 않은 품목입니다."); return;}
+
+        System.out.print("삭제할 제품 이름을 선택해주세요");
+        String kwd1 = scan.next();
+        Product m;
+
+        m = (Product) mgr.find(kwd1); //nullable
+
+        if (m == null) {System.out.println("해당 제품을 찾을 수 없습니다."); return;}
+
+        mgr.delete(m);
     }
 
     // 상품 페이지네이션
