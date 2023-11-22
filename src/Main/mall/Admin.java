@@ -53,6 +53,7 @@ public class Admin {
         });
     }
 
+    //출력을 시키지않게 바꿨습니다
     private void loadProductData(){
         cpuMgr.readAll("src/Main/mall/input/cpu.txt", new Factory() {
             @Override
@@ -60,72 +61,88 @@ public class Admin {
                 return new Cpu();
             }
         });
-        cpuMgr.printAll();
         mainboardMgr.readAll("src/Main/mall/input/mainboard.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new MainBoard();
             }
         });
-        mainboardMgr.printAll();
         ramMgr.readAll("src/Main/mall/input/ram.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Ram();
             }
         });
-        ramMgr.printAll();
         storageMgr.readAll("src/Main/mall/input/ssd.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Storage();
             }
         });
-        storageMgr.printAll();
         graphicsMgr.readAll("src/Main/mall/input/graphicscard.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new GraphicsCard();
             }
         });
-        graphicsMgr.printAll();
         powerMgr.readAll("src/Main/mall/input/power.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Power();
             }
         });
-        powerMgr.printAll();
         caseMgr.readAll("src/Main/mall/input/case.txt", new Factory() {
             @Override
             public Manageable create() {
                 return new Case();
             }
         });
-        caseMgr.printAll();
     }
 
+    //여기서 출력을 한 품목씩 나눌 수 있게 해줬습니다(카테고리필터링)
+    //검색도 입력한 부품에 따라 검색할 수 있게 만들었습니다(상품검색)
+    //상품 상세보기는 이미 모든 정보가 출력돼서 따로 안 만들었습니다
     private void searchMenu() {
         int num;
+        String kwd;
         while (true) {
-            System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (기타) 종료 ");
+            System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (8) ALL (9) 검색 (기타) 종료 ");
             num = scan.nextInt();
             switch (num){
-                case 1: graphicsMgr.search(scan); break;
-                case 2: ramMgr.search(scan); break;
-                case 3: powerMgr.search(scan); break;
-                case 4: storageMgr.search(scan); break;
-                case 5: cpuMgr.search(scan);
-                case 6: caseMgr.search(scan);
-                case 7: mainboardMgr.search(scan);
+                case 1: graphicsMgr.printAll(); break;
+                case 2: ramMgr.printAll(); break;
+                case 3:powerMgr.printAll(); break;
+                case 4: storageMgr.printAll(); break;
+                case 5: cpuMgr.printAll(); break;
+                case 6: caseMgr.printAll(); break;
+                case 7: mainboardMgr.printAll(); break;
+                case 8: getAllItem(); break; //getAlllItem 으로 수정했습니다.
+                case 9:
+                    System.out.print("검색할 품목을 입력해주세요: ");
+                    kwd = scan.next();
+                    if (kwd.equals("그래픽카드")) graphicsMgr.search(scan);
+                    else if (kwd.equals("램")) ramMgr.search(scan);
+                    else if (kwd.equals("파워")) powerMgr.search(scan);
+                    else if (kwd.equals("SSD")) storageMgr.search(scan);
+                    else if (kwd.equals("cpu")) cpuMgr.search(scan);
+                    else if (kwd.equals("case")) caseMgr.search(scan);
+                    else if (kwd.equals("메인보드")) mainboardMgr.search(scan); break;
                 default: return;
             }
         }
     }
 
     // 전체 상품 조회
+    // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
     public void getAllItem(){
         System.out.println("전체 상품을 조회합니다.");
+        cpuMgr.printAll();
+        mainboardMgr.printAll();
+        ramMgr.printAll();
+        storageMgr.printAll();
+        graphicsMgr.printAll();
+        powerMgr.printAll();
+        caseMgr.printAll();
     }
 
     // 상품 추가 등록

@@ -2,37 +2,36 @@ package Main.mall.Item;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import Main.mgr.Factory;
+
 import Main.mgr.Manageable;
-import Main.mgr.Manager;
 
 public class Product implements Manageable {
 
-    Long productId; // 상품 아이디
+    private Long productId; // 상품 아이디
 
-    String name;
+    private String name;
 
-    int price;
+    private int price;
 
-    LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
+    //trim 추가 앞 뒤 공백 삭제
     @Override
     public void read(Scanner scan){
         price = scan.nextInt();
-        name = scan.nextLine();
+        name = scan.nextLine().trim();
     }
 
+    //원 하고 띄어쓰기 추가
     @Override
     public void print() {
-        System.out.printf("%s %d", name, price);
+        System.out.printf("%s %d원 ", name, price);
     }
 
     @Override
     public boolean matches(String kwd) {
-        if (name.equals(kwd))
+        if (name.contains(kwd))
             return true;
         return false;
     }
-
-
 }

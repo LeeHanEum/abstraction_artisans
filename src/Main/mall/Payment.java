@@ -1,6 +1,7 @@
 package Main.mall;
 
 import Main.mall.Item.Product;
+import Main.mall.dto.PaymentDto;
 
 import java.util.List;
 
@@ -35,4 +36,23 @@ public class Payment {
         System.out.println("결제 정보 입력");
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public static Payment builder(PaymentDto paymentDto){
+        Payment payment = new Payment();
+        payment.user = paymentDto.getUser();
+        payment.productList = paymentDto.getProductList();
+        payment.paymentMethod = paymentDto.getPaymentMethod();
+        return payment;
+    }
 }

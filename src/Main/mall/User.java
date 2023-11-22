@@ -1,5 +1,6 @@
 package Main.mall;
 
+import Main.mall.dto.UserDto;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
@@ -49,5 +50,23 @@ public class User implements Manageable{
         System.out.format("[%s] (%s) %s %s (%s)\n", id, pw, name, tel, address);
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public static User builder(UserDto userDto){
+        User user = new User();
+        user.name = userDto.getName();
+        user.tel = userDto.getTel();
+        user.address = userDto.getAddress();
+        return user;
+    }
 }
