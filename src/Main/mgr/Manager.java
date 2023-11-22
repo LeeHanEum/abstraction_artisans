@@ -67,4 +67,8 @@ public class Manager{
     public void delete(Manageable m){
         mList.remove(m);
     }
+
+    public void add(Manageable m){
+        mList.add(m);
+    }
 }

@@ -147,7 +147,24 @@ public class Admin {
 
     // 상품 추가 등록
     public void addItem(){
+        System.out.print("추가할 품목을 입력해주세요: ");
+        String kwd = scan.next();
 
+        Manager mgr = null;
+
+        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
+        else if (kwd.equals("램")) mgr = ramMgr;
+        else if (kwd.equals("파워")) mgr = powerMgr;
+        else if (kwd.equals("SSD")) mgr = storageMgr;
+        else if (kwd.equals("cpu")) mgr = cpuMgr;
+        else if (kwd.equals("case")) mgr = caseMgr;
+        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
+        else {System.out.println("옳지 않은 품목입니다."); return;}
+
+        Product m = new Product();
+        System.out.println("추가할 제품의 정보를 입력해주세요.");
+        m.read(scan);
+        mgr.add(m);
     }
 
     // 상품 수정
