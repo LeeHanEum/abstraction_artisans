@@ -34,4 +34,13 @@ public class Product implements Manageable {
             return true;
         return false;
     }
+
+    public void modify(String kwd){
+        try {
+            this.price = Integer.parseInt(kwd);
+        }
+        catch (NumberFormatException e){
+            this.name = kwd;
+        }
+    }
 }

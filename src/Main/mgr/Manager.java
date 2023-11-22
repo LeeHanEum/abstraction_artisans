@@ -57,4 +57,10 @@ public class Manager{
         }
         return null;
     }
+
+    public void replace(String kwd, Manageable m){
+        Manageable origin = this.find(kwd);
+        mList.remove(origin);
+        mList.add(m);
+    }
 }

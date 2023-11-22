@@ -151,7 +151,44 @@ public class Admin {
     }
 
     // 상품 수정
-    public void updateItem(){
+    public void updateItem(Scanner scan){
+        System.out.print("수정할 품목을 입력해주세요: ");
+        String kwd = scan.next();
+
+        Manager mgr = null;
+
+        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
+        else if (kwd.equals("램")) mgr = ramMgr;
+        else if (kwd.equals("파워")) mgr = powerMgr;
+        else if (kwd.equals("SSD")) mgr = storageMgr;
+        else if (kwd.equals("cpu")) mgr = cpuMgr;
+        else if (kwd.equals("case")) mgr = caseMgr;
+        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
+        else {System.out.println("옳지 않은 품목입니다."); return;}
+
+        System.out.print("수정할 제품 이름을 선택해주세요");
+        String kwd1 = scan.next();
+        Product m;
+
+        m = (Product) mgr.find(kwd1); //nullable
+
+        if (m == null) {System.out.println("해당 제품을 찾을 수 없습니다."); return;}
+
+        System.out.print("무엇을 바꾸시겠습니까? (1) 이름 (2) 가격 : ");
+        String chs = scan.next();
+        String newKwd;
+
+        if(chs.contains("1")){
+            System.out.print("이름을 정해주세요 : ");
+            newKwd = scan.next();
+        }
+        else{
+            System.out.print("가격을 정해주세요 : ");
+            newKwd = scan.next();
+        }
+
+        m.modify(newKwd);
+        mgr.replace(kwd1,m);
 
     }
 
