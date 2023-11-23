@@ -16,7 +16,10 @@ public class Power extends Product{
         super.print();
         System.out.printf("정격파워:%d\n", power);
     }
-
+    @Override
+    public String toString() {
+        return String.format("정격파워:%d\n", power);
+    }
     //정격파워하고 비교해서 더 크면 반환
     //return 에 super.matches로 이름도 비교하게 만듦
     @Override

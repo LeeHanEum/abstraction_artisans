@@ -27,20 +27,13 @@ public class Product implements Manageable {
     public void print() {
         System.out.printf("%s %d원 ", name, price);
     }
-
+    public String toString() {
+        return String.format("%s %d원 ", name, price);
+    }
     @Override
     public boolean matches(String kwd) {
         if (name.contains(kwd))
             return true;
         return false;
-    }
-
-    public void modify(String kwd){
-        try {
-            this.price = Integer.parseInt(kwd);
-        }
-        catch (NumberFormatException e){
-            this.name = kwd;
-        }
     }
 }

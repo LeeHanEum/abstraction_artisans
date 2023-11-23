@@ -2,39 +2,50 @@ package Main;
 
 import Main.mall.Admin;
 
-import java.util.Scanner;
+import java.awt.GridLayout;
+import javax.swing.*;
 
-public class Mall {
+public class Mall extends JFrame {
 
     private static Mall instance;
 
-    static Scanner scanner = new Scanner(System.in);
+    private Mall() {
+        initUI();
+    }
 
-    // 싱글톤 구현
-    private static Mall getInstance(){
-        if(instance == null)
+    private void initUI() {
+        setTitle("Mall GUI");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JButton loginButton = new JButton("로그인");
+        JButton exitButton = new JButton("종료");
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 1));
+        panel.add(loginButton);
+        panel.add(exitButton);
+
+        loginButton.addActionListener(e -> {
+            new Admin().setVisible(true);
+            dispose();
+        });
+
+        exitButton.addActionListener(e -> System.exit(0));
+
+        add(panel);
+        setLocationRelativeTo(null);
+    }
+
+    public static Mall getInstance() {
+        if (instance == null)
             instance = new Mall();
         return instance;
     }
 
-    // menu enum 필요
-    private static int menuSelect(){
-        System.out.println("### 메뉴 ###");
-        System.out.println("1. 로그인");
-        System.out.println("2. 종료");
-        return scanner.nextInt();
-    }
-
-    private void run(int menuSelect){
-    }
-
-    private void run(){
-        new Admin().run();
-    }
-
     public static void main(String[] args) {
-//        Mall.getInstance().run(menuSelect());
-        Mall.getInstance().run();
+        SwingUtilities.invokeLater(() -> {
+            Mall.getInstance().setVisible(true);
+        });
     }
-
 }

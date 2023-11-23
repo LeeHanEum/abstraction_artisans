@@ -1,47 +1,169 @@
 package Main.mall;
 
-import Main.mall.Item.Case;
-import Main.mall.Item.Cpu;
-import Main.mall.Item.GraphicsCard;
-import Main.mall.Item.MainBoard;
-import Main.mall.Item.Power;
-import Main.mall.Item.Product;
-import Main.mall.Item.Ram;
-import Main.mall.Item.Storage;
+import Main.mall.Item.*;
 import Main.mgr.Factory;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
-public class Admin {
+public class Admin extends JFrame {
 
-    Scanner scan = new Scanner(System.in);
-    static Login loginMgr = new Login();
+    private Scanner scan = new Scanner(System.in);
+    private static Login loginMgr = new Login();
 
-    static Manager userMgr = new Manager();
+    public static Manager userMgr = new Manager();
+    public static Manager cpuMgr = new Manager();
+    public static Manager mainboardMgr = new Manager();
+    public static Manager ramMgr = new Manager();
+    public static Manager storageMgr = new Manager();
+    public static Manager graphicsMgr = new Manager();
+    public static Manager powerMgr = new Manager();
+    public static Manager caseMgr = new Manager();
 
-    static Manager cpuMgr = new Manager();
+    public UserChoiceHandler userChoiceHandler = new UserChoiceHandler();
 
-    static Manager mainboardMgr = new Manager();
+    public Admin() {
+        run();
+        initUI();
+    }
 
-    static Manager ramMgr = new Manager();
+    private void initUI() {
+        setTitle("Admin GUI");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    static Manager storageMgr = new Manager();
+        JTabbedPane tabbedPane = new JTabbedPane();
 
-    static Manager graphicsMgr = new Manager();
+        // Add tabs for each category
+        tabbedPane.addTab("Users", createUserPanel());
+        tabbedPane.addTab("CPU", createProductPanel(cpuMgr));
+        tabbedPane.addTab("Mainboard", createProductPanel(mainboardMgr));
+        tabbedPane.addTab("RAM", createProductPanel(ramMgr));
+        tabbedPane.addTab("Storage", createProductPanel(storageMgr));
+        tabbedPane.addTab("Graphics Card", createProductPanel(graphicsMgr));
+        tabbedPane.addTab("Power", createProductPanel(powerMgr));
+        tabbedPane.addTab("Case", createProductPanel(caseMgr));
 
-    static Manager powerMgr = new Manager();
+        add(tabbedPane);
+        setLocationRelativeTo(null);
+    }
 
-    static Manager caseMgr = new Manager();
+    private JPanel createUserPanel() {
+        JPanel userPanel = new JPanel();
+        userPanel.setLayout(new BorderLayout());
+
+        // Search Panel
+        JPanel searchPanel = new JPanel();
+        JTextField searchField = new JTextField(20);
+        JButton searchButton = new JButton("Search");
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Implement search functionality for users if needed
+            }
+        });
+
+        searchPanel.add(new JLabel("Search: "));
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+
+        userPanel.add(searchPanel, BorderLayout.NORTH);
+
+        JPanel userListPanel = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(userListPanel);
+        userPanel.add(scrollPane, BorderLayout.CENTER);
+
+        updateUserList(userPanel);
+
+        return userPanel;
+    }
+
+    private void updateUserList(JPanel userPanel) {
+        // Assuming that you have a list of users in your user manager
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        JList<String> userList = new JList<>(listModel);
+
+        // Populate the listModel with user names
+        for (Manageable user : userMgr.mList) {
+            listModel.addElement(user.toString()); // Assuming User class has a toString method
+        }
+
+        JScrollPane scrollPane = new JScrollPane(userList);
+        userPanel.add(scrollPane, BorderLayout.CENTER);
+
+        userPanel.revalidate();
+        userPanel.repaint();
+    }
 
 
-    public void run () {
+    private JPanel createProductPanel(Manager manager) {
+        JPanel productPanel = new JPanel();
+        productPanel.setLayout(new BorderLayout());
+
+        // Search Panel
+        JPanel searchPanel = new JPanel();
+        JTextField searchField = new JTextField(20);
+        JButton searchButton = new JButton("Search");
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String keyword = searchField.getText();
+                manager.search(new Scanner(keyword));
+                updateProductList(productPanel, manager);
+            }
+        });
+
+        searchPanel.add(new JLabel("Search: "));
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+
+        productPanel.add(searchPanel, BorderLayout.NORTH);
+
+        JPanel productListPanel = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(productListPanel);
+        productPanel.add(scrollPane, BorderLayout.CENTER);
+
+        updateProductList(productPanel, manager);
+
+        return productPanel;
+    }
+
+    private void updateProductList(JPanel productPanel, Manager manager) {
+        productPanel.remove(1);
+
+        JPanel productListPanel = new JPanel(new GridLayout(manager.mList.size(), 1));
+
+        // Display each product in the list
+        for (Manageable product : manager.mList) {
+            JPanel productItemPanel = new JPanel();
+            JLabel productLabel = new JLabel();
+            product.print();
+            productLabel.setText(productLabel.getText() + " " + product); // Add product details
+
+            productItemPanel.add(productLabel);
+            productListPanel.add(productItemPanel);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(productListPanel);
+        productPanel.add(scrollPane, BorderLayout.CENTER);
+
+        productPanel.revalidate();
+        productPanel.repaint();
+    }
+
+
+
+    public void run() {
         loadUserData();
         loadProductData();
-        searchMenu();
+        userChoiceHandler.handleUserChoice();
     }
 
     private void loadUserData() {
@@ -53,8 +175,7 @@ public class Admin {
         });
     }
 
-    //출력을 시키지않게 바꿨습니다
-    private void loadProductData(){
+    private void loadProductData() {
         cpuMgr.readAll("src/Main/mall/input/cpu.txt", new Factory() {
             @Override
             public Manageable create() {
@@ -99,165 +220,5 @@ public class Admin {
         });
     }
 
-    //여기서 출력을 한 품목씩 나눌 수 있게 해줬습니다(카테고리필터링)
-    //검색도 입력한 부품에 따라 검색할 수 있게 만들었습니다(상품검색)
-    //상품 상세보기는 이미 모든 정보가 출력돼서 따로 안 만들었습니다
-    private void searchMenu() {
-        int num;
-        String kwd;
-        while (true) {
-            System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (8) ALL (9) 검색 (기타) 종료 ");
-            num = scan.nextInt();
-            switch (num){
-                case 1: graphicsMgr.printAll(); break;
-                case 2: ramMgr.printAll(); break;
-                case 3:powerMgr.printAll(); break;
-                case 4: storageMgr.printAll(); break;
-                case 5: cpuMgr.printAll(); break;
-                case 6: caseMgr.printAll(); break;
-                case 7: mainboardMgr.printAll(); break;
-                case 8: getAllItem(); break; //getAlllItem 으로 수정했습니다.
-                case 9:
-                    System.out.print("검색할 품목을 입력해주세요: ");
-                    kwd = scan.next();
-                    if (kwd.equals("그래픽카드")) graphicsMgr.search(scan);
-                    else if (kwd.equals("램")) ramMgr.search(scan);
-                    else if (kwd.equals("파워")) powerMgr.search(scan);
-                    else if (kwd.equals("SSD")) storageMgr.search(scan);
-                    else if (kwd.equals("cpu")) cpuMgr.search(scan);
-                    else if (kwd.equals("case")) caseMgr.search(scan);
-                    else if (kwd.equals("메인보드")) mainboardMgr.search(scan); break;
-                default: return;
-            }
-        }
-    }
-
-    // 전체 상품 조회
-    // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
-    public void getAllItem(){
-        System.out.println("전체 상품을 조회합니다.");
-        cpuMgr.printAll();
-        mainboardMgr.printAll();
-        ramMgr.printAll();
-        storageMgr.printAll();
-        graphicsMgr.printAll();
-        powerMgr.printAll();
-        caseMgr.printAll();
-    }
-
-    // 상품 추가 등록
-    public void addItem(){
-        System.out.print("추가할 품목을 입력해주세요: ");
-        String kwd = scan.next();
-
-        Manager mgr = null;
-
-        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
-        else if (kwd.equals("램")) mgr = ramMgr;
-        else if (kwd.equals("파워")) mgr = powerMgr;
-        else if (kwd.equals("SSD")) mgr = storageMgr;
-        else if (kwd.equals("cpu")) mgr = cpuMgr;
-        else if (kwd.equals("case")) mgr = caseMgr;
-        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
-        else {System.out.println("옳지 않은 품목입니다."); return;}
-
-        Product m = new Product();
-        System.out.println("추가할 제품의 정보를 입력해주세요.");
-        m.read(scan);
-        mgr.add(m);
-    }
-
-    // 상품 수정
-    public void updateItem(Scanner scan){
-        System.out.print("수정할 품목을 입력해주세요: ");
-        String kwd = scan.next();
-
-        Manager mgr = null;
-
-        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
-        else if (kwd.equals("램")) mgr = ramMgr;
-        else if (kwd.equals("파워")) mgr = powerMgr;
-        else if (kwd.equals("SSD")) mgr = storageMgr;
-        else if (kwd.equals("cpu")) mgr = cpuMgr;
-        else if (kwd.equals("case")) mgr = caseMgr;
-        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
-        else {System.out.println("옳지 않은 품목입니다."); return;}
-
-        System.out.print("수정할 제품 이름을 선택해주세요");
-        String kwd1 = scan.next();
-        Product m;
-
-        m = (Product) mgr.find(kwd1); //nullable
-
-        if (m == null) {System.out.println("해당 제품을 찾을 수 없습니다."); return;}
-
-        System.out.print("무엇을 바꾸시겠습니까? (1) 이름 (2) 가격 : ");
-        String chs = scan.next();
-        String newKwd;
-
-        if(chs.contains("1")){
-            System.out.print("이름을 정해주세요 : ");
-            newKwd = scan.next();
-        }
-        else{
-            System.out.print("가격을 정해주세요 : ");
-            newKwd = scan.next();
-        }
-
-        m.modify(newKwd);
-        mgr.replace(kwd1,m);
-
-    }
-
-    // 상품 삭제
-    public void deleteItem(){
-        System.out.print("삭제할 품목을 입력해주세요: ");
-        String kwd = scan.next();
-
-        Manager mgr = null;
-
-        if (kwd.equals("그래픽카드")) mgr = graphicsMgr;
-        else if (kwd.equals("램")) mgr = ramMgr;
-        else if (kwd.equals("파워")) mgr = powerMgr;
-        else if (kwd.equals("SSD")) mgr = storageMgr;
-        else if (kwd.equals("cpu")) mgr = cpuMgr;
-        else if (kwd.equals("case")) mgr = caseMgr;
-        else if (kwd.equals("메인보드")) mgr = mainboardMgr;
-        else {System.out.println("옳지 않은 품목입니다."); return;}
-
-        System.out.print("삭제할 제품 이름을 선택해주세요");
-        String kwd1 = scan.next();
-        Product m;
-
-        m = (Product) mgr.find(kwd1); //nullable
-
-        if (m == null) {System.out.println("해당 제품을 찾을 수 없습니다."); return;}
-
-        mgr.delete(m);
-    }
-
-    // 상품 페이지네이션
-    public void ItemPagenation(){
-
-    }
-
-    // 회원 리스팅
-    public void getUserList(){
-
-    }
-
-    // 회원 결제 내역 조회
-    public void getUserPaymentInfo(){
-
-    }
-
-    public void adminPage(){
-        if(!Login.currentUser.matchID("admin")){
-            System.out.println("Permission denied");
-            return;
-        }
-        //TODO : make manage page for admin
-        System.out.println("Hello admin");
-    }
 
 }

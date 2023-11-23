@@ -22,7 +22,7 @@ public class User implements Manageable{
     @Override
     public void read(Scanner scan) {
         id = scan.next();
-        pw = Password.encrypt(scan.next());
+        pw = scan.next();
         name = scan.next();
         tel = scan.next();
         address = scan.next();
@@ -43,11 +43,14 @@ public class User implements Manageable{
         return id.equals(kwd);
     }
     public boolean matchPW(String kwd){
-        return Password.encrypt(kwd).equals(pw);
+        return Password.decrypt(this.pw).equals(kwd);
     }
     @Override
     public void print() {
         System.out.format("[%s] (%s) %s %s (%s)\n", id, pw, name, tel, address);
+    }
+    public String toString() {
+        return String.format("[%s] (%s) %s %s (%s)\n", id, pw, name, tel, address);
     }
 
     public String getName() {

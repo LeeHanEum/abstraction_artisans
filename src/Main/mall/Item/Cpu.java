@@ -22,15 +22,30 @@ public class Cpu extends Product{
     public void print() {
         super.print();
         System.out.printf("기본클럭:%.1f GHz 코어수:%d 캐시:%.1f MB (소캣%s) 메모리규격:%s\n"
-                , clock, core, cache, socket, ramType);
+            , clock, core, cache, socket, ramType);
     }
 
+    public String toString() {
+        return String.format("기본클럭:%.1f GHz 코어수:%d 캐시:%.1f MB (소캣%s) 메모리규격:%s\n"
+            , clock, core, cache, socket, ramType);
+    }
+
+    //clock도 비교할 수 있게 수정
     @Override
     public boolean matches(String kwd) {
-        if(kwd.equals(socket))
+        try {
+            if (clock >= Float.parseFloat(kwd)) {
+                return true;
+            }
+        } catch (NumberFormatException e) {
+
+        }
+        if (kwd.equals(socket)) {
             return true;
-        if(ramType.contains(kwd))
+        }
+        if (ramType.contains(kwd)) {
             return true;
+        }
         return super.matches(kwd);
     }
 }
