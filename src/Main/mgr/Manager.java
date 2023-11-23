@@ -37,18 +37,13 @@ public class Manager{
             m.print();
     }
 
-    public void search(Scanner scan) {
-        String kwd = null;
-        while (true) {
-            System.out.print(">> ");
-            kwd = scan.next();
-            if (kwd.equals("end"))
-                break;
-            for (Manageable m : mList) {
-                if (m.matches(kwd))
-                    m.print();
-            }
+    public ArrayList search(String kwd) {
+        ArrayList<Manageable> newlist = new ArrayList<>();
+        for (Manageable m : mList) {
+            if (m.matches(kwd))
+                newlist.add(m);
         }
+        return newlist;
     }
     public Manageable find(String kwd){
         for (Manageable m: mList) {

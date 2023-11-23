@@ -9,5 +9,7 @@ public interface Manageable {
     void print();
 
     boolean matches(String kwd);
-  
+
+    String getName();
+    int getPrice();
 }

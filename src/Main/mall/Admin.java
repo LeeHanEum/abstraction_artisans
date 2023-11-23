@@ -5,6 +5,7 @@ import Main.mgr.Factory;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,7 +35,7 @@ public class Admin extends JFrame {
 
     private void initUI() {
         setTitle("Admin GUI");
-        setSize(800, 600);
+        setSize(1400, 1200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -81,17 +82,28 @@ public class Admin extends JFrame {
 
         updateUserList(userPanel);
 
+        Font font = new Font("Malgun Gothic", Font.PLAIN, 19);
+        setUserPanelFont(userPanel, font);
+
+
         return userPanel;
     }
-
+    private void setUserPanelFont(Container container, Font font) {
+        for (Component component : container.getComponents()) {
+            if (component instanceof JComponent) {
+                ((JComponent) component).setFont(font);
+                if (component instanceof Container) {
+                    setUserPanelFont((Container) component, font);
+                }
+            }
+        }
+    }
     private void updateUserList(JPanel userPanel) {
-        // Assuming that you have a list of users in your user manager
         DefaultListModel<String> listModel = new DefaultListModel<>();
         JList<String> userList = new JList<>(listModel);
 
-        // Populate the listModel with user names
         for (Manageable user : userMgr.mList) {
-            listModel.addElement(user.toString()); // Assuming User class has a toString method
+            listModel.addElement(user.toString());
         }
 
         JScrollPane scrollPane = new JScrollPane(userList);
@@ -115,8 +127,8 @@ public class Admin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String keyword = searchField.getText();
-                manager.search(new Scanner(keyword));
-                updateProductList(productPanel, manager);
+                ArrayList<Manageable> newList = manager.search(keyword);
+                updateProductList(productPanel, newList);
             }
         });
 
@@ -130,24 +142,39 @@ public class Admin extends JFrame {
         JScrollPane scrollPane = new JScrollPane(productListPanel);
         productPanel.add(scrollPane, BorderLayout.CENTER);
 
-        updateProductList(productPanel, manager);
+        updateProductList(productPanel, manager.mList);
 
         return productPanel;
     }
 
-    private void updateProductList(JPanel productPanel, Manager manager) {
+    private void updateProductList(JPanel productPanel, ArrayList<Manageable> manager) {
         productPanel.remove(1);
 
-        JPanel productListPanel = new JPanel(new GridLayout(manager.mList.size(), 1));
+        JPanel productListPanel = new JPanel(new GridLayout(manager.size(), 1));
 
-        // Display each product in the list
-        for (Manageable product : manager.mList) {
+        for (Manageable product : manager) {
             JPanel productItemPanel = new JPanel();
             JLabel productLabel = new JLabel();
-            product.print();
+
+            Font font = new Font("Malgun Gothic", Font.PLAIN, 17);
+            productLabel.setFont(font);
+
+            String productName = product.getName();
+            productLabel.setText(productLabel.getText() + "제품명: " + productName + "\n");
+            int productPrice = product.getPrice();
+            productLabel.setText(productLabel.getText() + "가격: " + productPrice + "\n");
             productLabel.setText(productLabel.getText() + " " + product); // Add product details
 
+            JButton viewButton = new JButton("View Details");
+            viewButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(null, "Product details:\n" + product, "Product Details", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+
             productItemPanel.add(productLabel);
+            productItemPanel.add(viewButton);
             productListPanel.add(productItemPanel);
         }
 
@@ -158,12 +185,9 @@ public class Admin extends JFrame {
         productPanel.repaint();
     }
 
-
-
     public void run() {
         loadUserData();
         loadProductData();
-        userChoiceHandler.handleUserChoice();
     }
 
     private void loadUserData() {

@@ -72,4 +72,7 @@ public class User implements Manageable{
         user.address = userDto.getAddress();
         return user;
     }
+    public int getPrice() {
+        return 0;
+    }
 }

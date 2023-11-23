@@ -36,4 +36,12 @@ public class Product implements Manageable {
             return true;
         return false;
     }
+    @Override
+    public String getName() {
+        return name;
+    }
+    @Override
+    public int getPrice(){
+        return price;
+    }
 }
