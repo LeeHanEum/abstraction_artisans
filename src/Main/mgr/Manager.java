@@ -3,6 +3,7 @@ package Main.mgr;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Manager{
     //static 빼서 해봤어요 중복 출력돼서
@@ -70,5 +71,17 @@ public class Manager{
 
     public void add(Manageable m){
         mList.add(m);
+    }
+    
+    //검색된 상품을 모두 리스트에 담는 메서드를 추가했음
+    public List<Manageable> findAll(String keyword) {
+        List<Manageable> matchingList = new ArrayList<>();
+
+        for (Manageable manageable : mList) {
+            if (manageable.matches(keyword)) {
+                matchingList.add(manageable);
+            }
+        }
+        return matchingList;
     }
 }

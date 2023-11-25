@@ -34,7 +34,11 @@ public class Product implements Manageable {
             return true;
         return false;
     }
-
+    
+    //출력 용이하기하기위해 toString 추가해서 상속된 클래스에 모두 추가했음
+    public String toString(){
+        return String.format("%s %d원 ", name, price);
+    }
     public void modify(String kwd){
         try {
             this.price = Integer.parseInt(kwd);
@@ -42,5 +46,13 @@ public class Product implements Manageable {
         catch (NumberFormatException e){
             this.name = kwd;
         }
+    }
+    //이름 출력을 위해 사용
+    public String getName() {
+        return name;
+    }
+    //가격 출력을 위해 사용
+    public int getPrice(){
+        return price;
     }
 }
