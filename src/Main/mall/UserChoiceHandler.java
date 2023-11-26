@@ -1,5 +1,6 @@
 package Main.mall;
 
+import Main.mall.Item.Case;
 import Main.mall.Item.Cpu;
 import Main.mall.Item.GraphicsCard;
 import Main.mall.Item.MainBoard;
@@ -17,6 +18,13 @@ public class UserChoiceHandler {
     ArrayList<Ram> selectedRam = new ArrayList<>();
     ArrayList<Storage> selectedStorage = new ArrayList<>();
     ArrayList<GraphicsCard> selectedGraphicsCard = new ArrayList<>();
+    //전역변수 초기화 함수
+    private void clearSelectedComponents() {
+        selectedCpu.clear();
+        selectedRam.clear();
+        selectedStorage.clear();
+        selectedGraphicsCard.clear();
+    }
 
     private Scanner scanner;
     //게임스펙에 관해서 검색후 모두 리스트에 추가하는 메서드
@@ -124,42 +132,48 @@ public class UserChoiceHandler {
         System.out.println("----------적합한 Mainboard 제품----------");
         for (String ramType : uniqueRamTypes) {
             List<Manageable> mainboardList = Admin.mainboardMgr.findAll(ramType);
+            List<Manageable> filteredMainboards = new ArrayList<>();
             List<Manageable> boardType = new ArrayList<>();
 
+            //가격을 입력하고 그거보다 낮은 제품들만 출력 메인보드와 케이스
+            System.out.print("Enter the maximum mainboard price: ");
+            int maxMainboardPrice = scanner.nextInt();
+            System.out.print("Enter the maximum case price: ");
+            int maxCasePrice = scanner.nextInt();
             for (Manageable manageable : mainboardList) {
+                MainBoard mainboard = (MainBoard) manageable;
+                if (!printedMainboards.contains(mainboard.getName()) && mainboard.getPrice() <= maxMainboardPrice) {
+                    filteredMainboards.add(mainboard);
+                }
+            }
+
+            for (Manageable manageable : filteredMainboards) {
                 MainBoard mainboard = (MainBoard) manageable;
 
                 if (!printedMainboards.contains(mainboard.getName())) {
                     System.out.println("\n적합한 Mainboard 제품: " + mainboard.getName() + ", 가격: " + mainboard.getPrice() + "원, 상세정보(" + mainboard + ")");
                     printedMainboards.add(mainboard.getName());
-                }
-                //1개 출력하고 그것에 맞는 케이스 출력
-                String mainboardSpecification = mainboard.getBoardType();
-                switch (mainboardSpecification) {
-                    case "ATX":
-                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
-                        boardType = Admin.mainboardMgr.findAll("ATX");
-                        for (Manageable board : boardType)
-                            board.print();
-                        break;
-                    case "M-ATX":
-                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
-                        boardType = Admin.mainboardMgr.findAll("M-ATX");
-                        for (Manageable board : boardType)
-                            board.print();
-                        break;
-                    case "E-ATX":
-                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
-                        boardType = Admin.mainboardMgr.findAll("E-ATX");
-                        for (Manageable board : boardType)
-                            board.print();
-                        break;
-                    default:
-                        System.out.println("해당하는 규격에 맞는 케이스가 없습니다.");
+
+                    // 1개 출력하고 그것에 맞는 케이스 출력
+                    String mainboardSpecification = mainboard.getBoardType();
+
+                    boardType = Admin.caseMgr.findAll(mainboardSpecification);
+
+                    System.out.println("-----Mainboard에 맞는 케이스 목록-----");
+                    List<Manageable> filteredCases = new ArrayList<>();
+                    for (Manageable board : boardType) {
+                        Case computerCase = (Case) board;
+                        if (computerCase.getPrice() <= maxCasePrice) {
+                            filteredCases.add(computerCase);
+                        }
+                    }
+
+                    for (Manageable filteredCase : filteredCases) {
+                        filteredCase.print();
+                    }
                 }
             }
         }
-
 
         System.out.println("----------선택된 SSD 제품----------");
         for (Storage storage : selectedStorage) {
@@ -180,11 +194,25 @@ public class UserChoiceHandler {
                     uniqueGraphicsCardPower.add(power);
                 }
             }
+            //파워제품 가격한도 책정
+            System.out.print("파워 제품 가격 한도를 입력해주세요: ");
+            int maxPowerSupplyPrice = scanner.nextInt();
+
             System.out.println("----------적합한 Power 제품----------");
             for (String power : uniqueGraphicsCardPower) {
                 List<Manageable> powerSupplyList = Admin.powerMgr.findAll(power);
 
+                // Filter power supplies based on the maximum price
+                List<Manageable> filteredPowerSupplies = new ArrayList<>();
                 for (Manageable manageable : powerSupplyList) {
+                    Power powerSupply = (Power) manageable;
+                    if (powerSupply.getPrice() <= maxPowerSupplyPrice) {
+                        filteredPowerSupplies.add(powerSupply);
+                    }
+                }
+
+                // Print the filtered power supplies
+                for (Manageable manageable : filteredPowerSupplies) {
                     Power powerSupply = (Power) manageable;
 
                     // Check if power supply has not been printed before
@@ -321,6 +349,7 @@ public class UserChoiceHandler {
     //cpu 캐시로 비교하게 변경
     public void handleUserChoice() {
         while (true) {
+            clearSelectedComponents(); //전역변수 초기화
             System.out.println("1. 게임용으로 검색");
             System.out.println("2. 작업용으로 검색");
             System.out.println("3. 사무용으로 검색");
