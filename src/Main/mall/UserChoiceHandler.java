@@ -3,6 +3,7 @@ package Main.mall;
 import Main.mall.Item.Cpu;
 import Main.mall.Item.GraphicsCard;
 import Main.mall.Item.MainBoard;
+import Main.mall.Item.Power;
 import Main.mall.Item.Ram;
 import Main.mall.Item.Storage;
 import Main.mgr.Manageable;
@@ -21,7 +22,7 @@ public class UserChoiceHandler {
     //게임스펙에 관해서 검색후 모두 리스트에 추가하는 메서드
     //arraylist를 모두 지역변수로 바꿨음 계속 검색하면 같은 list에 출력되는걸 방지
     //부품별로 검색하는걸 나눔 가격 한도 입력해서 그 가격보다 작은 것만 출력하게 수정
-        private void addComponentsByCpu(List<Cpu> cpuList, String cpuSpec) {
+    private void addComponentsByCpu(List<Cpu> cpuList, String cpuSpec) {
             System.out.print("CPU 제품 가격 한도를 입력해주세요: ");
             int maxPrice = scanner.nextInt();
             if (cpuSpec != null){
@@ -48,7 +49,7 @@ public class UserChoiceHandler {
             }
         }
     private void addComponentsByStorage(List<Storage> storageList, String storageSpec) {
-        System.out.print("SSD 제품 한도를 입력해주세요: ");
+        System.out.print("SSD 제품 가격 한도를 입력해주세요: ");
         int maxPrice = scanner.nextInt();
         if (storageSpec != null) {
             List<Manageable> storageSpecList = Admin.storageMgr.findAll(storageSpec);
@@ -62,7 +63,7 @@ public class UserChoiceHandler {
     }
 
     private void addComponentsByGraphicsCard(List<GraphicsCard> graphicsCardList, String graphicsCardSpec) {
-        System.out.print("그래픽카드 제품 한도를 입력해주세요: ");
+        System.out.print("그래픽카드 제품 가격 한도를 입력해주세요: ");
         int maxPrice = scanner.nextInt();
         if (graphicsCardSpec != null) {
             List<Manageable> graphicsCardSpecList = Admin.graphicsMgr.findAll(graphicsCardSpec);
@@ -99,53 +100,119 @@ public class UserChoiceHandler {
             System.out.println("그래픽 카드 제품명: " + graphicsCard.getName() + ", 가격: " + graphicsCard.getPrice() + "원, 상세정보(" + graphicsCard + ")");
         }
     }
+
     //사용자가 선택한 부품 출력하는 메서드
     private void printSelectedList() {
         System.out.println("----------선택된 CPU 제품----------");
-        int totalCpuPrice = 0;
         for (Cpu cpu : selectedCpu) {
             System.out.println(cpu.getName() + ", 가격: " + cpu.getPrice() + "원, 상세정보(" + cpu + ")");
-            totalCpuPrice += cpu.getPrice();
         }
 
         System.out.println("----------선택된 RAM 제품----------");
-        int totalRamPrice = 0;
+        List<String> uniqueRamTypes = new ArrayList<>();
+        List<String> printedMainboards = new ArrayList<>();
+
         for (Ram ram : selectedRam) {
             System.out.println("선택된 RAM 제품: " + ram.getName() + ", 가격: " + ram.getPrice() + "원, 상세정보(" + ram + ")");
-            totalRamPrice += ram.getPrice();
+
+            String ramType = ram.getType();
+            if (!uniqueRamTypes.contains(ramType)) {
+                uniqueRamTypes.add(ramType);
+            }
         }
+        //Ramtype에 맞게 mainboard 타입 선정해서 출력
+        System.out.println("----------적합한 Mainboard 제품----------");
+        for (String ramType : uniqueRamTypes) {
+            List<Manageable> mainboardList = Admin.mainboardMgr.findAll(ramType);
+            List<Manageable> boardType = new ArrayList<>();
+
+            for (Manageable manageable : mainboardList) {
+                MainBoard mainboard = (MainBoard) manageable;
+
+                if (!printedMainboards.contains(mainboard.getName())) {
+                    System.out.println("\n적합한 Mainboard 제품: " + mainboard.getName() + ", 가격: " + mainboard.getPrice() + "원, 상세정보(" + mainboard + ")");
+                    printedMainboards.add(mainboard.getName());
+                }
+                //1개 출력하고 그것에 맞는 케이스 출력
+                String mainboardSpecification = mainboard.getBoardType();
+                switch (mainboardSpecification) {
+                    case "ATX":
+                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
+                        boardType = Admin.mainboardMgr.findAll("ATX");
+                        for (Manageable board : boardType)
+                            board.print();
+                        break;
+                    case "M-ATX":
+                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
+                        boardType = Admin.mainboardMgr.findAll("M-ATX");
+                        for (Manageable board : boardType)
+                            board.print();
+                        break;
+                    case "E-ATX":
+                        System.out.println("-----Mainboard에 맞는 케이스 목록-----");
+                        boardType = Admin.mainboardMgr.findAll("E-ATX");
+                        for (Manageable board : boardType)
+                            board.print();
+                        break;
+                    default:
+                        System.out.println("해당하는 규격에 맞는 케이스가 없습니다.");
+                }
+            }
+        }
+
 
         System.out.println("----------선택된 SSD 제품----------");
-        int totalStoragePrice = 0;
         for (Storage storage : selectedStorage) {
             System.out.println("선택된 SSD 제품: " + storage.getName() + ", 가격: " + storage.getPrice() + "원, 상세정보(" + storage + ")");
-            totalStoragePrice += storage.getPrice();
         }
 
+        //내가 정한 그래픽카드의 power랑 비교해서 정격파워보다 큰것만 출력하게 해줌 중복은 안되게 해줬음
         if (selectedGraphicsCard != null) {
             System.out.println("----------선택된 그래픽카드 제품----------");
-            int totalGraphicsCardPrice = 0;
+            List<String> uniqueGraphicsCardPower = new ArrayList<>();
+            List<String> printedPowerSupplies = new ArrayList<>();
+
             for (GraphicsCard graphicsCard : selectedGraphicsCard) {
                 System.out.println("선택된 그래픽카드 제품: " + graphicsCard.getName() + ", 가격: " + graphicsCard.getPrice() + "원, 상세정보(" + graphicsCard + ")");
-                totalGraphicsCardPrice += graphicsCard.getPrice();
-            }
 
-            int allProductPrice = totalCpuPrice + totalRamPrice + totalStoragePrice + totalGraphicsCardPrice;
-            System.out.println("선택된 제품들의 총 가격: " + allProductPrice + "원");
+                String power = String.valueOf(graphicsCard.getPower());
+                if (!uniqueGraphicsCardPower.contains(power)) {
+                    uniqueGraphicsCardPower.add(power);
+                }
+            }
+            System.out.println("----------적합한 Power 제품----------");
+            for (String power : uniqueGraphicsCardPower) {
+                List<Manageable> powerSupplyList = Admin.powerMgr.findAll(power);
+
+                for (Manageable manageable : powerSupplyList) {
+                    Power powerSupply = (Power) manageable;
+
+                    // Check if power supply has not been printed before
+                    if (!printedPowerSupplies.contains(powerSupply.getName())) {
+                        System.out.println("적합한 Power 제품: " + powerSupply.getName() + ", 가격: " + powerSupply.getPrice() + "원, 상세정보(" + powerSupply + ")");
+                        printedPowerSupplies.add(powerSupply.getName());  // Add to the list after printing
+                    }
+                }
+            }
         }
     }
     //사용자에게 제품명 정확히 입력받아 반환
+    //list가 비었다면 넘어가게 수정
     private void selectComponentCpu(List<Cpu> cpuList) {
         boolean continueSelecting = true;
         System.out.println("가능한 CPU 목록:");
         printCpuDetailsList(cpuList);
+        if (cpuList.isEmpty()) {
+            System.out.println("현재 선택 가능한 CPU가 없습니다. 다음 단계로 진행합니다.");
+            return;
+        }
         while (continueSelecting) {
 
             System.out.print("CPU 제품명을 입력해주세요: ");
             String cpuSpec = scanner.nextLine();
 
             for (Cpu cpu : cpuList) {
-                if (cpu.getName().contains(cpuSpec)) {
+                if (cpu.getName().equals(cpuSpec)) {
                     System.out.println("CPU " + cpuSpec + "가 선택되었습니다.");
                     selectedCpu.add(cpu);
                     break;
@@ -164,13 +231,17 @@ public class UserChoiceHandler {
         boolean continueSelecting = true;
         System.out.println("가능한 Ram 목록:");
         printRamDetailsList(ramList);
+        if (ramList.isEmpty()) {
+            System.out.println("현재 선택 가능한 SSD가 없습니다. 다음 단계로 진행합니다.");
+            return;
+        }
         while (continueSelecting) {
 
             System.out.print("Ram 제품명을 입력해주세요: ");
             String ramSpec = scanner.nextLine();
 
             for (Ram ram : ramList) {
-                if (ram.getName().contains(ramSpec)) {
+                if (ram.getName().equals(ramSpec)) {
                     System.out.println("Ram " + ramSpec + "가 선택되었습니다.");
                     selectedRam.add(ram);
                     break;
@@ -185,17 +256,22 @@ public class UserChoiceHandler {
             }
         }
     }
+
     private void selectComponentStorage(List<Storage> storageList) {
         boolean continueSelecting = true;
         System.out.println("가능한 Storage 목록:");
         printStorageDetailsList(storageList);
+        if (storageList.isEmpty()) {
+            System.out.println("현재 선택 가능한 SSD가 없습니다. 다음 단계로 진행합니다.");
+            return;
+        }
         while (continueSelecting) {
 
             System.out.print("Storage 제품명을 입력해주세요: ");
             String storageSpec = scanner.nextLine();
 
             for (Storage storage : storageList) {
-                if (storage.getName().contains(storageSpec)) {
+                if (storage.getName().equals(storageSpec)) {
                     System.out.println("Storage " + storageSpec + "가 선택되었습니다.");
                     selectedStorage.add(storage);
                     break;
@@ -214,19 +290,22 @@ public class UserChoiceHandler {
         boolean continueSelecting = true;
         System.out.println("가능한 Graphics Card 목록:");
         printGraphicsCardDetailsList(graphicsCardList);
+        if (graphicsCardList.isEmpty()) {
+            System.out.println("현재 선택 가능한 그래픽카드가 없습니다. 다음 단계로 진행합니다.");
+            return;
+        }
         while (continueSelecting) {
 
             System.out.print("Graphics Card 제품명을 입력해주세요: ");
             String graphicsCardSpec = scanner.nextLine();
 
             for (GraphicsCard graphicsCard : graphicsCardList) {
-                if (graphicsCard.getName().contains(graphicsCardSpec)) {
+                if (graphicsCard.getName().equals(graphicsCardSpec)) {
                     System.out.println("Graphics Card " + graphicsCardSpec + "가 선택되었습니다.");
                     selectedGraphicsCard.add(graphicsCard);
                     break;
                 }
             }
-
             System.out.print("더 선택하시겠습니까? (y/n): ");
             String choice = scanner.nextLine().toLowerCase();
 
@@ -289,6 +368,7 @@ public class UserChoiceHandler {
             case "서든어택":
                 searchGameSpec("서든어택");
                 break;
+            default: return;
         }
         askUserChoice();
     }
@@ -312,6 +392,7 @@ public class UserChoiceHandler {
             case "웹개발 및 디자인":
                 searchWorkSpec("웹개발 및 디자인");
                 break;
+            default: return;
         }
         askUserChoice();
     }
@@ -329,6 +410,7 @@ public class UserChoiceHandler {
             case "웹서치":
                 searchOfficeSpec("웹서치");
                 break;
+            default: return;
         }
         askUserChoice();
     }
@@ -343,6 +425,7 @@ public class UserChoiceHandler {
             case "웹서핑":
                 searchHobbySpec("웹서핑");
                 break;
+            default: return;
         }
         askUserChoice();
     }
@@ -426,7 +509,7 @@ public class UserChoiceHandler {
                 addComponentsByGraphicsCard(graphicsCardArrayList, "6");
                 break;
         }
-            System.out.print("부품마다 선택할 제품명을 입력해주세요 ");
+            System.out.println("부품마다 선택할 제품명을 입력해주세요 ");
             scanner.nextLine();
             selectComponentCpu(cpuArrayList);
             selectComponentRam(ramArrayList);
@@ -458,7 +541,7 @@ public class UserChoiceHandler {
                 addComponentsByStorage(storageArrayList, "250");
                 break;
         }
-        System.out.print("부품마다 선택할 제품명을 입력해주세요 ");
+        System.out.println("부품마다 선택할 제품명을 입력해주세요 ");
         scanner.nextLine();
         selectComponentCpu(cpuArrayList);
         selectComponentRam(ramArrayList);
@@ -483,7 +566,7 @@ public class UserChoiceHandler {
                 addComponentsByStorage(storageArrayList, "250");
                 break;
         }
-        System.out.print("부품마다 선택할 제품명을 입력해주세요 ");
+        System.out.println("부품마다 선택할 제품명을 입력해주세요 ");
         scanner.nextLine();
         selectComponentCpu(cpuArrayList);
         selectComponentRam(ramArrayList);
