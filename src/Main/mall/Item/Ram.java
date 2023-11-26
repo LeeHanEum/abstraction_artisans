@@ -41,4 +41,9 @@ public class Ram extends Product{
         }
         return false;
     }
+    
+    //램타입 반환
+    public String getType(){
+        return type;
+    }
 }

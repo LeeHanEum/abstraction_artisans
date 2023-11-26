@@ -29,4 +29,9 @@ public class Power extends Product{
             return true;
         return super.matches(kwd);
     }
+    
+    //파워 반환
+    public int getPower(){
+        return power;
+    }
 }

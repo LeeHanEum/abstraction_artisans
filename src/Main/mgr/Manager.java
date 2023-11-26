@@ -37,12 +37,15 @@ public class Manager{
         for (Manageable m: mList)
             m.print();
     }
-
+    //next에서 nextline으로 수정 제품명 검색때 띄어쓰기별로 나오는걸 수정
     public void search(Scanner scan) {
         String kwd = null;
         while (true) {
             System.out.print(">> ");
-            kwd = scan.next();
+            kwd = scan.nextLine();
+            if (kwd.isEmpty()){
+                continue;
+            }
             if (kwd.equals("end"))
                 break;
             for (Manageable m : mList) {

@@ -49,4 +49,9 @@ public class GraphicsCard extends Product{
         }
         return false;
     }
+    
+    //정격파워 반환
+    public int getPower(){
+        return power;
+    }
 }

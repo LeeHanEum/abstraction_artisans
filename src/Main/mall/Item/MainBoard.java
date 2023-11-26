@@ -33,4 +33,14 @@ public class MainBoard extends Product{
             return true;
         return super.matches(kwd);
     }
+    
+    //램타입 반환
+    public String getRamType(){
+        return ramType;
+    }
+    
+    //보드타입 반환
+    public String getBoardType(){
+        return boardType;
+    }
 }
