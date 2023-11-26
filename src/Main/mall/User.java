@@ -13,7 +13,7 @@ public class User implements Manageable{
     private String tel;
     private String address;
 
-    static Manager cartMgr = new Manager();
+    private Cart cart;
 
     static Manager interestMgr = new Manager();
 
@@ -60,6 +60,10 @@ public class User implements Manageable{
 
     public String getAddress() {
         return address;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 
     public static User builder(UserDto userDto){

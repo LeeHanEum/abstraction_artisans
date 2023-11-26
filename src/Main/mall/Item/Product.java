@@ -15,9 +15,12 @@ public class Product implements Manageable {
 
     private LocalDateTime createdAt;
 
+    private static Long sequence = 0L;
+
     //trim 추가 앞 뒤 공백 삭제
     @Override
     public void read(Scanner scan){
+        productId = ++sequence;
         price = scan.nextInt();
         name = scan.nextLine().trim();
     }
@@ -33,6 +36,10 @@ public class Product implements Manageable {
         if (name.contains(kwd))
             return true;
         return false;
+    }
+
+    public Long getProductId() {
+        return productId;
     }
 
     public void modify(String kwd){

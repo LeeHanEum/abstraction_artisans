@@ -23,6 +23,10 @@ public class CartDto {
         return productList;
     }
 
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -31,7 +35,7 @@ public class CartDto {
         CartDto cartDto = new CartDto();
         cartDto.user = cart.getUser();
         cartDto.productList = cart.getProductList();
-        cartDto.createdAt = cart.getCreatedAt();
+        cartDto.createdAt = LocalDateTime.now();
         return cartDto;
     }
 }
