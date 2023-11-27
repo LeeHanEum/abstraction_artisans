@@ -29,8 +29,8 @@ public class LoginPage extends JFrame {
         loginLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         mainPanel.add(loginLabel);
 
-        JButton loginBtn = createStyledButton(mainPanel, "회원가입", 100, 550);
-        createStyledButton(mainPanel, "로그인", 100, 470);
+        JButton createAccountBtn = createStyledButton(mainPanel, "회원가입", 100, 550);
+        JButton loginBtn = createStyledButton(mainPanel, "로그인", 100, 470);
 
         loginBtn.addActionListener(new ActionListener() {
             @Override
