@@ -37,7 +37,9 @@ public class Product implements Manageable {
             return true;
         return false;
     }
-
+    public String getName(){
+        return name;
+    }
     public Long getProductId() {
         return productId;
     }
