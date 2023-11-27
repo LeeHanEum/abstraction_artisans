@@ -36,6 +36,21 @@ public class MainPage extends JFrame {
             // 각 버튼의 위치와 크기를 직접 지정
             button.setBounds(110, 250 + i * 110, 230, 60);
 
+            button.setBackground(Color.DARK_GRAY);
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(true);
+            button.setBorderPainted(false);
+
+            if (buttonLabels[i].equals("로그아웃")) {
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // 프로그램 종료
+                        System.exit(0);
+                    }
+                });
+            }
+
 //            button.addActionListener(new ActionListener() {
 //                @Override
 //                public void actionPerformed(ActionEvent e) {
