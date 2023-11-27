@@ -21,11 +21,19 @@ public class LoginPage extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
 
+        ImageIcon logoIcon = new ImageIcon("src/Main/resource/computer.png"); // Replace with the actual path to your logo image
+        Image resizedLogoImage = logoIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon resizedLogoIcon = new ImageIcon(resizedLogoImage);
+
+        JLabel logoLabel = new JLabel(resizedLogoIcon);
+        logoLabel.setBounds(150, 20, 150, 150); // Adjust the bounds as needed
+        mainPanel.add(logoLabel);
+
         RoundedPanel backgroundPanel = new RoundedPanel(29, 44, 392, 700, new Color(150, 150, 150, 50));
         mainPanel.add(backgroundPanel);
 
         JLabel loginLabel = new JLabel("Login");
-        loginLabel.setBounds(52, 130, 78, 40);
+        loginLabel.setBounds(52, 165, 78, 40);
         loginLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         mainPanel.add(loginLabel);
 
@@ -39,8 +47,8 @@ public class LoginPage extends JFrame {
             }
         });
 
-        password = createStyledTextField(mainPanel, "비밀번호를 입력하세요", 52, 285, 340, 1);
-        userId = createStyledTextField(mainPanel, "아이디를 입력하세요", 52, 200, 340, 2);
+        password = createStyledTextField(mainPanel, "비밀번호를 입력하세요", 52, 315, 340, 1);
+        userId = createStyledTextField(mainPanel, "아이디를 입력하세요", 52, 230, 340, 2);
 
         mainPanel.setFocusable(true); // Set focus to the main panel
 
