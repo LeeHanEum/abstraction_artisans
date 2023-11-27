@@ -13,7 +13,6 @@ import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Admin {
@@ -252,8 +251,8 @@ public class Admin {
     }
 
     // 회원 리스팅
-    public void getUserList(){
-
+    public ArrayList<Manageable> getUserList(){
+        return userMgr.mList;
     }
 
     // 회원 결제 내역 조회
