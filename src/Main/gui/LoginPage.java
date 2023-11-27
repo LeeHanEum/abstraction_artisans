@@ -1,4 +1,5 @@
 package Main.gui;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -21,8 +22,8 @@ public class LoginPage extends JFrame {
         loginLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         mainPanel.add(loginLabel);
 
-        createButton(mainPanel, "회원가입", 150, 600);
-        createButton(mainPanel, "로그인", 150, 530);
+        createStyledButton(mainPanel, "회원가입", 100, 550);
+        createStyledButton(mainPanel, "로그인", 100, 470);
 
         createStyledTextField(mainPanel, "비밀번호를 입력하세요", 52, 285, 340, 1);
         createStyledTextField(mainPanel, "아이디를 입력하세요", 52, 200, 340, 2);
@@ -33,10 +34,9 @@ public class LoginPage extends JFrame {
         setVisible(true);
     }
 
-    private void createButton(JPanel panel, String text, int left, int top) {
-        JButton button = new JButton(text);
-        button.setBounds(left, top, 60, 15);
-        button.setFont(new Font("Arial", Font.PLAIN, 15));
+    private void createStyledButton(JPanel panel, String text, int left, int top) {
+        StyledButton button = new StyledButton(text, left, top);
+        button.setBounds(left, top, 250, 50); // Increased size
         panel.add(button);
     }
 
@@ -44,7 +44,6 @@ public class LoginPage extends JFrame {
         StyledTextField textField = new StyledTextField(placeholder);
         textField.setBounds(left, top + 20, width, 40); // Increased height
         textField.setFont(new Font("Arial", Font.PLAIN, 15));
-
         panel.add(textField);
     }
 
@@ -123,6 +122,38 @@ public class LoginPage extends JFrame {
         }
     }
 
+    class StyledButton extends JButton {
+        private int left, top;
+
+        public StyledButton(String text, int left, int top) {
+            super(text);
+            this.left = left;
+            this.top = top;
+            setupUI();
+        }
+
+        private void setupUI() {
+            setBounds(left, top, 250, 50); // Increased size
+            setFont(new Font("Arial", Font.PLAIN, 20)); // Increased font size
+            setForeground(Color.BLACK);
+            setBackground(Color.WHITE); // Dark gray background color
+            setBorder(null); // Removed border
+            setFocusPainted(false); // Remove focus border
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            int arc = 15; // Corner radius
+            g2.setColor(getBackground());
+            g2.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, arc, arc);
+
+            super.paintComponent(g);
+        }
+    }
+
     class RoundedPanel extends JPanel {
         private int x, y, width, height;
         private Color color;
@@ -146,5 +177,3 @@ public class LoginPage extends JFrame {
         }
     }
 }
-
-
