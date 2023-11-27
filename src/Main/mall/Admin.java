@@ -1,5 +1,6 @@
 package Main.mall;
 
+import Main.gui.LoginPage;
 import Main.mall.Item.Case;
 import Main.mall.Item.Cpu;
 import Main.mall.Item.GraphicsCard;
@@ -41,7 +42,7 @@ public class Admin {
     public void run () {
         loadUserData();
         loadProductData();
-        searchMenu();
+        new LoginPage();
     }
 
     private void loadUserData() {

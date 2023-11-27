@@ -9,16 +9,10 @@ public class Login {
     public static User currentUser;
 
     //아이디와 비밀번호를 입력받고 해당 객체를 리턴함.
-    public User login(Scanner scan){
-        String[] input = new String[2];
+    public User login(String userId, String password){
 
-        System.out.print("아이디를 입력해주세요");
-        input[0] = scan.nextLine();
-        System.out.print("비밀번호를 입력해주세요");
-        input[1] = scan.nextLine();
-
-        User usr = findUserByID(input[0]);
-        if(usr == null || !usr.matchPW(input[1])){
+        User usr = findUserByID(userId);
+        if(usr == null || !usr.matchPW(password)){
             return null;
         }
         this.currentUser = usr;
