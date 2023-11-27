@@ -18,6 +18,9 @@ public class Storage extends Product{
         super.print();
         System.out.printf("용량: %d, 읽기쓰기 속도 평균:%d\n", capacity, speedAvg);
     }
+    public String toString() {
+        return super.toString() + String.format("용량: %d, 읽기쓰기 속도 평균:%d\n", capacity, speedAvg);
+    }
 
     //용량이랑 비교해서 더 크면 반환
     //return 에 super.matches로 이름도 비교하게 만듦

@@ -28,6 +28,10 @@ public class GraphicsCard extends Product{
         super.print();
         System.out.printf("베이스클럭: %d, 메모리용량: %d, 출력단자:%s, 정격파워:%d\n", baseClock, memoryCapacity, outputTerminal, power);
     }
+    @Override
+    public String toString() {
+        return super.toString() + String.format("베이스클럭: %d, 메모리용량: %d, 출력단자:%s, 정격파워:%d\n", baseClock, memoryCapacity, outputTerminal, power);
+    }
 
     //용량이랑 비교해서 더 크면 출력
     //return 에 super.matches로 이름도 비교하게 만듦

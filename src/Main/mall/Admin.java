@@ -143,15 +143,6 @@ public class Admin {
         allList.addAll(powerMgr.mList);
         allList.addAll(caseMgr.mList);
         return allList;
-
-//        System.out.println("전체 상품을 조회합니다.");
-//        cpuMgr.printAll();
-//        mainboardMgr.printAll();
-//        ramMgr.printAll();
-//        storageMgr.printAll();
-//        graphicsMgr.printAll();
-//        powerMgr.printAll();
-//        caseMgr.printAll();
     }
 
     // 상품 추가 등록

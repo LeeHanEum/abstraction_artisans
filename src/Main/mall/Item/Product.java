@@ -31,7 +31,10 @@ public class Product implements Manageable {
     public void print() {
         System.out.printf("%s %d원 ", name, price);
     }
-
+    //그냥 하면 print가 안돼서 toString 추가
+    public String toString() {
+        return String.format("");
+    }
     @Override
     public boolean matches(String kwd) {
         if (name.contains(kwd))

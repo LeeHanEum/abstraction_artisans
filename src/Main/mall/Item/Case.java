@@ -17,7 +17,10 @@ public class Case extends Product{
         super.print();
         System.out.printf("색상: %s , 지원보드규격: %s\n", color, boardType);
     }
-
+    @Override
+    public String toString() {
+        return super.toString() + String.format("색상: %s , 지원보드규격: %s\n", color, boardType);
+    }
     @Override
     public boolean matches(String kwd) {
         if(kwd.equals(color))

@@ -24,7 +24,11 @@ public class Cpu extends Product{
         System.out.printf("기본클럭:%.1f GHz 코어수:%d 캐시:%.1f MB (소캣%s) 메모리규격:%s\n"
                 , clock, core, cache, socket, ramType);
     }
-
+    @Override
+    public String toString() {
+        return super.toString() + String.format("기본클럭: %.1f, GHz 코어수: %d, 캐시: %.1fMB, (소캣%s), 메모리규격:%s\n"
+            , clock, core, cache, socket, ramType);
+    }
     @Override
     public boolean matches(String kwd) {
         if(kwd.equals(socket))

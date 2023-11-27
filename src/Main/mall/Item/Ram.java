@@ -20,6 +20,10 @@ public class Ram extends Product{
         super.print();
         System.out.printf("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
     }
+    @Override
+    public String toString() {
+        return super.toString() + String.format("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
+    }
 
     //return 에 super.matches로 이름도 비교하게 만듦
     @Override
