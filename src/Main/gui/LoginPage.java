@@ -77,7 +77,7 @@ public class LoginPage extends JFrame {
 
         Login login = new Login();
         if (login.login(enteredUserId, enteredPassword) != null) {
-            new MainPage().Test();
+            new MainPage();
         } else {
             JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀렸습니다.");
         }
