@@ -23,7 +23,7 @@ public class ItemListPage extends JFrame{
         userPagePanel.setLayout(null);
 
         //title
-        JLabel titleLabel = new JLabel("회원리스트");
+        JLabel titleLabel = new JLabel("제품리스트");
         titleLabel.setBounds(30, 40, 300, 30); // 위치와 크기 조정
         titleLabel.setFont(new Font("Inter", Font.PLAIN, 20));
         userPagePanel.add(titleLabel);
@@ -43,9 +43,9 @@ public class ItemListPage extends JFrame{
         sandbox2.setBounds(30,110,390,610);
 
 
+        sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
         for(Manageable a : admin.getAllItem()){
             createGroupPanel(sandbox2,((Product) a).getName());
-            System.out.println(((Product) a).getName());
             sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
         }
 
@@ -63,7 +63,7 @@ public class ItemListPage extends JFrame{
 
     private void createGroupPanel(JPanel parentPanel, String labelText) {
         JPanel groupPanel = new JPanel();
-        groupPanel.setPreferredSize(new Dimension(390, 100)); // 너비 조절
+        groupPanel.setPreferredSize(new Dimension(360, 100)); // 너비 조절
         groupPanel.setBackground(Color.WHITE);
         groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.X_AXIS));
 
@@ -82,16 +82,10 @@ public class ItemListPage extends JFrame{
         groupPanel.add(textLabel);
 
         // 우측 여백 추가
-        groupPanel.add(Box.createRigidArea(new Dimension(300, 0)));
+        groupPanel.add(Box.createRigidArea(new Dimension(298, 0)));
 
         // 부모 패널에 그룹 패널 추가
         parentPanel.add(groupPanel);
+    }
+}
 
-    }
-    public static void main(String[] args) {
-        Admin admin = new Admin(); // create an instance of Admin
-        ItemListPage itemListPage = new ItemListPage(admin); // create an instance of ItemListPage
-
-        itemListPage.setVisible(true); // set the frame to be visible
-    }
-    }
