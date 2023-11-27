@@ -13,7 +13,6 @@ import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Admin {
@@ -116,7 +115,7 @@ public class Admin {
                 case 5: cpuMgr.printAll(); break;
                 case 6: caseMgr.printAll(); break;
                 case 7: mainboardMgr.printAll(); break;
-                case 8: getAllItem(); break; //getAlllItem 으로 수정했습니다.
+                case 8: getAllItem(); break; //getAllItem 으로 수정했습니다.
                 case 9:
                     System.out.print("검색할 품목을 입력해주세요: ");
                     kwd = scan.next();
@@ -134,15 +133,16 @@ public class Admin {
 
     // 전체 상품 조회
     // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
-    public void getAllItem(){
-        System.out.println("전체 상품을 조회합니다.");
-        cpuMgr.printAll();
-        mainboardMgr.printAll();
-        ramMgr.printAll();
-        storageMgr.printAll();
-        graphicsMgr.printAll();
-        powerMgr.printAll();
-        caseMgr.printAll();
+    public ArrayList<Manageable> getAllItem() {
+        ArrayList<Manageable> allList = new ArrayList<>();
+        allList.addAll(cpuMgr.mList);
+        allList.addAll(mainboardMgr.mList);
+        allList.addAll(ramMgr.mList);
+        allList.addAll(storageMgr.mList);
+        allList.addAll(graphicsMgr.mList);
+        allList.addAll(powerMgr.mList);
+        allList.addAll(caseMgr.mList);
+        return allList;
     }
 
     // 상품 추가 등록

@@ -18,6 +18,7 @@ public class Product implements Manageable {
     private static Long sequence = 0L;
 
     //trim 추가 앞 뒤 공백 삭제
+
     @Override
     public void read(Scanner scan){
         productId = ++sequence;
@@ -40,6 +41,12 @@ public class Product implements Manageable {
 
     public Long getProductId() {
         return productId;
+    }
+    public String getName(){
+        return name;
+    }
+    public int getPrice(){
+        return price;
     }
 
     public void modify(String kwd){
