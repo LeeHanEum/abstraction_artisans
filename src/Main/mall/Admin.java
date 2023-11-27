@@ -12,6 +12,7 @@ import Main.mgr.Factory;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -134,15 +135,25 @@ public class Admin {
 
     // 전체 상품 조회
     // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
-    public void getAllItem(){
-        System.out.println("전체 상품을 조회합니다.");
-        cpuMgr.printAll();
-        mainboardMgr.printAll();
-        ramMgr.printAll();
-        storageMgr.printAll();
-        graphicsMgr.printAll();
-        powerMgr.printAll();
-        caseMgr.printAll();
+    public ArrayList<Manageable> getAllItem(){
+        ArrayList<Manageable> allList = new ArrayList<>();
+        allList.addAll(cpuMgr.mList);
+        allList.addAll(mainboardMgr.mList);
+        allList.addAll(ramMgr.mList);
+        allList.addAll(storageMgr.mList);
+        allList.addAll(graphicsMgr.mList);
+        allList.addAll(powerMgr.mList);
+        allList.addAll(caseMgr.mList);
+        return allList;
+
+//        System.out.println("전체 상품을 조회합니다.");
+//        cpuMgr.printAll();
+//        mainboardMgr.printAll();
+//        ramMgr.printAll();
+//        storageMgr.printAll();
+//        graphicsMgr.printAll();
+//        powerMgr.printAll();
+//        caseMgr.printAll();
     }
 
     // 상품 추가 등록
@@ -236,14 +247,9 @@ public class Admin {
         mgr.delete(m);
     }
 
-    // 상품 페이지네이션
-    public void ItemPagenation(){
-
-    }
-
     // 회원 리스팅
-    public void getUserList(){
-
+    public ArrayList<Manageable> getUserList(){
+        return userMgr.mList;
     }
 
     // 회원 결제 내역 조회
