@@ -38,6 +38,7 @@ public class Admin {
 
     static Manager caseMgr = new Manager();
 
+    UserChoiceHandler userChoiceHandler = new UserChoiceHandler();
 
     public void run () {
         loadUserData();
@@ -103,11 +104,12 @@ public class Admin {
     //여기서 출력을 한 품목씩 나눌 수 있게 해줬습니다(카테고리필터링)
     //검색도 입력한 부품에 따라 검색할 수 있게 만들었습니다(상품검색)
     //상품 상세보기는 이미 모든 정보가 출력돼서 따로 안 만들었습니다
+    //10번에 사용자 용도에 따라 검색기능 추가
     private void searchMenu() {
         int num;
         String kwd;
         while (true) {
-            System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (8) ALL (9) 검색 (기타) 종료 ");
+            System.out.print("(1)그래픽 (2)램 (3)파워 (4)SSD (5)cpu (6)case (7)mainboard (8) ALL (9) 검색 (10) 개인검색 (기타) 종료 ");
             num = scan.nextInt();
             switch (num){
                 case 1: graphicsMgr.printAll(); break;
@@ -128,6 +130,7 @@ public class Admin {
                     else if (kwd.equals("cpu")) cpuMgr.search(scan);
                     else if (kwd.equals("case")) caseMgr.search(scan);
                     else if (kwd.equals("메인보드")) mainboardMgr.search(scan); break;
+                case 10: userChoiceHandler.handleUserChoice();
                 default: return;
             }
         }
