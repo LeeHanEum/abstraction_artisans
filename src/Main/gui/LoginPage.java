@@ -1,11 +1,18 @@
 package Main.gui;
 
+import Main.mall.Login;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class LoginPage extends JFrame {
+
+    private StyledTextField userId;
+
+    private StyledTextField password;
+
     public LoginPage() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,11 +29,18 @@ public class LoginPage extends JFrame {
         loginLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         mainPanel.add(loginLabel);
 
-        createStyledButton(mainPanel, "회원가입", 100, 550);
+        JButton loginBtn = createStyledButton(mainPanel, "회원가입", 100, 550);
         createStyledButton(mainPanel, "로그인", 100, 470);
 
-        createStyledTextField(mainPanel, "비밀번호를 입력하세요", 52, 285, 340, 1);
-        createStyledTextField(mainPanel, "아이디를 입력하세요", 52, 200, 340, 2);
+        loginBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                performLogin();
+            }
+        });
+
+        password = createStyledTextField(mainPanel, "비밀번호를 입력하세요", 52, 285, 340, 1);
+        userId = createStyledTextField(mainPanel, "아이디를 입력하세요", 52, 200, 340, 2);
 
         mainPanel.setFocusable(true); // Set focus to the main panel
 
@@ -34,18 +48,35 @@ public class LoginPage extends JFrame {
         setVisible(true);
     }
 
-    private void createStyledButton(JPanel panel, String text, int left, int top) {
+    private JButton createStyledButton(JPanel panel, String text, int left, int top) {
         StyledButton button = new StyledButton(text, left, top);
         button.setBounds(left, top, 250, 50); // Increased size
         panel.add(button);
+        return button;
     }
 
-    private void createStyledTextField(JPanel panel, String placeholder, int left, int top, int width, int id) {
+    private StyledTextField createStyledTextField(JPanel panel, String placeholder, int left, int top, int width, int id) {
         StyledTextField textField = new StyledTextField(placeholder);
         textField.setBounds(left, top + 20, width, 40); // Increased height
         textField.setFont(new Font("Arial", Font.PLAIN, 15));
         panel.add(textField);
+        return textField;
     }
+
+    private void performLogin() {
+        String enteredUserId = userId.getText();
+        String enteredPassword = password.getText();
+
+        Login login = new Login();
+        if (login.login(enteredUserId, enteredPassword) != null) {
+            new MainPage().Test();
+        } else {
+            JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 틀렸습니다.");
+        }
+        System.out.println("아이디: " + enteredUserId);
+        System.out.println("비밀번호: " + enteredPassword);
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new LoginPage());
