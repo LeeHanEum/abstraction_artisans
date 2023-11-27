@@ -77,11 +77,6 @@ public class LoginPage extends JFrame {
         System.out.println("비밀번호: " + enteredPassword);
     }
 
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginPage());
-    }
-
     class StyledTextField extends JTextField {
         private String hintText;
 
