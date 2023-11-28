@@ -45,7 +45,12 @@ public class ItemListPage extends JFrame{
 
         sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
         for(Manageable a : admin.getAllItem()){
-            createGroupPanel(sandbox2,((Product) a).getName());
+            String name = ((Product) a).getName();
+            if (name.length() > 25){
+                name = name.substring(0,24);
+                name += "...";
+            }
+            createGroupPanel(sandbox2, name);
             sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
         }
 

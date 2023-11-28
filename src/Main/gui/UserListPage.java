@@ -27,6 +27,28 @@ public class UserListPage extends JFrame{
         titleLabel.setFont(new Font("Inter", Font.PLAIN, 20));
         userPagePanel.add(titleLabel);
 
+        JPanel groupPanel = new JPanel();
+        groupPanel.setBounds(27,78,360,30);
+        groupPanel.setPreferredSize(new Dimension(360, 30)); // 너비 조절
+        groupPanel.setBackground(Color.WHITE);
+        groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.X_AXIS));
+
+
+        groupPanel.add(Box.createRigidArea(new Dimension(30, 0)));
+        // 하얀색 바탕의 레이블
+        JLabel whiteLabel = new JLabel();
+        whiteLabel.setOpaque(true);
+        whiteLabel.setBackground(Color.WHITE);
+        groupPanel.add(whiteLabel);
+
+        String name = "  이름  |        전화번호        |      주소    ";
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(new Font("Inter", Font.PLAIN, 12));
+        textLabel.setForeground(Color.BLACK);
+        groupPanel.add(textLabel);
+
+        userPagePanel.add(groupPanel);
+
 
         JPanel sandbox2 = new JPanel();
 
@@ -42,9 +64,8 @@ public class UserListPage extends JFrame{
         sandbox2.setBounds(30,110,390,610);
 
 
-        sandbox2.add(Box.createRigidArea(new Dimension(0, 7)));
         for(Manageable a : admin.getUserList()){
-            createGroupPanel(sandbox2,((User) a).getName());
+            createGroupPanel(sandbox2,((User) a));
             sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
         }
         sandbox2.add(Box.createRigidArea(new Dimension(0, 3)));
@@ -61,9 +82,9 @@ public class UserListPage extends JFrame{
         setLocationRelativeTo(null);
     }
 
-    private void createGroupPanel(JPanel parentPanel, String labelText) {
+    private void createGroupPanel(JPanel parentPanel, User usr) {
         JPanel groupPanel = new JPanel();
-        groupPanel.setPreferredSize(new Dimension(360, 100)); // 너비 조절
+        groupPanel.setPreferredSize(new Dimension(360, 30)); // 너비 조절
         groupPanel.setBackground(Color.WHITE);
         groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.X_AXIS));
 
@@ -75,11 +96,29 @@ public class UserListPage extends JFrame{
         whiteLabel.setBackground(Color.WHITE);
         groupPanel.add(whiteLabel);
 
-        // 텍스트 레이블
-        JLabel textLabel = new JLabel(labelText);
-        textLabel.setFont(new Font("Inter", Font.PLAIN, 12));
+        // usr name 텍스트 레이블
+        String name = usr.getName();
+        if(name.length() == 2){
+            name = name.substring(0,1) + "  " + name.substring(1,2);
+        }
+        name += " | ";
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(new Font("Inter", Font.BOLD, 12));
         textLabel.setForeground(Color.BLACK);
         groupPanel.add(textLabel);
+
+        //usr tel
+        JLabel telLabel = new JLabel(usr.getAddress() + " | ");
+        telLabel.setFont(new Font("Inter",Font.PLAIN,12));
+        telLabel.setForeground(Color.BLACK);
+        groupPanel.add(telLabel);
+
+        //usr address
+        JLabel addLabel = new JLabel(usr.getTel());
+        addLabel.setFont(new Font("Inter",Font.PLAIN,12));
+        addLabel.setForeground(Color.BLACK);
+        groupPanel.add(addLabel);
+
 
         // 우측 여백 추가
         groupPanel.add(Box.createRigidArea(new Dimension(298, 0)));

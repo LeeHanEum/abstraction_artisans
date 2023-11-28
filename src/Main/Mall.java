@@ -1,5 +1,7 @@
 package Main;
 
+import Main.gui.ItemListPage;
+import Main.gui.UserListPage;
 import Main.mall.Admin;
 
 import java.util.Scanner;
@@ -29,7 +31,9 @@ public class Mall {
     }
 
     private void run(){
-        new Admin().run();
+        Admin admin = new Admin();
+        admin.run();
+        new UserListPage(admin).setVisible(true);
     }
 
     public static void main(String[] args) {
