@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Power extends Product{
     int power;
+    public Power(){
+        this.type = "Power";
+    }
 
     @Override
     public void read(Scanner scan){
@@ -28,5 +31,10 @@ public class Power extends Product{
         if (power >= Integer.parseInt(kwd))
             return true;
         return super.matches(kwd);
+    }
+    
+    //파워 반환
+    public int getPower(){
+        return power;
     }
 }
