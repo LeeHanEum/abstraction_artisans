@@ -2,167 +2,200 @@ package Main.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CustomizingPage extends JFrame implements ActionListener {
-    private JLabel label;
+    private JPanel contentPane = new JPanel();
+    private JLabel limitLabel;
+    private JLabel maxLabel;
+    private JLabel choiceLabel;
     private JTextField textField;
-    private JButton button;
-    private JPanel usageSelectionPanel; // 사용 용도 선택 패널
+    private JButton nextButton;
+    private JRadioButton choiceRadioButton[] =new JRadioButton[6];
+    private ButtonGroup bg;
+    int current = 0,c;
+
     public CustomizingPage() {
-        // 프레임 설정
-        setTitle("부품 커스터마이징");
-        setSize(450, 800);
+        // JPanel 생성
+        setTitle("CustomizingPage");
+        setBounds(100, 100, 450, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-        getContentPane().setBackground(Color.WHITE); // 프레임 배경색 설정
 
-        // 라벨 설정
-        label = new JLabel("부품 커스터마이징");
-        label.setHorizontalAlignment(JLabel.LEFT); // 왼쪽 정렬
-        label.setFont(new Font("SansSerif", Font.BOLD, 20)); // 폰트 크기 조절
-        add(label, BorderLayout.NORTH);
+        // contentPane 레이아웃 설정
+        contentPane.setLayout(null); // 배치 관리자를 null로 설정
+        setContentPane(contentPane);
+        contentPane.setBackground(Color.white);
 
-        JPanel centerPanel = new JPanel(new GridBagLayout());
-        centerPanel.setBackground(Color.WHITE); // 중앙 패널 배경색 설정
-        add(centerPanel, BorderLayout.CENTER);
+        // 부품 커스터마이징 라벨
+        JLabel customLabel = new JLabel("부품 커스터마이징");
+        customLabel.setBounds(12, 10, 174, 41);
+        customLabel.setFont(new Font("Inter", Font.BOLD, 20));
+        contentPane.add(customLabel);
 
-        // "가격한도설정" 라벨을 대각선 왼쪽 위에 배치
-        JLabel limitLabel = new JLabel("가격 한도 설정");
-        limitLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        GridBagConstraints gbcLimitLabel = new GridBagConstraints();
-        gbcLimitLabel.gridx = 0;
-        gbcLimitLabel.gridy = 0;
-        gbcLimitLabel.insets = new Insets(0, 0, 0, 250); // 여백 설정
-        gbcLimitLabel.anchor = GridBagConstraints.WEST;
-        centerPanel.add(limitLabel, gbcLimitLabel);
+        // "가격한도설정" 라벨
+        limitLabel = new JLabel("가격 한도 설정");
+        limitLabel.setFont(new Font("Inter", Font.BOLD, 24));
+        limitLabel.setBounds(12, 196, 188, 55);
+        contentPane.add(limitLabel);
 
-        // "최대" 라벨과 텍스트 필드를 포함한 패널을 생성
-        JPanel textFieldPanel = new JPanel(new GridBagLayout());
-        textFieldPanel.setBackground(Color.WHITE);
+        // "최대" 라벨
+        maxLabel = new JLabel("<html><h3>최대</h3></html>");
+        maxLabel.setFont(new Font("Inter", Font.PLAIN, 16));
+        maxLabel.setBounds(45, 297, 52, 15);
+        contentPane.add(maxLabel);
 
-        JLabel maxLabel = new JLabel("최대");
-        GridBagConstraints gbcMaxLabel = new GridBagConstraints();
-        maxLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        gbcMaxLabel.gridx = 0;
-        gbcMaxLabel.gridy = 1;
-        gbcMaxLabel.insets = new Insets(10, 10, 10, 10); // 여백 설정
-        gbcMaxLabel.anchor = GridBagConstraints.EAST;
-        textFieldPanel.add(maxLabel, gbcMaxLabel);
+        // 텍스트 필드
+        textField = new JTextField(10);
+        textField.setBounds(93, 281, 258, 48);
+        contentPane.add(textField);
 
-        // 텍스트 필드를 JPanel에 추가
-        textField = new JTextField(20); // 20은 텍스트 필드의 초기 크기
-        textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, 40));
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-        textField.setBorder(border);
+        // "다음" 버튼
+        nextButton = new JButton("다음");
+        nextButton.addActionListener(this);
+        nextButton.setBackground(Color.decode("#525252"));
+        nextButton.setForeground(Color.WHITE);
+        nextButton.setBounds(310, 594, 85, 55);
+        contentPane.add(nextButton);
 
-        GridBagConstraints gbcTextField = new GridBagConstraints();
-        gbcTextField.gridx = 1;
-        gbcTextField.gridy = 1;
-        gbcTextField.insets = new Insets(10, 10, 10, 10); // 여백 설정
-        textFieldPanel.add(textField, gbcTextField);
+        //"사용 용도 선택 라벨"
+        choiceLabel = new JLabel("사용 용도 선택");
+        choiceLabel.setFont(new Font("Inter", Font.BOLD, 24));
+        choiceLabel.setBounds(12, 118, 430, 55);
+        contentPane.add(choiceLabel);
 
-        // textFieldPanel을 centerPanel에 추가
-        GridBagConstraints gbcTextFieldPanel = new GridBagConstraints();
-        gbcTextFieldPanel.gridx = 0;
-        gbcTextFieldPanel.gridy = 1;
-        gbcTextFieldPanel.insets = new Insets(10, 10, 10, 10); // 여백 설정
-        centerPanel.add(textFieldPanel, gbcTextFieldPanel);
-
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setBackground(Color.WHITE); // 하단 버튼 패널 배경색 설정
-        add(buttonPanel, BorderLayout.SOUTH);
-        // 버튼을 JPanel에 추가
-        button = new JButton("다음");
-        button.setPreferredSize(new Dimension(88, 55));
-        button.addActionListener(this); // 액션 리스너 등록
-        button.setBackground(Color.decode("#525252")); // 배경색 설정
-        button.setForeground(Color.WHITE); // 글씨색 설정
-        GridBagConstraints gbcButton = new GridBagConstraints();
-        gbcButton.insets = new Insets(10, 310, 100, 10); // 여백 설정
-        gbcButton.anchor = GridBagConstraints.EAST;
-        buttonPanel.add(button, gbcButton);
+        bg = new ButtonGroup();
+        for (int i = 0; i < 6; i++){
+            choiceRadioButton[i] = new JRadioButton();
+            add(choiceRadioButton[i]);
+            bg.add(choiceRadioButton[i]);
+        }
+        int s = 0;
+        for (int i = 0; i < 6; i++){
+            choiceRadioButton[i].setBounds(12, 200+s, 240, 23);
+            s = s +75;
+            contentPane.add(choiceRadioButton[i]);
+            choiceRadioButton[i].setVisible(false);
+            choiceRadioButton[i].setBackground(Color.white);
+            choiceRadioButton[i].setFont(new Font("Inter", Font.PLAIN, 18));
+        }
+        choiceRadioButton[5].setSelected(true);
 
         // 프레임 표시
         setLocationRelativeTo(null); // 화면 정중앙에 표시
         setVisible(true);
+        choiceLabel.setVisible(false);
     }
-
-    // 사용 용도 선택 패널 초기화
-    private void initUsageSelectionPanel() {
-        // 패널 초기화 및 구성
-        usageSelectionPanel = new JPanel(new GridLayout(5, 1));
-        usageSelectionPanel.setBackground(Color.WHITE);
-
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button) {
-            //최대가격 입력받은 값을 userChoiceHandler 에게 보내야함
-
-            // 사용 용도 선택 패널 초기화
-            initUsageSelectionPanel();
-            // 다음 버튼이 클릭되었을 때 "사용 용도 선택" 패널로 전환
-            switchToUsageSelectionPanel();
+        if (e.getSource() == nextButton) {
+            if(current == 0) {
+                textField.setVisible(false);
+                maxLabel.setVisible(false);
+                limitLabel.setVisible(false);
+                choiceLabel.setVisible(true);
+                setChoiceRadioButton();
+                current++;
+                //입력받은 값을 userChoiceHandler 에게 전달 구현
+            }
+            else if(current == 1){
+                c = choiceCheck();
+                if(!choiceRadioButton[5].isSelected()) {
+                    for (int i = 0; i < 6; i++) {
+                        choiceRadioButton[i].setVisible(false);
+                    }
+                    setChoiceRadioButton();
+                    current++;
+                }
+                //입력받은 값을 userChoiceHandler 에게 전달 구현
+            }
+            else if(current == 2){
+                nextButton.setText("결과");
+             //결과페이지로 이동
+            }
         }
     }
+    void setChoiceRadioButton(){
+        if (current == 0){
+            choiceRadioButton[0].setText("1. 게임용");
+            choiceRadioButton[1].setText("2. 작업용");
+            choiceRadioButton[2].setText("3. 사무용");
+            choiceRadioButton[3].setText("4. 취미용");
+            for (int i = 0; i < 4; i++){
+                choiceRadioButton[i].setVisible(true);
+            }
+        }
+        else if (current == 1){
+            if(c == 1) {
+                choiceLabel.setText("주로 하는 게임을 골라주세요");
+                choiceRadioButton[0].setText("롤");
+                choiceRadioButton[1].setText("오버워치");
+                choiceRadioButton[2].setText("배틀그라운드");
+                choiceRadioButton[3].setText("메이플스토리");
+                choiceRadioButton[4].setText("서든어텍");
+                for (int i = 0; i < 5; i++) {
+                    choiceRadioButton[i].setVisible(true);
+                }
+            }
+            else if(c == 2) {
+                choiceLabel.setText("주로 하는 작업을 골라주세요");
+                choiceRadioButton[0].setText("소프트웨어 개발");
+                choiceRadioButton[1].setText("게임 개발");
+                choiceRadioButton[2].setText("그래픽 디자인");
+                choiceRadioButton[3].setText("도면 설계");
+                choiceRadioButton[4].setText("웹개발 및 디자인");
 
-    // 사용 용도 선택 패널로 전환
-    private void switchToUsageSelectionPanel() {
-        // 중앙 패널 비우고 사용 용도 선택 패널 추가
-        getContentPane().removeAll();
-        // 라벨 설정
-        label = new JLabel("부품 커스터마이징");
-        label.setHorizontalAlignment(JLabel.LEFT); // 왼쪽 정렬
-        label.setFont(new Font("SansSerif", Font.BOLD, 20)); // 폰트 크기 조절
-        add(label, BorderLayout.NORTH);
+                for (int i = 0; i < 5; i++) {
+                    choiceRadioButton[i].setVisible(true);
+                }
+            }
+            else if(c == 3) {
+                choiceLabel.setText("주로 하는 사무 용도를 골라주세요");
+                choiceRadioButton[0].setText("워드 및 한글");
+                choiceRadioButton[1].setText("피피티");
+                choiceRadioButton[2].setText("웹서치");
 
-        JPanel centerPanel = new JPanel(new GridBagLayout());
-        centerPanel.setBackground(Color.WHITE); // 중앙 패널 배경색 설정
-        add(centerPanel, BorderLayout.CENTER);
+                for (int i = 0; i < 3; i++) {
+                    choiceRadioButton[i].setVisible(true);
+                }
+            }
+            else if(c == 4) {
+                choiceLabel.setText("주로 취미로 하는 활동을 골라주세요");
+                choiceRadioButton[0].setText("유튜브 및 OTT");
+                choiceRadioButton[1].setText("웹서핑");
 
-        JLabel userSelctionLabel = new JLabel("사용 용도 선택");
-        userSelctionLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
-        GridBagConstraints gbcLimitLabel = new GridBagConstraints();
-        gbcLimitLabel.gridx = 0;
-        gbcLimitLabel.gridy = 0;
-        gbcLimitLabel.insets = new Insets(0, 0, 0, 250); // 여백 설정
-        gbcLimitLabel.anchor = GridBagConstraints.WEST;
-        centerPanel.add(userSelctionLabel, gbcLimitLabel);
-
-
-
-        JPanel buttonPanel = new JPanel(new GridBagLayout());
-        buttonPanel.setBackground(Color.WHITE); // 하단 버튼 패널 배경색 설정
-        add(buttonPanel, BorderLayout.SOUTH);
-
-        // 버튼을 JPanel에 추가
-        button = new JButton("다음");
-        button.setPreferredSize(new Dimension(88, 55));
-        button.addActionListener(this); // 액션 리스너 등록
-        button.setBackground(Color.decode("#525252")); // 배경색 설정
-        button.setForeground(Color.WHITE); // 글씨색 설정
-        GridBagConstraints gbcButton = new GridBagConstraints();
-        gbcButton.insets = new Insets(10, 310, 100, 10); // 여백 설정
-        gbcButton.anchor = GridBagConstraints.EAST;
-        buttonPanel.add(button, gbcButton);
-
-
-        // 다시 그리기
-        revalidate();
-        repaint();
+                for (int i = 0; i < 2; i++) {
+                    choiceRadioButton[i].setVisible(true);
+                }
+            }
+        }
     }
-
+    int choiceCheck(){
+        int check = 0;
+        if (choiceRadioButton[0].isSelected()) {
+            check = 1;
+            return check;
+        }
+        if (choiceRadioButton[1].isSelected()) {
+            check = 2;
+            return check;
+        }
+        if (choiceRadioButton[2].isSelected()) {
+            check = 3;
+            return check;
+        }
+        if (choiceRadioButton[3].isSelected()) {
+            check = 4;
+            return check;
+        }
+        if (choiceRadioButton[4].isSelected()) {
+            check = 5;
+            return check;
+        }
+        return check;
+    }
     public static void main(String[] args) {
         // GUI 실행
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new CustomizingPage();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new CustomizingPage());
     }
 }
