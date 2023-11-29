@@ -7,6 +7,9 @@ public class Ram extends Product{
     String type;
     int capacity;
     int speed;
+    public Ram(){
+        this.type = "Ram";
+    }
     @Override
     public void read(Scanner scan){
         type = scan.next();

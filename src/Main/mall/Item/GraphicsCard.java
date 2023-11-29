@@ -9,6 +9,10 @@ public class GraphicsCard extends Product{
     ArrayList<String> outputTerminal = new ArrayList<>();
     int power;
 
+    public GraphicsCard(){
+        this.type = "GPU";
+    }
+
     @Override //end 나올때까지 출력단자 입력받기
     public void read(Scanner scan){
         baseClock = scan.nextInt();

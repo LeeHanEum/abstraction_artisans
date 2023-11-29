@@ -8,6 +8,9 @@ public class Cpu extends Product{
     float cache;
     String socket;
     String ramType;
+    public Cpu(){
+        this.type = "Cpu";
+    }
     @Override
     public void read(Scanner scan) {
         clock = scan.nextFloat();

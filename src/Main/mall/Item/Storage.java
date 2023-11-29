@@ -6,6 +6,9 @@ public class Storage extends Product{
 
     int capacity;
     int speedAvg;
+    public Storage(){
+        this.type = "Storage";
+    }
     @Override
     public void read(Scanner scan){
         capacity = scan.nextInt();
