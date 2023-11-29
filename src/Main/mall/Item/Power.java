@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Power extends Product{
     int power;
+    public Power(){
+        this.type = "Power";
+    }
 
     @Override
     public void read(Scanner scan){

@@ -1,11 +1,15 @@
 package Main.mall.Item;
 
+
 import java.util.Scanner;
 
 public class MainBoard extends Product{
     String socket;
     String ramType;
     String boardType;
+    public MainBoard(){
+        this.type = "MainBoard";
+    }
     @Override
     public void read(Scanner scan) {
         socket = scan.next();

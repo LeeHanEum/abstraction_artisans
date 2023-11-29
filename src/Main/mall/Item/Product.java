@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 import Main.mgr.Manageable;
 
+import javax.swing.*;
+
 public class Product implements Manageable {
 
     private Long productId; // 상품 아이디
-
+    String type = "product";
     private String name;
 
     private int price;
@@ -37,12 +39,15 @@ public class Product implements Manageable {
             return true;
         return false;
     }
-    
+
     //출력 용이하기하기위해 toString 추가해서 상속된 클래스에 모두 추가했음
     public String toString(){
         return String.format("%s %d원 ", name, price);
     }
 
+    public String getType(){
+        return type;
+    }
     public Long getProductId() {
         return productId;
     }

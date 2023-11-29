@@ -5,6 +5,9 @@ import java.util.Scanner;
 public class Case extends Product{
     String color;
     String boardType;
+    public Case(){
+        this.type = "Case";
+    }
     @Override
     public void read(Scanner scan) {
         color = scan.next();
