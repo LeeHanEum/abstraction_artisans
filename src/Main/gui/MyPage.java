@@ -51,8 +51,7 @@ public class MyPage extends JFrame{
 
         //TODO : 로그인이랑 연결 되면 밑에 주석 없애주세요 지금 임의로 김연우로 해놨음 이름
         //name
-        //String name = Login.currentUser.getName();
-        String name = "김연우";
+        String name = Login.currentUser.getName();
         JLabel nameLabel = new JLabel(name);
         nameLabel.setFont(new Font("Inter", Font.PLAIN, 24));
         nameLabel.setForeground(Color.BLACK);
