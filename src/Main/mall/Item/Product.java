@@ -42,6 +42,10 @@ public class Product implements Manageable {
     public String getName(){
         return name;
     }
+
+    public String getType(){
+        return type;
+    }
     public Long getProductId() {
         return productId;
     }
