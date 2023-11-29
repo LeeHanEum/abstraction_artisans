@@ -1,6 +1,7 @@
 package Main;
 
 import Main.gui.ItemListPage;
+import Main.gui.MyPage;
 import Main.gui.UserListPage;
 import Main.mall.Admin;
 
@@ -33,7 +34,8 @@ public class Mall {
     private void run(){
         Admin admin = new Admin();
         admin.run();
-        new UserListPage(admin).setVisible(true);
+//        new UserListPage(admin).setVisible(true);
+        new MyPage(admin).setVisible(true);
     }
 
     public static void main(String[] args) {
