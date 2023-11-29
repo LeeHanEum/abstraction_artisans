@@ -22,12 +22,20 @@ public class Storage extends Product{
         System.out.printf("용량: %d, 읽기쓰기 속도 평균:%d\n", capacity, speedAvg);
     }
 
+    @Override
+    public String toString() {
+        return String.format("용량: %d, 읽기쓰기 속도 평균:%d", capacity, speedAvg);
+    }
     //용량이랑 비교해서 더 크면 반환
-    //return 에 super.matches로 이름도 비교하게 만듦
+    //return 에 super.matches로 이름도 비교하게 하는걸 catch로 옮겼음
     @Override
     public boolean matches(String kwd){
-        if (capacity >= Integer.parseInt(kwd))
-            return true;
-        return super.matches(kwd);
+        try {
+            if (capacity >= Integer.parseInt(kwd))
+                return true;
+        } catch (NumberFormatException e){
+            return super.matches(kwd);
+        }
+        return false;
     }
 }
