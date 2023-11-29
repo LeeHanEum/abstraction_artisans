@@ -21,7 +21,7 @@ public class Power extends Product{
     }
     @Override
     public String toString() {
-        return String.format("정격파워:%d", power);
+        return super.toString() + String.format("정격파워:%d\n", power);
     }
 
     //정격파워하고 비교해서 더 크면 반환

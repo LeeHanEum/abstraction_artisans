@@ -34,7 +34,8 @@ public class GraphicsCard extends Product{
     }
     @Override
     public String toString() {
-        return String.format("베이스클럭: %d, 메모리용량: %d, 출력단자:%s, 정격파워:%d", baseClock, memoryCapacity, outputTerminal, power);
+
+        return super.toString() + String.format("베이스클럭: %d, 메모리용량: %d, 출력단자:%s, 정격파워:%d\n", baseClock, memoryCapacity, outputTerminal, power);
     }
     //용량이랑 비교해서 더 크면 출력
     //return 에 super.matches로 이름도 비교하는걸 catch로 옮겼음
