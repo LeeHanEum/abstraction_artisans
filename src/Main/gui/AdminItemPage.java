@@ -7,8 +7,8 @@ import Main.mgr.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class adminItemPage extends JFrame{
-    public adminItemPage(Admin admin){
+public class AdminItemPage extends JFrame{
+    public AdminItemPage(Admin admin){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용

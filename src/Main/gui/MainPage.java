@@ -1,5 +1,7 @@
 package Main.gui;
 
+import Main.mall.Admin;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +9,11 @@ import java.awt.event.ActionListener;
 
 class MainPage extends JFrame {
 
-    public MainPage() {
+    private final Admin admin;
+
+    public MainPage(Admin admin) {
+        this.admin = admin;
+
         setTitle("쇼핑몰 메인 페이지");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
@@ -43,7 +49,16 @@ class MainPage extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         dispose();
-                        new LoginPage();
+                        new LoginPage(admin);
+                    }
+                });
+            } else {
+                final String pageName = buttonLabels[i]; // Create a final variable to use inside ActionListener
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        dispose(); // Close current window
+                        navigateToPage(pageName);
                     }
                 });
             }
@@ -53,5 +68,21 @@ class MainPage extends JFrame {
 
         setContentPane(panel);
         setVisible(true);
+    }
+
+    private void navigateToPage(String pageName) {
+        switch (pageName) {
+            case "부품 커스터마이징":
+                new CustomizingPage();
+                break;
+            case "부품 리스트":
+                new ItemListPage(admin);
+                break;
+            case "마이 페이지":
+                new MyPage(admin);
+                break;
+            default:
+                break;
+        }
     }
 }

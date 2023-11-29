@@ -21,9 +21,6 @@ public class Storage extends Product{
         super.print();
         System.out.printf("용량: %d, 읽기쓰기 속도 평균:%d\n", capacity, speedAvg);
     }
-    public String toString() {
-        return super.toString() + String.format("용량: %d, 읽기쓰기 속도 평균:%d\n", capacity, speedAvg);
-    }
 
     @Override
     public String toString() {

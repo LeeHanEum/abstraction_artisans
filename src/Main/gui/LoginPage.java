@@ -1,5 +1,6 @@
 package Main.gui;
 
+import Main.mall.Admin;
 import Main.mall.Login;
 
 import javax.swing.*;
@@ -13,7 +14,11 @@ public class LoginPage extends JFrame {
 
     private StyledTextField password;
 
-    public LoginPage() {
+    private final Admin admin;
+
+    public LoginPage(Admin admin) {
+        this.admin = admin;
+
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
@@ -77,7 +82,7 @@ public class LoginPage extends JFrame {
 
         Login login = new Login();
         if (login.login(enteredUserId, enteredPassword) != null) {
-            MainPage mainPage = new MainPage();
+            MainPage mainPage = new MainPage(admin);
             mainPage.setVisible(true);
             dispose();
         } else {

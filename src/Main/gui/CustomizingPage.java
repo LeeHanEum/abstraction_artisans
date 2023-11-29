@@ -170,7 +170,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
             }
         }
     }
-    int choiceCheck(){
+    int choiceCheck() {
         int check = 0;
         if (choiceRadioButton[0].isSelected()) {
             check = 1;
@@ -193,9 +193,5 @@ public class CustomizingPage extends JFrame implements ActionListener {
             return check;
         }
         return check;
-    }
-    public static void main(String[] args) {
-        // GUI 실행
-        SwingUtilities.invokeLater(() -> new CustomizingPage());
     }
 }

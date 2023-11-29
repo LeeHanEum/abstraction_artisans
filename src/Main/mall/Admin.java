@@ -44,7 +44,7 @@ public class Admin {
     public void run () {
         loadUserData();
         loadProductData();
-        new LoginPage();
+        new LoginPage(this);
     }
 
     private void loadUserData() {
