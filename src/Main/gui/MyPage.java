@@ -2,6 +2,8 @@ package Main.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import Main.mall.*;
 import Main.mgr.*;
@@ -63,10 +65,13 @@ public class MyPage extends JFrame{
         addXPadding(namePanel,150);
 
         //이미지가 들어갈 것
-        JPanel grayRectanglePanel = new JPanel();
-        grayRectanglePanel.setPreferredSize(new Dimension(50, 50));
-        grayRectanglePanel.setBackground(Color.GRAY);
-        namePanel.add(grayRectanglePanel);
+        ImageIcon logoIcon = new ImageIcon("src/Main/resource/user.png"); // Replace with the actual path to your logo image
+        Image resizedLogoImage = logoIcon.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon resizedLogoIcon = new ImageIcon(resizedLogoImage);
+
+        JLabel logoLabel = new JLabel(resizedLogoIcon);
+        logoLabel.setBounds(150, 0, 50, 50); // Adjust the bounds as needed
+        namePanel.add(logoLabel);
         addXPadding(namePanel,90);
 
 
@@ -212,45 +217,48 @@ public class MyPage extends JFrame{
         JPanel outerContainer = new JPanel();
         outerContainer.setLayout(null);
         outerContainer.setBounds(0, 0, 76, 44);
-        outerContainer.setBackground(new Color(82, 82, 82));
+        outerContainer.setBackground(Color.WHITE); // Change the background color to white
+
+        JButton mainButton = new JButton("메인으로");
+        mainButton.setForeground(Color.BLACK); // Change the text color to black
+        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
+        mainButton.setBounds(0, 0, 76, 44);
+        mainButton.setBackground(Color.WHITE); // Change the background color to white
+
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new MainPage(admin); // Open the main page
+            }
+        });
+
+        outerContainer.add(mainButton);
         btnPanel.add(outerContainer);
-
-        // Text container
-        JPanel textContainer = new JPanel();
-        textContainer.setLayout(null);
-        textContainer.setBounds(11, 14, 53, 12);
-        textContainer.setBackground(new Color(82, 82, 82));
-
-        JLabel labelText = new JLabel(" 메인으로");
-        labelText.setForeground(Color.WHITE);
-        labelText.setFont(new Font("Inter", Font.BOLD, 12));
-        labelText.setHorizontalAlignment(JLabel.CENTER);
-        labelText.setBounds(0, 0, 53, 12);
-
-        textContainer.add(labelText);
-        outerContainer.add(textContainer);
         /************메인으로 버튼 끝 ***********/
         addXPadding(btnPanel,30);
         /************종료 버튼***********/
         JPanel outerContainer1 = new JPanel();
         outerContainer1.setLayout(null);
         outerContainer1.setBounds(0, 0, 76, 44);
-        outerContainer1.setBackground(Color.RED);
+        outerContainer1.setBackground(Color.WHITE); // Change the background color to white
+
+        JButton logoutButton = new JButton("로그아웃");
+        logoutButton.setForeground(Color.BLACK); // Change the text color to black
+        logoutButton.setFont(new Font("Inter", Font.BOLD, 12));
+        logoutButton.setBounds(0, 0, 76, 44);
+        logoutButton.setBackground(Color.WHITE); // Change the background color to white
+
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new LoginPage(admin); // Open the login page
+            }
+        });
+
+        outerContainer1.add(logoutButton);
         btnPanel.add(outerContainer1);
-
-        // Text container
-        JPanel textContainer1 = new JPanel();
-        textContainer1.setLayout(null);
-        textContainer1.setBounds(11, 14, 53, 12);
-        textContainer1.setBackground(Color.RED);
-
-        JLabel labelText1 = new JLabel(" 로그아웃");
-        labelText1.setForeground(Color.WHITE);
-        labelText1.setFont(new Font("Inter", Font.BOLD, 12));
-        labelText1.setHorizontalAlignment(JLabel.CENTER);
-        labelText1.setBounds(0, 0, 53, 12);
-        textContainer1.add(labelText1);
-        outerContainer1.add(textContainer1);
         /************종료 버튼 끝 ***********/
         addXPadding(btnPanel,70);
 
@@ -260,6 +268,8 @@ public class MyPage extends JFrame{
 
         add(groupPanel);
         setLocationRelativeTo(null);
+
+        setVisible(true);
     }
 
     public void addYPadding(JPanel mainPane,int Height){
