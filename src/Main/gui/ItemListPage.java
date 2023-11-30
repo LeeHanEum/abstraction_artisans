@@ -23,6 +23,7 @@ public class ItemListPage extends JFrame {
     private final Map<String, Integer> productIndices = new HashMap<>();
 
     public ItemListPage(Admin admin) {
+        setTitle("모두나와 PC");
         this.admin = admin;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
@@ -33,8 +34,8 @@ public class ItemListPage extends JFrame {
         userPagePanel.setLayout(new BorderLayout());
         userPagePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JLabel pcAndTitleLabel = new JLabel("<html><span style='font-size:15px; color:#008000'>모두나와PC</span><br/>"
-            + "<span style='font-size:35px; color:#282828;'>제품리스트</span></html>");
+        JLabel pcAndTitleLabel = new JLabel("<html><span style='font-size:10px; color:#008000'>모두나와PC</span><br/>"
+            + "<span style='font-size:23px; color:#282828;'>제품 리스트</span></html>");
 
         // 여러 경계선 및 여백 조정
         pcAndTitleLabel.setBorder(BorderFactory.createCompoundBorder(
@@ -60,6 +61,26 @@ public class ItemListPage extends JFrame {
         add(userPagePanel);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        //메인화면으로 돌아가기
+        JButton backButton = new JButton("메인으로");
+        backButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+        backButton.setBackground(new Color(190, 190, 190));
+        backButton.setForeground(Color.BLACK);
+
+        backButton.addActionListener(e -> navigateToMainPage());
+        backButton.setBorderPainted(false);
+
+        backButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
+            BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
+
+        JPanel backButtonPanel = new JPanel(new BorderLayout());
+        backButtonPanel.setBackground(new Color(255, 255, 255));
+        backButtonPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        backButtonPanel.add(backButton, BorderLayout.EAST);
+
+        userPagePanel.add(backButtonPanel, BorderLayout.SOUTH);
     }
 
     private void addButton(String componentName) {
@@ -411,5 +432,9 @@ public class ItemListPage extends JFrame {
             default:
                 return new ArrayList<>();
         }
+    }
+    private void navigateToMainPage() {
+        dispose(); // Close the current window
+        new MainPage(admin);
     }
 }
