@@ -6,6 +6,8 @@ import Main.mgr.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminItemPage extends JFrame{
     public AdminItemPage(Admin admin){
@@ -16,9 +18,17 @@ public class AdminItemPage extends JFrame{
 
         // 전체 패널
         JPanel userPagePanel = new JPanel(null);
-//        userPagePanel.setBackground(Color.WHITE);
-//        userPagePanel.setBounds(0, 0, 450, 800);
-//        userPagePanel.setLayout(null);
+        userPagePanel.setBackground(Color.WHITE);
+        userPagePanel.setBounds(0, 0, 450, 800);
+        userPagePanel.setLayout(null);
+
+        String back = "";
+        JLabel backLabel = new JLabel(back);
+        backLabel.setBounds(25,5,300,30);
+        backLabel.setFont(new Font("Inter", Font.BOLD, 20));
+        backLabel.setForeground(Color.BLACK);
+        userPagePanel.add(backLabel);
+
 
         //title
         JLabel titleLabel = new JLabel("제품리스트");
@@ -55,12 +65,12 @@ public class AdminItemPage extends JFrame{
         JScrollPane scrollPane = new JScrollPane(sandbox2);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(30, 110, 390, 610);
+        scrollPane.setBounds(30, 110, 390, 560);
 
         //sandbox 2
         sandbox2.setLayout(new BoxLayout(sandbox2,BoxLayout.Y_AXIS));
         sandbox2.setBackground(Color.LIGHT_GRAY);
-        sandbox2.setBounds(30,110,390,610);
+        sandbox2.setBounds(30,110,390,560);
 
 
         for(Manageable a : admin.getAllItem()){
@@ -74,13 +84,30 @@ public class AdminItemPage extends JFrame{
         // JScrollPane을 userPagePanel에 추가
         userPagePanel.add(scrollPane,BorderLayout.WEST);
 
+
+        JButton mainButton = new JButton("메인으로");
+        mainButton.setForeground(Color.BLACK); // Change the text color to black
+        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
+        mainButton.setBounds(350, 700, 76, 44);
+        mainButton.setBackground(Color.WHITE); // Change the background color to white
+
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new MainPage(admin); // Open the main page
+            }
+        });
+
+        userPagePanel.add(mainButton);
+
+
         // JFrame에 전체 패널 추가
         add(userPagePanel);
 
         // 화면 가운데 정렬
         setLocationRelativeTo(null);
 
-        setContentPane(userPagePanel);
         setVisible(true);
     }
     private void createGroupPanel(JPanel parentPanel, Product usr) {
