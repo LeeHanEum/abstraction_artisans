@@ -16,13 +16,14 @@ public class AdminItemPage extends JFrame{
 
         // 전체 패널
         JPanel userPagePanel = new JPanel(null);
-//        userPagePanel.setBackground(Color.WHITE);
-//        userPagePanel.setBounds(0, 0, 450, 800);
-//        userPagePanel.setLayout(null);
+        userPagePanel.setBackground(Color.WHITE);
+        userPagePanel.setBounds(0, 0, 450, 800);
+        userPagePanel.setLayout(null);
 
-        String back = "<";
+        String back = "";
         JLabel backLabel = new JLabel(back);
-        backLabel.setFont(new Font("Inter", Font.BOLD, 12));
+        backLabel.setBounds(25,5,300,30);
+        backLabel.setFont(new Font("Inter", Font.BOLD, 20));
         backLabel.setForeground(Color.BLACK);
         userPagePanel.add(backLabel);
 
@@ -62,12 +63,12 @@ public class AdminItemPage extends JFrame{
         JScrollPane scrollPane = new JScrollPane(sandbox2);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(30, 110, 390, 610);
+        scrollPane.setBounds(30, 110, 390, 560);
 
         //sandbox 2
         sandbox2.setLayout(new BoxLayout(sandbox2,BoxLayout.Y_AXIS));
         sandbox2.setBackground(Color.LIGHT_GRAY);
-        sandbox2.setBounds(30,110,390,610);
+        sandbox2.setBounds(30,110,390,560);
 
 
         for(Manageable a : admin.getAllItem()){
@@ -86,6 +87,8 @@ public class AdminItemPage extends JFrame{
 
         // 화면 가운데 정렬
         setLocationRelativeTo(null);
+
+        setVisible(true);
     }
     private void createGroupPanel(JPanel parentPanel, Product usr) {
         JPanel adminPanel = new JPanel();
