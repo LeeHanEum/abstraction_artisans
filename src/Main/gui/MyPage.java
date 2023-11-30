@@ -38,7 +38,7 @@ public class MyPage extends JFrame{
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
 
         //initPadding
-        addXPadding(namePanel,60);
+        addXPadding(namePanel,50);
 
         //name square y axis
         JPanel subNamePanel = new JPanel();
@@ -62,7 +62,7 @@ public class MyPage extends JFrame{
 
 
         namePanel.add(subNamePanel);
-        addXPadding(namePanel,150);
+        addXPadding(namePanel,200);
 
         //이미지가 들어갈 것
         ImageIcon logoIcon = new ImageIcon("src/Main/resource/user.png"); // Replace with the actual path to your logo image
@@ -72,7 +72,7 @@ public class MyPage extends JFrame{
         JLabel logoLabel = new JLabel(resizedLogoIcon);
         logoLabel.setBounds(150, 0, 50, 50); // Adjust the bounds as needed
         namePanel.add(logoLabel);
-        addXPadding(namePanel,90);
+        addXPadding(namePanel,70);
 
 
         groupPanel.add(namePanel);
