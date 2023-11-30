@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Main.mall.Admin;
 
 public class CustomizingPage extends JFrame implements ActionListener {
     private JPanel contentPane = new JPanel();
@@ -12,11 +13,14 @@ public class CustomizingPage extends JFrame implements ActionListener {
     private JLabel choiceLabel;
     private JTextField textField;
     private JButton nextButton;
+    private JButton backButton;
     private JRadioButton choiceRadioButton[] =new JRadioButton[6];
     private ButtonGroup bg;
-    int current = 0,c;
+    int current = 0,c1 = 0,c2 = 0;
+    private final Admin admin;
 
-    public CustomizingPage() {
+    public CustomizingPage(Admin admin) {
+        this.admin = admin;
         // JPanel 생성
         setTitle("CustomizingPage");
         setSize(450, 800);
@@ -53,10 +57,25 @@ public class CustomizingPage extends JFrame implements ActionListener {
         // "다음" 버튼
         nextButton = new JButton("다음");
         nextButton.addActionListener(this);
-        nextButton.setBackground(Color.decode("#525252"));
+        nextButton.setOpaque(true);
+        nextButton.setBackground(new Color(64, 64, 64));
         nextButton.setForeground(Color.WHITE);
+        nextButton.setFocusPainted(true);
+        nextButton.setBorderPainted(false);
         nextButton.setBounds(310, 594, 85, 55);
         contentPane.add(nextButton);
+
+        // "이전" 버튼
+        backButton = new JButton("이전");
+        backButton.addActionListener(this);
+        backButton.setOpaque(true);
+        backButton.setBackground(new Color(64, 64, 64));
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(true);
+        backButton.setBorderPainted(false);
+        backButton.setBounds(35, 594, 85, 55);
+        contentPane.add(backButton);
+
 
         //"사용 용도 선택 라벨"
         choiceLabel = new JLabel("사용 용도 선택");
@@ -87,23 +106,51 @@ public class CustomizingPage extends JFrame implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == backButton) {
+            if (current == 0) {
+                navigateToMain();
+            }
+            else if (current == 1) {
+                for (int i = 0; i < 6; i++) {
+                    choiceRadioButton[i].setVisible(false);
+                }
+                textField.setVisible(true);
+                maxLabel.setVisible(true);
+                limitLabel.setVisible(true);
+                choiceLabel.setVisible(false);
+                current--;
+            }
+            else if (current == 2) {
+                for (int i = 0; i < 6; i++) {
+                    choiceRadioButton[i].setVisible(false);
+                }
+                current--;
+                choiceRadioButton[0].setText("1. 게임용");
+                choiceRadioButton[1].setText("2. 작업용");
+                choiceRadioButton[2].setText("3. 사무용");
+                choiceRadioButton[3].setText("4. 취미용");
+                for (int i = 0; i < 4; i++){
+                    choiceRadioButton[i].setVisible(true);
+                }
+            }
+        }
         if (e.getSource() == nextButton) {
             if(current == 0) {
                 textField.setVisible(false);
                 maxLabel.setVisible(false);
                 limitLabel.setVisible(false);
                 choiceLabel.setVisible(true);
-                setChoiceRadioButton();
+                setChoiceRadioButton(0);
                 current++;
                 //입력받은 값을 userChoiceHandler 에게 전달 구현
             }
             else if(current == 1){
-                c = choiceCheck();
+                c1 = choiceCheck();
                 if(!choiceRadioButton[5].isSelected()) {
                     for (int i = 0; i < 6; i++) {
                         choiceRadioButton[i].setVisible(false);
                     }
-                    setChoiceRadioButton();
+                    setChoiceRadioButton(c1);
                     current++;
                 }
                 //입력받은 값을 userChoiceHandler 에게 전달 구현
@@ -114,7 +161,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
             }
         }
     }
-    void setChoiceRadioButton(){
+    void setChoiceRadioButton(int c){
         if (current == 0){
             choiceRadioButton[0].setText("1. 게임용");
             choiceRadioButton[1].setText("2. 작업용");
@@ -192,5 +239,9 @@ public class CustomizingPage extends JFrame implements ActionListener {
             return check;
         }
         return check;
+    }
+    private void navigateToMain() {
+        dispose();
+        new MainPage(admin);
     }
 }
