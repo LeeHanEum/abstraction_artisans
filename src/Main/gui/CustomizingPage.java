@@ -57,16 +57,22 @@ public class CustomizingPage extends JFrame implements ActionListener {
         // "다음" 버튼
         nextButton = new JButton("다음");
         nextButton.addActionListener(this);
-        nextButton.setBackground(Color.decode("#525252"));
+        nextButton.setOpaque(true);
+        nextButton.setBackground(new Color(64, 64, 64));
         nextButton.setForeground(Color.WHITE);
+        nextButton.setFocusPainted(true);
+        nextButton.setBorderPainted(false);
         nextButton.setBounds(310, 594, 85, 55);
         contentPane.add(nextButton);
 
         // "이전" 버튼
         backButton = new JButton("이전");
         backButton.addActionListener(this);
-        backButton.setBackground(Color.decode("#525252"));
+        backButton.setOpaque(true);
+        backButton.setBackground(new Color(64, 64, 64));
         backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(true);
+        backButton.setBorderPainted(false);
         backButton.setBounds(35, 594, 85, 55);
         contentPane.add(backButton);
 
