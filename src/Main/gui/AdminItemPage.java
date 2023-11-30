@@ -6,6 +6,8 @@ import Main.mgr.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminItemPage extends JFrame{
     public AdminItemPage(Admin admin){
@@ -81,6 +83,24 @@ public class AdminItemPage extends JFrame{
 
         // JScrollPane을 userPagePanel에 추가
         userPagePanel.add(scrollPane,BorderLayout.WEST);
+
+
+        JButton mainButton = new JButton("메인으로");
+        mainButton.setForeground(Color.BLACK); // Change the text color to black
+        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
+        mainButton.setBounds(350, 700, 76, 44);
+        mainButton.setBackground(Color.WHITE); // Change the background color to white
+
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new MainPage(admin); // Open the main page
+            }
+        });
+
+        userPagePanel.add(mainButton);
+
 
         // JFrame에 전체 패널 추가
         add(userPagePanel);

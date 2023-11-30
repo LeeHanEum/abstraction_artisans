@@ -8,6 +8,8 @@ import javax.security.sasl.SaslClient;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UserListPage extends JFrame{
     public UserListPage(Admin admin){
@@ -56,12 +58,12 @@ public class UserListPage extends JFrame{
         JScrollPane scrollPane = new JScrollPane(sandbox2);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(30, 110, 390, 610);
+        scrollPane.setBounds(30, 110, 390, 560);
 
         //sandbox 2
         sandbox2.setLayout(new BoxLayout(sandbox2,BoxLayout.Y_AXIS));
         sandbox2.setBackground(Color.LIGHT_GRAY);
-        sandbox2.setBounds(30,110,390,610);
+        sandbox2.setBounds(30,110,390,560);
 
 
         for(Manageable a : admin.getUserList()){
@@ -74,6 +76,22 @@ public class UserListPage extends JFrame{
 
         // JScrollPane을 userPagePanel에 추가
         userPagePanel.add(scrollPane,BorderLayout.WEST);
+
+        JButton mainButton = new JButton("메인으로");
+        mainButton.setForeground(Color.BLACK); // Change the text color to black
+        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
+        mainButton.setBounds(350, 700, 76, 44);
+        mainButton.setBackground(Color.WHITE); // Change the background color to white
+
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new MainPage(admin); // Open the main page
+            }
+        });
+
+        userPagePanel.add(mainButton);
 
         // JFrame에 전체 패널 추가
         add(userPagePanel);
