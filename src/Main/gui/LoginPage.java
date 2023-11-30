@@ -2,6 +2,7 @@ package Main.gui;
 
 import Main.mall.Admin;
 import Main.mall.Login;
+import Main.mall.User;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -81,7 +82,12 @@ public class LoginPage extends JFrame {
         String enteredPassword = password.getText();
 
         Login login = new Login();
-        if (login.login(enteredUserId, enteredPassword) != null) {
+        User loginUser = login.login(enteredUserId, enteredPassword);
+        if (loginUser.matchID("admin")) {
+            AdminMainPage adminMainPage = new AdminMainPage(admin);
+            adminMainPage.setVisible(true);
+            dispose();
+        } else if (loginUser != null) {
             MainPage mainPage = new MainPage(admin);
             mainPage.setVisible(true);
             dispose();

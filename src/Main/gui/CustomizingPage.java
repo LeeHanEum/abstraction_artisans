@@ -19,7 +19,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
     public CustomizingPage() {
         // JPanel 생성
         setTitle("CustomizingPage");
-        setBounds(100, 100, 450, 800);
+        setSize(450, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // contentPane 레이아웃 설정
@@ -82,7 +82,6 @@ public class CustomizingPage extends JFrame implements ActionListener {
         choiceRadioButton[5].setSelected(true);
 
         // 프레임 표시
-        setLocationRelativeTo(null); // 화면 정중앙에 표시
         setVisible(true);
         choiceLabel.setVisible(false);
     }
