@@ -78,8 +78,7 @@ public class UserListPage extends JFrame{
         // JFrame에 전체 패널 추가
         add(userPagePanel);
 
-        // 화면 가운데 정렬
-        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void createGroupPanel(JPanel parentPanel, User usr) {

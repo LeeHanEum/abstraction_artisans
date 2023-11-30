@@ -73,7 +73,7 @@ public class AdminMainPage extends JFrame{
     private void navigateToPage(String pageName) {
         switch (pageName) {
             case "회원 리스트":
-                new CustomizingPage();
+                new UserListPage(admin);
                 break;
             case "부품 리스트":
                 new AdminItemPage(admin);
