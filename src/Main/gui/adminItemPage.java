@@ -19,6 +19,13 @@ public class adminItemPage extends JFrame{
         userPagePanel.setBounds(0, 0, 450, 800);
         userPagePanel.setLayout(null);
 
+        String back = "<";
+        JLabel backLabel = new JLabel(back);
+        backLabel.setFont(new Font("Inter", Font.BOLD, 12));
+        backLabel.setForeground(Color.BLACK);
+        userPagePanel.add(backLabel);
+
+
         //title
         JLabel titleLabel = new JLabel("제품리스트");
         titleLabel.setBounds(30, 40, 300, 30); // 위치와 크기 조정
@@ -78,6 +85,9 @@ public class adminItemPage extends JFrame{
 
         // 화면 가운데 정렬
         setLocationRelativeTo(null);
+
+
+        setVisible(true);
     }
     private void createGroupPanel(JPanel parentPanel, Product usr) {
         JPanel adminPanel = new JPanel();
