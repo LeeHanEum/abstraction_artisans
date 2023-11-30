@@ -13,9 +13,8 @@ import Main.mgr.Factory;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
-import java.lang.management.ManagementFactory;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Admin {
@@ -24,7 +23,7 @@ public class Admin {
     static Login loginMgr = new Login();
 
     static Manager userMgr = new Manager();
-
+    
     static Manager cpuMgr = new Manager();
 
     static Manager mainboardMgr = new Manager();
@@ -41,10 +40,11 @@ public class Admin {
 
     UserChoiceHandler userChoiceHandler = new UserChoiceHandler();
 
+
     public void run () {
         loadUserData();
         loadProductData();
-        new LoginPage();
+        new LoginPage(this);
     }
 
     private void loadUserData() {
@@ -131,12 +131,15 @@ public class Admin {
                     else if (kwd.equals("cpu")) cpuMgr.search(scan);
                     else if (kwd.equals("case")) caseMgr.search(scan);
                     else if (kwd.equals("메인보드")) mainboardMgr.search(scan); break;
-                case 10: userChoiceHandler.handleUserChoice();
+
+                case 10:
+                    imagePathStorage();
+                    imagePathGraphics();
+                    imagePathPower();
                 default: return;
             }
         }
     }
-
     // 전체 상품 조회
     // 전체 상품을 print 해주게 하였습니다. 어제 만든게 이거 아닌가싶네요
     public ArrayList<Manageable> getAllItem(){
@@ -149,15 +152,28 @@ public class Admin {
         allList.addAll(powerMgr.mList);
         allList.addAll(caseMgr.mList);
         return allList;
-
-//        System.out.println("전체 상품을 조회합니다.");
-//        cpuMgr.printAll();
-//        mainboardMgr.printAll();
-//        ramMgr.printAll();
-//        storageMgr.printAll();
-//        graphicsMgr.printAll();
-//        powerMgr.printAll();
-//        caseMgr.printAll();
+    }
+    //상품별로 리스트 가져가기
+    public ArrayList<Manageable> getCpu(){
+        return cpuMgr.mList;
+    }
+    public ArrayList<Manageable> getCase(){
+        return caseMgr.mList;
+    }
+    public ArrayList<Manageable> getMainboard(){
+        return mainboardMgr.mList;
+    }
+    public ArrayList<Manageable> getRam(){
+        return ramMgr.mList;
+    }
+    public ArrayList<Manageable> getPower(){
+        return powerMgr.mList;
+    }
+    public ArrayList<Manageable> getGraphicscard(){
+        return graphicsMgr.mList;
+    }
+    public ArrayList<Manageable> getStorage(){
+        return storageMgr.mList;
     }
 
     // 상품 추가 등록
@@ -251,6 +267,11 @@ public class Admin {
         mgr.delete(m);
     }
 
+    // 상품 페이지네이션
+    public void ItemPagenation(){
+
+    }
+
     // 회원 리스팅
     public ArrayList<Manageable> getUserList(){
         return userMgr.mList;
@@ -269,5 +290,133 @@ public class Admin {
         //TODO : make manage page for admin
         System.out.println("Hello admin");
     }
+    public ArrayList<String> imagePathStorage() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/SSD/";
 
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+    //이미지경로 받아오기 메서드들
+    public ArrayList<String> imagePathGraphics() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/그래픽카드/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+    public ArrayList<String> imagePathPower() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/파워/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+    public ArrayList<String> imagePathRam() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/램/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+
+    //이미지파일 주소는 폴더명에 따라 수정
+    public ArrayList<String> imagePathCpu() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/cpu/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+    public ArrayList<String> imagePathMainboard() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/메인보드/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
+    public ArrayList<String> imagePathCase() {
+        ArrayList<String> imagePathList = new ArrayList<>();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/case/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".png")) {
+                    imagePathList.add(file.getAbsolutePath());
+                }
+            }
+        } else {
+            System.err.println("에러: 폴더 내 파일 목록을 가져올 수 없습니다.");
+        }
+        return imagePathList;
+    }
 }

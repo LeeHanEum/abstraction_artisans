@@ -25,7 +25,7 @@ public class Ram extends Product{
     }
     @Override
     public String toString() {
-        return String.format("DDR 종류: %s, 메모리용량: %d, 속도:%d", type, capacity, speed);
+        return super.toString() + String.format("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
     }
 
     @Override

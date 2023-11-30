@@ -20,6 +20,7 @@ public class Product implements Manageable {
     private static Long sequence = 0L;
 
     //trim 추가 앞 뒤 공백 삭제
+
     @Override
     public void read(Scanner scan){
         productId = ++sequence;

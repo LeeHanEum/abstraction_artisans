@@ -7,17 +7,18 @@ import Main.mgr.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class adminItemPage extends JFrame{
-    public adminItemPage(Admin admin){
+public class AdminItemPage extends JFrame{
+    public AdminItemPage(Admin admin){
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용
 
         // 전체 패널
-        JPanel userPagePanel = new JPanel();
-        userPagePanel.setBackground(Color.WHITE);
-        userPagePanel.setBounds(0, 0, 450, 800);
-        userPagePanel.setLayout(null);
+        JPanel userPagePanel = new JPanel(null);
+//        userPagePanel.setBackground(Color.WHITE);
+//        userPagePanel.setBounds(0, 0, 450, 800);
+//        userPagePanel.setLayout(null);
 
         String back = "<";
         JLabel backLabel = new JLabel(back);
@@ -85,9 +86,6 @@ public class adminItemPage extends JFrame{
 
         // 화면 가운데 정렬
         setLocationRelativeTo(null);
-
-
-        setVisible(true);
     }
     private void createGroupPanel(JPanel parentPanel, Product usr) {
         JPanel adminPanel = new JPanel();

@@ -25,7 +25,7 @@ public class MainBoard extends Product{
     }
     @Override
     public String toString() {
-        return String.format("(소켓%s) 메모리규격: %s , 지원보드규격: %s", socket, ramType, boardType);
+        return super.toString() + String.format("(소켓%s) 메모리규격: %s , 지원보드규격: %s\n", socket, ramType, boardType);
     }
     @Override
     public boolean matches(String kwd) {
