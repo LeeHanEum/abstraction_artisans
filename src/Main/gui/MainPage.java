@@ -73,7 +73,7 @@ class MainPage extends JFrame {
     private void navigateToPage(String pageName) {
         switch (pageName) {
             case "부품 커스터마이징":
-                new CustomizingPage();
+                new CustomizingPage(admin);
                 break;
             case "부품 리스트":
                 new ItemListPage(admin);
