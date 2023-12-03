@@ -292,9 +292,9 @@ public class Admin {
     }
     public ArrayList<String> imagePathStorage() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/SSD/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Storage/";
 
-        for (int i = 1; i <= 65; i++) {
+        for (int i = 135; i <= 199; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
@@ -312,12 +312,9 @@ public class Admin {
     //이미지경로 받아오기 메서드들
     public ArrayList<String> imagePathGraphics() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/그래픽카드/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/GPU/";
 
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
-
-        for (int i = 1; i <= 64; i++) {
+        for (int i = 200; i <= 263; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
@@ -334,12 +331,9 @@ public class Admin {
     }
     public ArrayList<String> imagePathPower() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/파워/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Power/";
 
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
-
-        for (int i = 1; i <= 64; i++) {
+        for (int i = 264; i <= 327; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
@@ -356,12 +350,9 @@ public class Admin {
     }
     public ArrayList<String> imagePathRam() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/램/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Ram/";
 
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
-
-        for (int i = 1; i <= 64; i++) {
+        for (int i = 71; i <= 134; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
@@ -380,10 +371,7 @@ public class Admin {
     //이미지파일 주소는 폴더명에 따라 수정
     public ArrayList<String> imagePathCpu() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/cpu/";
-
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Cpu/";
 
         for (int i = 1; i <= 40; i++) {
             String fileName = i + "번.png";
@@ -402,12 +390,9 @@ public class Admin {
     }
     public ArrayList<String> imagePathMainboard() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/메인보드/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/MainBoard/";
 
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
-
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 41; i <= 70; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
@@ -424,10 +409,7 @@ public class Admin {
     }
     public ArrayList<String> imagePathCase() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/case/";
-
-        File folder = new File(folderPath);
-        File[] files = folder.listFiles();
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Case/";
 
         for (int i = 1; i <= 51; i++) {
             String fileName = i + "번.png";

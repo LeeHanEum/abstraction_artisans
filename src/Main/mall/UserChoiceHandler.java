@@ -80,11 +80,8 @@ public class UserChoiceHandler {
         int i=0;
 
         for(ArrayList<Product> a: recommend){
-            System.out.println("\n\n\n\n"+ (i++));
             Collections.sort(a,Comparator.comparingInt(Product::getPrice));
-            for(Manageable k : a){
-                k.print();
-            }
+            Collections.reverse(a);
         }
         return recommend;
     }
@@ -149,7 +146,7 @@ public class UserChoiceHandler {
 
         for (Ram ram : selectedRam) {
 
-            String ramType = ram.getType();
+            String ramType = ram.getRamType();
             if (!uniqueRamTypes.contains(ramType)) {
                 uniqueRamTypes.add(ramType);
             }
@@ -180,7 +177,7 @@ public class UserChoiceHandler {
                     boardType = Admin.caseMgr.findAll(mainboardSpecification);
                     for (Manageable board : boardType) {
                         Case computerCase = (Case) board;
-                        if (computerCase.getPrice() <= maxCasePrice) {
+                        if (computerCase.getPrice() <= maxCasePrice && !filteredCases.contains(computerCase)) {
                             filteredCases.add(computerCase);
                         }
                     }
@@ -214,7 +211,7 @@ public class UserChoiceHandler {
 
                 for (Manageable manageable : powerSupplyList) {
                     Power powerSupply = (Power) manageable;
-                    if (powerSupply.getPrice() <= maxPowerSupplyPrice) {
+                    if (powerSupply.getPrice() <= maxPowerSupplyPrice && !filteredPowerSupplies.contains(powerSupply)) {
                         filteredPowerSupplies.add(powerSupply);
                     }
                 }

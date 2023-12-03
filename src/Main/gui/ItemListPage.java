@@ -244,9 +244,9 @@ public class ItemListPage extends JFrame {
         index = localIndex;
     }
 
-    private void performSearch(ArrayList<Manageable> itemList, String searchTerm, String componentName) {
+    private void performSearch(ArrayList<Manageable> itemList, String searchTerm, String componentName, String type) {
         if (searchTerm.isEmpty()) {
-            refreshItemList(admin, componentName);
+            refreshItemList(admin, componentName, type);
         } else {
             // Create a new JFrame for search results
             JFrame searchResultsFrame = new JFrame("검색된 결과");
@@ -293,10 +293,10 @@ public class ItemListPage extends JFrame {
         JLabel imageLabel = new JLabel();
         imageLabel.setPreferredSize(new Dimension(80, 80));
 
-        ImageIcon imageIcon = loadImage(componentName, product.getName().toLowerCase());
-        if (imageIcon != null) {
-            imageLabel.setIcon(imageIcon);
-        }
+        ImageIcon imageIcon = new ImageIcon("src/Main/resource/productImage/" + product.getProductId() + "번.png");
+        Image resizedImage = imageIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon resizedMainImageIcon = new ImageIcon(resizedImage);
+        imageLabel.setIcon(resizedMainImageIcon);
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -314,7 +314,7 @@ public class ItemListPage extends JFrame {
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
         detailsButton.setForeground(new Color(40, 40, 40));
 
-        detailsButton.addActionListener(e -> displayProductDetails(product));
+        detailsButton.addActionListener(e -> displayProductDetails(product, componentName));
 
         JPanel namePricePanel = new JPanel();
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
@@ -331,18 +331,13 @@ public class ItemListPage extends JFrame {
         parentPanel.add(productPanel);
     }
 
-    private ImageIcon resizeImage(ImageIcon icon, int width, int height) {
-        Image image = icon.getImage();
-        Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(newImage);
+    private void displayProductDetails(Product product, String componentName) {
+        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product, this, componentName);
+        itemDetailPage.setVisible(true);
+        dispose();
     }
 
-    private void displayProductDetails(Product product) {
-        //주석처리한거 바꿔주시면 돼요
-        // new ProductDetailsDialog(this, product);
-    }
-
-    private void refreshItemList(Admin admin, String componentName) {
+    private void refreshItemList(Admin admin, String componentName , String type) {
         componentPanel.removeAll();
         componentPanel.revalidate();
         componentPanel.repaint();
@@ -355,48 +350,44 @@ public class ItemListPage extends JFrame {
         componentPanel.add(Box.createVerticalGlue());
     }
 
-    private ImageIcon loadImage(String componentName, String productName) {
-        ArrayList<String> imagePathList = getImagePathList(componentName);
-        int productIndex = productIndices.getOrDefault(productName, 0);
-
-        if (!imagePathList.isEmpty() && productIndex < imagePathList.size()) {
-            String imagePath = imagePathList.get(productIndex);
-            return resizeImage(new ImageIcon(imagePath), 80, 80);
-        }
-
-        return null;
-    }
-
     private void performComponentSearch(String componentName, String searchTerm) {
         ArrayList<Manageable> productList;
+        String type = null;
 
         switch (componentName) {
             case "CPU":
+                type = "Cpu";
                 productList = admin.getCpu();
                 break;
             case "Case":
+                type = "Case";
                 productList = admin.getCase();
                 break;
             case "Mainboard":
+                type = "MainBoard";
                 productList = admin.getMainboard();
                 break;
             case "RAM":
+                type = "RAM";
                 productList = admin.getRam();
                 break;
             case "Power":
+                type = "Power";
                 productList = admin.getPower();
                 break;
             case "Graphics Card":
+                type = "GPU";
                 productList = admin.getGraphicscard();
                 break;
             case "Storage":
+                type = "Storage";
                 productList = admin.getStorage();
                 break;
             default:
                 productList = new ArrayList<>();
         }
 
-        performSearch(productList, searchTerm, componentName);
+        performSearch(productList, searchTerm, componentName, type);
     }
 
     private void customizeScrollBar(JScrollPane scrollPane) {
