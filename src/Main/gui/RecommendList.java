@@ -50,9 +50,13 @@ public class RecommendList extends JFrame {
         groupPanel.add(titlePane);
 
         for(ArrayList<Product> a : recommend){
-            productIndices.clear();
-            productIndices.put(a.get(0).getName().toLowerCase(),(a.get(0).getProductId()));
-            createProductPanel(groupPanel,a.get(0),a.get(0).getType(),admin);
+            try {
+                createProductPanel(groupPanel,a.get(0),a.get(0).getType());
+            }
+            catch (IndexOutOfBoundsException e){
+
+            }
+
         }
 
 
@@ -72,7 +76,7 @@ public class RecommendList extends JFrame {
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
     }
 
-    private void createProductPanel(JPanel parentPanel, Product product, String componentName,Admin admin) {
+    private void createProductPanel(JPanel parentPanel, Product product, String componentName) {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.X_AXIS));
         productPanel.setPreferredSize(new Dimension(370, 100));
@@ -81,10 +85,10 @@ public class RecommendList extends JFrame {
         JLabel imageLabel = new JLabel();
         imageLabel.setPreferredSize(new Dimension(80, 80));
 
-        ImageIcon imageIcon = loadImage(componentName, product.getName().toLowerCase(),admin);
-        if (imageIcon != null) {
-            imageLabel.setIcon(imageIcon);
-        }
+        ImageIcon imageIcon = new ImageIcon("src/Main/resource/productImage/" + product.getProductId() + "번.png");
+        Image resizedImage = imageIcon.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        ImageIcon resizedMainImageIcon = new ImageIcon(resizedImage);
+        imageLabel.setIcon(resizedMainImageIcon);
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -102,6 +106,7 @@ public class RecommendList extends JFrame {
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
         detailsButton.setForeground(new Color(40, 40, 40));
 
+
         JPanel namePricePanel = new JPanel();
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
         namePricePanel.add(nameLabel);
@@ -115,17 +120,6 @@ public class RecommendList extends JFrame {
         productPanel.add(textPanel);
 
         parentPanel.add(productPanel);
-    }
-    private ImageIcon loadImage(String componentName, String productName,Admin admin) {
-        ArrayList<String> imagePathList = getImagePathList(componentName,admin);
-        long productIndex = productIndices.getOrDefault(productName, (long)0);
-
-        if (!imagePathList.isEmpty() && productIndex < imagePathList.size()) {
-            String imagePath = imagePathList.get((int)productIndex);
-            return resizeImage(new ImageIcon(imagePath), 80, 80);
-        }
-
-        return null;
     }
     private ImageIcon resizeImage(ImageIcon icon, int width, int height) {
         Image image = icon.getImage();
