@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Main.mall.Admin;
+import Main.mall.UserChoiceHandler;
 
 public class CustomizingPage extends JFrame implements ActionListener {
     private JPanel contentPane = new JPanel();
@@ -17,6 +18,8 @@ public class CustomizingPage extends JFrame implements ActionListener {
     private JRadioButton choiceRadioButton[] =new JRadioButton[6];
     private ButtonGroup bg;
     int current = 0,c1 = 0,c2 = 0;
+
+    private int userChoices[] = new int[3];
     private final Admin admin;
 
     public CustomizingPage(Admin admin) {
@@ -141,11 +144,18 @@ public class CustomizingPage extends JFrame implements ActionListener {
                 limitLabel.setVisible(false);
                 choiceLabel.setVisible(true);
                 setChoiceRadioButton(0);
+                try {
+                    userChoices[current] = Integer.parseInt(textField.getText());
+                }
+                catch (NumberFormatException e1){
+                    System.out.println("숫자가 아님!");
+                }
                 current++;
                 //입력받은 값을 userChoiceHandler 에게 전달 구현
             }
             else if(current == 1){
                 c1 = choiceCheck();
+                userChoices[current] = c1;
                 if(!choiceRadioButton[5].isSelected()) {
                     for (int i = 0; i < 6; i++) {
                         choiceRadioButton[i].setVisible(false);
@@ -156,8 +166,11 @@ public class CustomizingPage extends JFrame implements ActionListener {
                 //입력받은 값을 userChoiceHandler 에게 전달 구현
             }
             else if(current == 2){
+                userChoices[current] = choiceCheck();
                 nextButton.setText("결과");
-             //결과페이지로 이동
+                System.out.println("" + userChoices[0] + userChoices[1] +userChoices[2]);
+                UserChoiceHandler usr = new UserChoiceHandler();
+                usr.recommends(userChoices);
             }
         }
     }
