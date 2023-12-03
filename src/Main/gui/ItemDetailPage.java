@@ -13,7 +13,7 @@ public class ItemDetailPage extends JFrame {
     private final Admin admin;
     private final Product product;
 
-    public ItemDetailPage(Admin admin, Product product) {
+    public ItemDetailPage(Admin admin, Product product, ItemListPage itemListPage) {
         this.admin = admin;
         this.product = product;
 
@@ -23,9 +23,11 @@ public class ItemDetailPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(null);
+        panel.setBackground(Color.WHITE);
 
         // 메뉴바 450*50
         JToolBar menuBar = new JToolBar();
+        menuBar.setBackground(Color.WHITE);
         menuBar.setBounds(0, 0, 450, 50);
 
         // 뒤로가기 이미지 버튼
@@ -35,6 +37,9 @@ public class ItemDetailPage extends JFrame {
         // 검색창
         JTextField searchField = new JTextField();
         searchField.setBounds(80, 10, 300, 40);
+        searchField.setBorder(BorderFactory.createCompoundBorder(
+                searchField.getBorder(),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         menuBar.add(searchField);
 
         // 검색창 이미지 버튼
@@ -66,16 +71,43 @@ public class ItemDetailPage extends JFrame {
         panel.add(mainPicture);
 
         // 제품명 출력
-        JLabel productNameLabel = new JLabel("제품명: " + product.getName());
-        productNameLabel.setBounds(15, 480, 420, 20);
-        productNameLabel.setHorizontalAlignment(JLabel.CENTER);
+        JLabel productNameLabel = new JLabel("<html>" + product.getName() + "</html>");
+        productNameLabel.setBounds(15, 480, 420, 40); // 높이를 더 늘려줌
+        productNameLabel.setHorizontalAlignment(JLabel.LEFT);
+        // 폰트 속성 조정
+        Font productNameFont = productNameLabel.getFont();
+        productNameLabel.setFont(new Font(productNameFont.getName(), Font.PLAIN, 18)); // 크게 만들기
+        productNameLabel.setPreferredSize(new Dimension(420, 40)); // 높이에 맞게 조절
         panel.add(productNameLabel);
 
-        // 가격 출력
-        JLabel priceLabel = new JLabel("가격: " + product.getPrice() + "원");
-        priceLabel.setBounds(15, 500, 420, 20);
-        priceLabel.setHorizontalAlignment(JLabel.CENTER);
+// 가격 출력
+        JLabel priceLabel = new JLabel(product.getPrice() + "원");
+        int productNameHeight = productNameLabel.getPreferredSize().height;
+        priceLabel.setBounds(15, 500 + productNameHeight, 430, 20);
+        priceLabel.setHorizontalAlignment(JLabel.LEFT); // 오른쪽 정렬로 변경
+        Font priceFont = priceLabel.getFont();
+        priceLabel.setFont(new Font(priceFont.getName(), Font.BOLD, 16));
         panel.add(priceLabel);
+
+// 오른쪽 정렬된 버튼 패널 생성
+        FlowLayout buttonPanelLayout = new FlowLayout(FlowLayout.RIGHT);
+        JPanel buttonPanel = new JPanel(buttonPanelLayout);
+        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBounds(15, 480 + productNameHeight + 20, 430, 35);
+
+// 공유 버튼
+        JButton shareButton = createStyledButton("src/Main/resource/share.png");
+        shareButton.setPreferredSize(new Dimension(32, 32));
+        shareButton.setIcon(new ImageIcon(new ImageIcon("src/Main/resource/share.png").getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
+        buttonPanel.add(shareButton);
+
+// 찜 버튼
+        JButton wishlistButton = createStyledButton("src/Main/resource/heart.png");
+        wishlistButton.setPreferredSize(new Dimension(32, 32));
+        wishlistButton.setIcon(new ImageIcon(new ImageIcon("src/Main/resource/heart.png").getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
+        buttonPanel.add(wishlistButton);
+
+        panel.add(buttonPanel);
 
         // 뒤로가기 버튼 액션
         backButton.addActionListener(new ActionListener() {
@@ -83,8 +115,12 @@ public class ItemDetailPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // 뒤로가기 액션 처리
                 System.out.println("뒤로가기 버튼이 클릭되었습니다.");
+                dispose();
+                itemListPage.setVisible(true);
             }
         });
+
+
 
         // 검색 버튼 액션
         searchButton.addActionListener(new ActionListener() {
@@ -105,7 +141,7 @@ public class ItemDetailPage extends JFrame {
     // 이미지 버튼 스타일 적용 메소드
     private JButton createStyledButton(String imagePath) {
         ImageIcon buttonIcon = new ImageIcon(imagePath);
-        Image resizedButtonImage = buttonIcon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        Image resizedButtonImage = buttonIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         JButton button = new JButton(new ImageIcon(resizedButtonImage));
         button.setBorderPainted(false);
         button.setFocusPainted(false);

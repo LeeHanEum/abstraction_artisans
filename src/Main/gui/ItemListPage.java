@@ -338,8 +338,9 @@ public class ItemListPage extends JFrame {
     }
 
     private void displayProductDetails(Product product) {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product);
+        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product, this);
         itemDetailPage.setVisible(true);
+        dispose();
     }
 
     private void refreshItemList(Admin admin, String componentName) {
