@@ -299,10 +299,11 @@ public class Admin {
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -313,15 +314,19 @@ public class Admin {
         ArrayList<String> imagePathList = new ArrayList<>();
         String folderPath = System.getProperty("user.dir") + "/src/Main/resource/그래픽카드/";
 
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
         for (int i = 1; i <= 64; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -331,15 +336,19 @@ public class Admin {
         ArrayList<String> imagePathList = new ArrayList<>();
         String folderPath = System.getProperty("user.dir") + "/src/Main/resource/파워/";
 
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
         for (int i = 1; i <= 64; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -349,15 +358,19 @@ public class Admin {
         ArrayList<String> imagePathList = new ArrayList<>();
         String folderPath = System.getProperty("user.dir") + "/src/Main/resource/램/";
 
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+
         for (int i = 1; i <= 64; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -367,17 +380,21 @@ public class Admin {
     //이미지파일 주소는 폴더명에 따라 수정
     public ArrayList<String> imagePathCpu() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Cpu/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/cpu/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
 
         for (int i = 1; i <= 40; i++) {
-            String fileName = i + ".png";
+            String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -385,17 +402,21 @@ public class Admin {
     }
     public ArrayList<String> imagePathMainboard() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Mainboard/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/메인보드/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
 
         for (int i = 1; i <= 30; i++) {
-            String fileName = i + ".png";
+            String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
@@ -403,17 +424,21 @@ public class Admin {
     }
     public ArrayList<String> imagePathCase() {
         ArrayList<String> imagePathList = new ArrayList<>();
-        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Case/";
+        String folderPath = System.getProperty("user.dir") + "/src/Main/resource/case/";
+
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
 
         for (int i = 1; i <= 51; i++) {
-            String fileName = i + ".png";
+            String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 
             File file = new File(filePath);
-            if (file.exists() && file.isFile()) {
+            if (file.isFile()) {
                 imagePathList.add(file.getAbsolutePath());
             } else {
-                System.err.println("에러: 파일을 찾을 수 없습니다 - " + fileName);
+                System.err.println("Warning: 파일을 찾을 수 없습니다 - " + fileName);
+                // You may choose to handle this case differently if needed
             }
         }
 
