@@ -146,7 +146,7 @@ public class UserChoiceHandler {
 
         for (Ram ram : selectedRam) {
 
-            String ramType = ram.getType();
+            String ramType = ram.getRamType();
             if (!uniqueRamTypes.contains(ramType)) {
                 uniqueRamTypes.add(ramType);
             }
