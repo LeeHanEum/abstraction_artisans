@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ram extends Product{
 
-    String type;
+    String ramType;
     int capacity;
     int speed;
     public Ram(){
@@ -12,7 +12,7 @@ public class Ram extends Product{
     }
     @Override
     public void read(Scanner scan){
-        type = scan.next();
+        ramType = scan.next();
         capacity = scan.nextInt();
         speed = scan.nextInt();
         super.read(scan);
@@ -21,11 +21,11 @@ public class Ram extends Product{
     @Override
     public void print(){
         super.print();
-        System.out.printf("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
+        System.out.printf("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", ramType, capacity, speed);
     }
     @Override
     public String toString() {
-        return super.toString() + String.format("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", type, capacity, speed);
+        return super.toString() + String.format("DDR 종류: %s, 메모리용량: %d, 속도:%d\n", ramType, capacity, speed);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Ram extends Product{
     }
     
     //램타입 반환
-    public String getType(){
-        return type;
+    public String getRamType(){
+        return ramType;
     }
 }
