@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import Main.mall.Admin;
 import Main.mall.UserChoiceHandler;
 
@@ -170,7 +172,9 @@ public class CustomizingPage extends JFrame implements ActionListener {
                 nextButton.setText("결과");
                 System.out.println("" + userChoices[0] + userChoices[1] +userChoices[2]);
                 UserChoiceHandler usr = new UserChoiceHandler();
-                usr.recommends(userChoices);
+                ArrayList rec[] =  usr.recommends(userChoices);
+                dispose();
+                new RecommendList(rec,admin);
             }
         }
     }
