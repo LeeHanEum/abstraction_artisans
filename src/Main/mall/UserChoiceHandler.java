@@ -123,7 +123,7 @@ public class UserChoiceHandler {
         for (Ram ram : selectedRam) {
             System.out.println("선택된 RAM 제품: " + ram.getName() + ", 가격: " + ram.getPrice() + "원, 상세정보(" + ram + ")");
 
-            String ramType = ram.getType();
+            String ramType = ram.getRamType();
             if (!uniqueRamTypes.contains(ramType)) {
                 uniqueRamTypes.add(ramType);
             }

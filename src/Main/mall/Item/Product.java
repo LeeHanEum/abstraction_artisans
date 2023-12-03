@@ -12,9 +12,7 @@ public class Product implements Manageable {
     private Long productId; // 상품 아이디
     String type = "product";
     private String name;
-
     private int price;
-
     private LocalDateTime createdAt;
 
     private static Long sequence = 0L;

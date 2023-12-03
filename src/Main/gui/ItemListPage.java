@@ -338,8 +338,8 @@ public class ItemListPage extends JFrame {
     }
 
     private void displayProductDetails(Product product) {
-        //주석처리한거 바꿔주시면 돼요
-        // new ProductDetailsDialog(this, product);
+        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product);
+        itemDetailPage.setVisible(true);
     }
 
     private void refreshItemList(Admin admin, String componentName) {
