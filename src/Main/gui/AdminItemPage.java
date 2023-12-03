@@ -95,7 +95,7 @@ public class AdminItemPage extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close the current window
-                new MainPage(admin); // Open the main page
+                new AdminMainPage(admin); // Open the main page
             }
         });
 
