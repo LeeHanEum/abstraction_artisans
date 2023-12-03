@@ -2,6 +2,7 @@ package Main.gui;
 
 import Main.mall.Admin;
 import Main.mall.Item.Product;
+import Main.mgr.Manageable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,8 +61,8 @@ public class ItemDetailPage extends JFrame {
         panel.add(menuBar);
 
         // 제품 메인 사진 420*420
-        ImageIcon mainImageIcon = new ImageIcon("src/Main/resource/" + product.getType() + "/" + product.getProductId() + "번.png");
-        System.out.println(product.getType() + " " + product.getProductId());
+        ImageIcon mainImageIcon = new ImageIcon("src/Main/resource/productImage/" + product.getProductId() + "번.png");
+        System.out.println(product.getProductId() + "번.png");
         Image resizedImage = mainImageIcon.getImage().getScaledInstance(420, 420, Image.SCALE_SMOOTH);
         ImageIcon resizedMainImageIcon = new ImageIcon(resizedImage);
 
@@ -108,6 +109,8 @@ public class ItemDetailPage extends JFrame {
         buttonPanel.add(wishlistButton);
 
         panel.add(buttonPanel);
+
+
 
         // 뒤로가기 버튼 액션
         backButton.addActionListener(new ActionListener() {

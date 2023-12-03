@@ -13,6 +13,8 @@ public class Product implements Manageable {
     String type = "product";
     private String name;
     private int price;
+
+    private String imagePath;
     private LocalDateTime createdAt;
 
     private static Long sequence = 0L;
@@ -24,6 +26,7 @@ public class Product implements Manageable {
         productId = ++sequence;
         price = scan.nextInt();
         name = scan.nextLine().trim();
+        imagePath = "src/Main/resource/productImage/" + productId + "번.png";
     }
 
     //원 하고 띄어쓰기 추가
