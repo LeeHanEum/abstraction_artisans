@@ -314,7 +314,7 @@ public class ItemListPage extends JFrame {
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
         detailsButton.setForeground(new Color(40, 40, 40));
 
-        detailsButton.addActionListener(e -> displayProductDetails(product));
+        detailsButton.addActionListener(e -> displayProductDetails(product, componentName));
 
         JPanel namePricePanel = new JPanel();
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
@@ -331,8 +331,8 @@ public class ItemListPage extends JFrame {
         parentPanel.add(productPanel);
     }
 
-    private void displayProductDetails(Product product) {
-        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product, this);
+    private void displayProductDetails(Product product, String componentName) {
+        ItemDetailPage itemDetailPage = new ItemDetailPage(admin, product, this, componentName);
         itemDetailPage.setVisible(true);
         dispose();
     }

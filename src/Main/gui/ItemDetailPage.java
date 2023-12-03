@@ -14,7 +14,7 @@ public class ItemDetailPage extends JFrame {
     private final Admin admin;
     private final Product product;
 
-    public ItemDetailPage(Admin admin, Product product, ItemListPage itemListPage) {
+    public ItemDetailPage(Admin admin, Product product, ItemListPage itemListPage, String type) {
         this.admin = admin;
         this.product = product;
 
