@@ -1,12 +1,6 @@
 package Main.mall;
 
-import Main.mall.Item.Case;
-import Main.mall.Item.Cpu;
-import Main.mall.Item.GraphicsCard;
-import Main.mall.Item.MainBoard;
-import Main.mall.Item.Power;
-import Main.mall.Item.Ram;
-import Main.mall.Item.Storage;
+import Main.mall.Item.*;
 import Main.mgr.Manageable;
 import com.sun.jdi.connect.AttachingConnector;
 import com.sun.jdi.event.MonitorWaitedEvent;
@@ -85,8 +79,9 @@ public class UserChoiceHandler {
         printSelectedList(recommend,money);
         int i=0;
 
-        for(ArrayList<Manageable> a: recommend){
+        for(ArrayList<Product> a: recommend){
             System.out.println("\n\n\n\n"+ (i++));
+            Collections.sort(a,Comparator.comparingInt(Product::getPrice));
             for(Manageable k : a){
                 k.print();
             }
