@@ -97,7 +97,7 @@ public class ShoppingListPage extends JFrame {
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
 
         // 텍스트패널 크기 조정
-        textPanel.setPreferredSize(new Dimension(350, 80)); // Adjust the width as needed
+        textPanel.setPreferredSize(new Dimension(345, 80)); // Adjust the width as needed
 
         JLabel nameLabel = new JLabel(product.getName());
         nameLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
@@ -126,7 +126,11 @@ public class ShoppingListPage extends JFrame {
 
         int initialQuantity = Integer.parseInt(quantityTextField.getText());
         int initialTotalPrice = product.getPrice() * initialQuantity;
-        totalPrice += initialTotalPrice;
+
+        //박스 체크됐으면 더하는거
+        if (checkBox.isSelected()) {
+            totalPrice += initialTotalPrice;
+        }
 
         // quantityPanel에 컴포넌트들을 추가
         quantityPanel.add(quantityLabel);
@@ -146,8 +150,7 @@ public class ShoppingListPage extends JFrame {
             int quantity = Integer.parseInt(quantityTextField.getText());
             quantity++;
             quantityTextField.setText(String.valueOf(quantity));
-            updateQuantityAndTotalPrice(product, quantity);
-
+            updateQuantityAndTotalPrice(product, quantity, checkBox.isSelected());
         });
 
         decreaseButton.addActionListener(e -> {
@@ -155,9 +158,9 @@ public class ShoppingListPage extends JFrame {
             if (quantity > 1) {
                 quantity--;
                 quantityTextField.setText(String.valueOf(quantity));
-                updateQuantityAndTotalPrice(product, quantity);
+                updateQuantityAndTotalPrice(product, quantity, checkBox.isSelected());
             }
-            });
+        });
 
         //삭제버튼
         deleteButton.setBackground(new Color(255, 0, 0));
@@ -186,8 +189,8 @@ public class ShoppingListPage extends JFrame {
         contentPanel.repaint();
     }
 
-    //+,- 버튼 누르고 총 가격 업데이트
-    private void updateQuantityAndTotalPrice(Product product, int quantity) {
+    //+,- 버튼 누르고 총 가격 업데이트, 체크박스 유무에 따라 더하게 하기
+    private void updateQuantityAndTotalPrice(Product product, int quantity, boolean isChecked) {
         // Get the current total price of the product in the cart
         int currentTotalPrice = product.getPrice() * Integer.parseInt(quantityTextField.getText());
 
@@ -197,8 +200,10 @@ public class ShoppingListPage extends JFrame {
         // Calculate the new total price
         int newTotalPrice = product.getPrice() * quantity;
 
-        // Update the overall total price
-        totalPrice += (newTotalPrice - currentTotalPrice);
+        // Update the overall total price only if the checkbox is selected
+        if (isChecked) {
+            totalPrice += (newTotalPrice - currentTotalPrice);
+        }
 
         // Update the total price label
         updateTotalPriceLabel();
@@ -206,6 +211,9 @@ public class ShoppingListPage extends JFrame {
         // Update the shopping list page
         updateShoppingListPage();
     }
+
+
+
     //총가격 라벨
     private void updateTotalPriceLabel() {
         JLabel totalPriceLabel = new JLabel("총 가격: " + totalPrice + "원");
