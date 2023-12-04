@@ -1,13 +1,13 @@
 # Ignore Eclipse output folders
 bin/
 out/
+*.class
 
 # Ignore IntelliJ IDEA output folders
 .idea/
 *.iml
 *.iws
 *.iws.ipr
-*.class
 
 # Ignore NetBeans output folders
 nbproject/private/
