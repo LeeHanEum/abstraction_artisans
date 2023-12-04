@@ -1,7 +1,6 @@
 # Ignore Eclipse output folders
 bin/
 out/
-*.class
 
 # Ignore IntelliJ IDEA output folders
 .idea/

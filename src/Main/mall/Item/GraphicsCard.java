@@ -59,4 +59,16 @@ public class GraphicsCard extends Product{
     public int getPower(){
         return power;
     }
+
+    public int getBaseClock() {
+        return baseClock;
+    }
+
+    public int getMemoryCapacity() {
+        return memoryCapacity;
+    }
+
+    public ArrayList<String> getOutputTerminal() {
+        return outputTerminal;
+    }
 }

@@ -32,4 +32,12 @@ public class Case extends Product{
             return true;
         return super.matches(kwd);
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getBoardType() {
+        return boardType;
+    }
 }
