@@ -7,6 +7,7 @@ out/
 *.iml
 *.iws
 *.iws.ipr
+*.class
 
 # Ignore NetBeans output folders
 nbproject/private/
