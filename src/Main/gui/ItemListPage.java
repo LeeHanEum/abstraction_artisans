@@ -21,7 +21,7 @@ public class ItemListPage extends JFrame {
     private boolean isUserPagePanelShown = true;
     private int index = 0;
     private final Map<String, Integer> productIndices = new HashMap<>();
-
+    private JButton addToCartButton;
     public ItemListPage(Admin admin) {
         setTitle("모두나와 PC");
         this.admin = admin;
@@ -316,11 +316,19 @@ public class ItemListPage extends JFrame {
 
         detailsButton.addActionListener(e -> displayProductDetails(product, componentName));
 
+        addToCartButton = new JButton("장바구니에 추가");
+        addToCartButton.setBackground(new Color(120, 200, 120)); // Customize the color as needed
+        addToCartButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+        addToCartButton.setForeground(Color.WHITE);
+
+        addToCartButton.addActionListener(e -> addToCart(product));
+
         JPanel namePricePanel = new JPanel();
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
         namePricePanel.add(nameLabel);
         namePricePanel.add(priceLabel);
         namePricePanel.add(detailsButton);
+        namePricePanel.add(addToCartButton);
 
         textPanel.add(namePricePanel);
 
@@ -427,5 +435,12 @@ public class ItemListPage extends JFrame {
     private void navigateToMainPage() {
         dispose(); // Close the current window
         new MainPage(admin);
+    }
+    private void addToCart(Product product) {
+        // Add the product to the shopping cart
+        admin.getCart().addItemToCart(product);
+
+        // Provide visual feedback or confirmation (optional)
+        JOptionPane.showMessageDialog(this, "상품이 장바구니에 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -15,13 +15,12 @@ public class Cart {
 
     private User user;
 
-    private List<Product> productList;
+    private static List<Product> productList = new ArrayList<>();
 
     private LocalDateTime createdAt;
 
-
     // 장바구니에 상품 담기
-    public void addItemToCart(Product product) {
+    public static void addItemToCart(Product product) {
         productList.add(product);
         System.out.println("장바구니에 상품을 담았습니다.");
     }
@@ -37,7 +36,7 @@ public class Cart {
     }
 
     // 장바구니에서 상품 수량 조절
-    public void EditQuantityFromCart(Long productId, int quantity) {
+    public void editQuantityFromCart(Long productId, int quantity) {
         Product product = null;
         for (Product p : productList){
             if (Objects.equals(p.getProductId(), productId)){
@@ -108,5 +107,4 @@ public class Cart {
         cart.createdAt = LocalDateTime.now();
         return cart;
     }
-
 }

@@ -10,6 +10,7 @@ import Main.mgr.*;
 
 
 public class MyPage extends JFrame{
+    private Admin admin;
     public MyPage(Admin admin){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
@@ -155,38 +156,44 @@ public class MyPage extends JFrame{
 
         addYPadding(groupPanel,30);
 
-        //4. QnA
+        //4. 장바구니
         JPanel qnaInfo = new JPanel();
-        qnaInfo.setPreferredSize(new Dimension(350,100));
+        qnaInfo.setPreferredSize(new Dimension(350, 100));
         qnaInfo.setBackground(Color.WHITE);
         qnaInfo.setLayout(new BoxLayout(qnaInfo, BoxLayout.X_AXIS));
         qnaInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        //str
-        JLabel textLabel4 = new JLabel("Q & A");
-        textLabel4.setSize(new Dimension(100,80));
-        textLabel4.setFont(new Font("Inter", Font.PLAIN, 21));
-        textLabel4.setForeground(Color.BLACK);
-        qnaInfo.add(textLabel4);
 
-        addXPadding(qnaInfo,250);
+// Button
+        JButton cartButton = new JButton("장바구니");
+        cartButton.setPreferredSize(new Dimension(100, 80));
+        cartButton.setFont(new Font("Inter", Font.PLAIN, 21));
+        cartButton.setForeground(Color.BLACK);
+        cartButton.setBackground(Color.WHITE);
+        cartButton.setBorderPainted(false);  // Removes the border
+        cartButton.setFocusPainted(false);  // Removes the focus border
+        cartButton.addActionListener(e -> ShoppingListPage(admin));  // Add your button click logic here
 
-        // >
+        qnaInfo.add(cartButton);
+
+        addXPadding(qnaInfo, 250);
+
+// >
         JLabel arrow3 = new JLabel(">");
         arrow3.setFont(new Font("Inter", Font.BOLD, 21));
         arrow3.setForeground(Color.BLACK);
         qnaInfo.add(arrow3);
 
         groupPanel.add(qnaInfo);
-        addYPadding(groupPanel,30);
+        addYPadding(groupPanel, 30);
 
-        //5. 앱 문의
+        //5. Q&A
         JPanel munInfo = new JPanel();
         munInfo.setPreferredSize(new Dimension(350,100));
         munInfo.setBackground(Color.WHITE);
         munInfo.setLayout(new BoxLayout(munInfo, BoxLayout.X_AXIS));
         munInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         //str
-        JLabel textLabel5 = new JLabel("엡 문의");
+        JLabel textLabel5 = new JLabel("Q & A");
         textLabel5.setSize(new Dimension(100,80));
         textLabel5.setFont(new Font("Inter", Font.PLAIN, 21));
         textLabel5.setForeground(Color.BLACK);
@@ -267,7 +274,7 @@ public class MyPage extends JFrame{
         addYPadding(groupPanel,100);
 
         add(groupPanel);
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
 
         setVisible(true);
     }
@@ -278,5 +285,9 @@ public class MyPage extends JFrame{
 
     public void addXPadding(JPanel mainPane,int width){
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
+    }
+    private void ShoppingListPage(Admin admin) {
+        dispose(); // Close the current window
+        new ShoppingListPage(admin);
     }
 }
