@@ -1,0 +1,13 @@
+# Ignore Eclipse output folders
+bin/
+out/
+
+# Ignore IntelliJ IDEA output folders
+.idea/
+*.iml
+*.iws
+*.iws.ipr
+
+# Ignore NetBeans output folders
+nbproject/private/
+build/
