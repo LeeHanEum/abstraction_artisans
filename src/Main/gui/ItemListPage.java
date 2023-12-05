@@ -1,6 +1,7 @@
 package Main.gui;
 
 import Main.mall.Admin;
+import Main.mall.Cart;
 import Main.mall.Item.Product;
 import Main.mgr.Manageable;
 
@@ -437,10 +438,15 @@ public class ItemListPage extends JFrame {
         new MainPage(admin);
     }
     private void addToCart(Product product) {
-        // Add the product to the shopping cart
-        admin.getCart().addItemToCart(product);
+        //이미 있는 상품이면 안 담기게 설정
+        if (admin.getCart().getProductList().contains(product)) {
+            JOptionPane.showMessageDialog(this, "이미 담겨있는 상품입니다.", "알림", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // Add the product to the shopping cart
+            admin.getCart().addItemToCart(product);
 
-        // Provide visual feedback or confirmation (optional)
-        JOptionPane.showMessageDialog(this, "상품이 장바구니에 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+            // Provide visual feedback or confirmation (optional)
+            JOptionPane.showMessageDialog(this, "상품이 장바구니에 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

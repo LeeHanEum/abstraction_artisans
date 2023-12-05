@@ -19,10 +19,12 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦 (반정도 풀린거 같음)
  * (체크 박스 해제하면 가격은 빠지는데 체크박스 눌러서 추가하는건 안되고 체크박스 해제하고 난 후엔 수량 조절 버튼으로 해야 다시 체크박스가 체크되고 가격이 더해짐)
  *
- * 상품이 7개 이상 담기면 정보가 안 뜸
- * 같은 이름과 가격의 상품이 담기면 수량만 늘게 만드는 기능도 필요함
- * 마이페이지를 누르면 수량이 1로 돌아옴
+ * 같은 이름과 가격의 상품이 담기면 수량만 늘게 만드는 기능도 필요함 (수량은 아직 늘진 않고 이미 있으면 안 담기게는 수정했음
+ * itemlistpage에도 이미 담겨있는 상품이라고 새로운 알림이 뜨게 만듦)
  *
+ * 마이페이지를 누르면 수량이 1로 돌아옴
+ * 상품이 7개 이상 담기면 정보가 안 뜸
+
  * 쓰다보니 한게 없는거 같네,,,임시로 ltemlistpage에 부품 리스트에 장바구니 추가 넣어놨어
  * admin에 카드 클래스 불러올 수 있는 getCart() 함수도 만들어놨어
  */
@@ -32,7 +34,7 @@ public class ShoppingListPage extends JFrame {
     private final Admin admin;
     private final JPanel contentPanel;
     private int totalPrice = 0; // 총 가격을 저장할 변수
-    private Map<Product, Integer> productQuantityMap = new HashMap<>(); // 변경된 부분
+    private final Map<Product, Integer> productQuantityMap = new HashMap<>(); // 변경된 부분
 
     public ShoppingListPage(Admin admin) {
         this.cart = admin.getCart();
@@ -77,8 +79,10 @@ public class ShoppingListPage extends JFrame {
 
         // 업데이트된 목록을 기반으로 제품 패널 생성
         for (Product product : productList) {
-
-            createProductPanel(product);
+            // 이미 담겨있으면 ltemlistpage에 있는 장바구니 추가에서 이미 담겨 있는 상품이라고 알려주고 추가 안해줌
+            if (!productQuantityMap.containsKey(product)) {
+                createProductPanel(product);
+            }
         }
 
         updateTotalPriceLabel(); // 각 제품에 대한 총 가격 라벨 업데이트
