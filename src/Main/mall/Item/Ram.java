@@ -49,4 +49,12 @@ public class Ram extends Product{
     public String getRamType(){
         return ramType;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
 }

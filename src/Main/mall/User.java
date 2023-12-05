@@ -4,6 +4,7 @@ import Main.mall.dto.UserDto;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User implements Manageable{
@@ -14,6 +15,8 @@ public class User implements Manageable{
     private String address;
 
     private Cart cart;
+
+    private ArrayList[] recommend;
 
     static Manager interestMgr = new Manager();
 
@@ -64,6 +67,14 @@ public class User implements Manageable{
 
     public Cart getCart() {
         return cart;
+    }
+
+    public ArrayList[] getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(ArrayList[] recommend){
+        this.recommend = recommend;
     }
 
     public static User builder(UserDto userDto){

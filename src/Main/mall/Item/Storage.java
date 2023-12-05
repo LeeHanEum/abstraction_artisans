@@ -38,4 +38,12 @@ public class Storage extends Product{
         }
         return false;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getSpeedAvg() {
+        return speedAvg;
+    }
 }

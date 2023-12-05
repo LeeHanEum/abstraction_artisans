@@ -47,4 +47,8 @@ public class MainBoard extends Product{
     public String getBoardType(){
         return boardType;
     }
+
+    public String getSocket() {
+        return socket;
+    }
 }

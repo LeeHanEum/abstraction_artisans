@@ -18,6 +18,8 @@ import Main.mall.UserChoiceHandler.*;
 public class RecommendList extends JFrame {
     private final Map<String, Long> productIndices = new HashMap<>();
     public RecommendList(ArrayList recommend[],Admin admin){
+        Login.currentUser.setRecommend(recommend);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용

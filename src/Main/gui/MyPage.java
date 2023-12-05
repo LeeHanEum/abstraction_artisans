@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import Main.mall.*;
 import Main.mgr.*;
@@ -151,32 +153,44 @@ public class MyPage extends JFrame{
         arrow2.setForeground(Color.BLACK);
         chuInfo.add(arrow2);
 
+        chuInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (Login.currentUser.getRecommend() == null) {
+                    JOptionPane.showMessageDialog(null, "추천받은 조합이 없습니다.", "추천받은 조합 보기", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                dispose();
+                new RecommendList(Login.currentUser.getRecommend(), admin); // Open the recommend list page
+            }
+        });
+
         groupPanel.add(chuInfo);
 
         addYPadding(groupPanel,30);
 
-        //4. QnA
-        JPanel qnaInfo = new JPanel();
-        qnaInfo.setPreferredSize(new Dimension(350,100));
-        qnaInfo.setBackground(Color.WHITE);
-        qnaInfo.setLayout(new BoxLayout(qnaInfo, BoxLayout.X_AXIS));
-        qnaInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        //4. Cart
+        JPanel myCart = new JPanel();
+        myCart.setPreferredSize(new Dimension(350,100));
+        myCart.setBackground(Color.WHITE);
+        myCart.setLayout(new BoxLayout(myCart, BoxLayout.X_AXIS));
+        myCart.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         //str
-        JLabel textLabel4 = new JLabel("Q & A");
+        JLabel textLabel4 = new JLabel("장바구니 보기");
         textLabel4.setSize(new Dimension(100,80));
         textLabel4.setFont(new Font("Inter", Font.PLAIN, 21));
         textLabel4.setForeground(Color.BLACK);
-        qnaInfo.add(textLabel4);
+        myCart.add(textLabel4);
 
-        addXPadding(qnaInfo,250);
+        addXPadding(myCart,200);
 
         // >
         JLabel arrow3 = new JLabel(">");
         arrow3.setFont(new Font("Inter", Font.BOLD, 21));
         arrow3.setForeground(Color.BLACK);
-        qnaInfo.add(arrow3);
+        myCart.add(arrow3);
 
-        groupPanel.add(qnaInfo);
+        groupPanel.add(myCart);
         addYPadding(groupPanel,30);
 
         //5. 앱 문의
@@ -185,8 +199,8 @@ public class MyPage extends JFrame{
         munInfo.setBackground(Color.WHITE);
         munInfo.setLayout(new BoxLayout(munInfo, BoxLayout.X_AXIS));
         munInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        //str
-        JLabel textLabel5 = new JLabel("엡 문의");
+//str
+        JLabel textLabel5 = new JLabel("앱 문의");
         textLabel5.setSize(new Dimension(100,80));
         textLabel5.setFont(new Font("Inter", Font.PLAIN, 21));
         textLabel5.setForeground(Color.BLACK);
@@ -194,11 +208,19 @@ public class MyPage extends JFrame{
 
         addXPadding(munInfo,250);
 
-        // >
+// >
         JLabel arrow4 = new JLabel(">");
         arrow4.setFont(new Font("Inter", Font.BOLD, 21));
         arrow4.setForeground(Color.BLACK);
         munInfo.add(arrow4);
+
+// 앱 문의 버튼에 대한 액션 리스너 추가
+        munInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, "추상화 장인들(주)\n문의 : chusanghwaJanindle@gmail.com", "앱 문의", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         groupPanel.add(munInfo);
 

@@ -26,7 +26,7 @@ public class Product implements Manageable {
         productId = ++sequence;
         price = scan.nextInt();
         name = scan.nextLine().trim();
-        imagePath = "src/Main/resource/productImage/" + productId + "번.png";
+        imagePath = "src/Main/resource/productImage/" + productId + "번";
     }
 
     //원 하고 띄어쓰기 추가
