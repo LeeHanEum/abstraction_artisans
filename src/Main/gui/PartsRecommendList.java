@@ -1,23 +1,25 @@
 package Main.gui;
 
-import Main.mall.*;
+import Main.mall.Admin;
 import Main.mall.Item.Product;
-import Main.mgr.Manageable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+final class TYPE{
+    public static final int CPU = 0;
+    public static final int RAM = 1;
+    public static final int STORAGE = 2;
+    public static final int GPU = 3;
+    public static final int POW = 4;
+    public static final int CASE = 5;
+    public static final int MainBoard = 6;
+}
 
-import Main.mall.UserChoiceHandler.*;
-
-public class RecommendList extends JFrame {
-    private final Map<String, Long> productIndices = new HashMap<>();
-    public RecommendList(ArrayList recommend[],Admin admin){
+public class PartsRecommendList extends JFrame {
+    public PartsRecommendList(ArrayList recommend[], String Type){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용
@@ -35,6 +37,11 @@ public class RecommendList extends JFrame {
         groupPanel.setPreferredSize(new Dimension(450, 800)); // 너비 조절
         groupPanel.setBackground(Color.WHITE);
         groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.Y_AXIS));
+
+        JScrollPane scrollPane = new JScrollPane(groupPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setBounds(30, 110, 450, 560);
         //padding
         addYPadding(groupPanel,30);
 
@@ -52,7 +59,7 @@ public class RecommendList extends JFrame {
         subPanel.setLayout(new BoxLayout(subPanel,BoxLayout.Y_AXIS));
 
         /***title text***/
-        JLabel title = new JLabel("추상화장인들이 추천하는 콤퓨타!!");
+        JLabel title = new JLabel(Type + " 추천 목록");
         title.setForeground(Color.BLACK);
         title.setFont(new Font("Inter", Font.PLAIN, 20));
         subPanel.add(title);
@@ -67,79 +74,47 @@ public class RecommendList extends JFrame {
         groupPanel.add(titlePane);
 
         addYPadding(groupPanel,10);
-        for(ArrayList<Product> a : recommend){
-            try {
-                createProductPanel(groupPanel,a.get(0),a.get(0).getType(),recommend);
 
-                addYPadding(groupPanel,10);
+        /** 물풍 출력 **/
+        ArrayList<Product> a;
+        switch (Type){
+            case "Case":
+                a = recommend[TYPE.CASE];
+                break;
+            case "Cpu":
+                a = recommend[TYPE.CPU];
+                break;
+            case "GPU":
+                a = recommend[TYPE.GPU];
+                break;
+            case "MainBoard":
+                a = recommend[TYPE.MainBoard];
+                break;
+            case "Power":
+                a = recommend[TYPE.POW];
+                break;
+            case "Ram":
+                a = recommend[TYPE.RAM];
+                break;
+            case "Storage":
+                a = recommend[TYPE.STORAGE];
+                break;
+            default:
+                a = recommend[TYPE.CASE];
+        }
+        try {
+            for(int i=0;i<10;i++){
+                createProductPanel(groupPanel,a.get(i),a.get(i).getType());
             }
-            catch (IndexOutOfBoundsException e){
-
-            }
+            addYPadding(groupPanel,10);
+        }
+        catch (IndexOutOfBoundsException e){
 
         }
 
+
         userPagePanel.add(groupPanel);
 
-        /*****Button 2개 Panel******/
-        JPanel btnPanel = new JPanel();
-        btnPanel.setPreferredSize(new Dimension(350,50));
-        btnPanel.setBackground(Color.WHITE);
-        btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
-
-        addXPadding(btnPanel,230);
-
-        /************메인으로 버튼***********/
-        JPanel outerContainer = new JPanel();
-        outerContainer.setLayout(null);
-        outerContainer.setBounds(0, 0, 76, 44);
-        outerContainer.setBackground(Color.WHITE); // Change the background color to white
-
-        JButton mainButton = new JButton("메인으로");
-        mainButton.setForeground(Color.BLACK); // Change the text color to black
-        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
-        mainButton.setBounds(0, 0, 76, 44);
-        mainButton.setBackground(Color.WHITE); // Change the background color to white
-
-        mainButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                new MainPage(admin); // Open the main page
-            }
-        });
-
-        outerContainer.add(mainButton);
-        btnPanel.add(outerContainer);
-        /************메인으로 버튼 끝 ***********/
-        addXPadding(btnPanel,15);
-        /************종료 버튼***********/
-        JPanel outerContainer1 = new JPanel();
-        outerContainer1.setLayout(null);
-        outerContainer1.setBounds(0, 0, 76, 44);
-        outerContainer1.setBackground(Color.WHITE); // Change the background color to white
-
-        JButton logoutButton = new JButton("장바구니 담기");
-        logoutButton.setForeground(Color.BLACK); // Change the text color to black
-        logoutButton.setFont(new Font("Inter", Font.BOLD, 12));
-        logoutButton.setBounds(0, 0, 76, 44);
-        logoutButton.setBackground(Color.WHITE); // Change the background color to white
-
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                new LoginPage(admin); // Open the login page
-            }
-        });
-
-        outerContainer1.add(logoutButton);
-        btnPanel.add(outerContainer1);
-        /************종료 버튼 끝 ***********/
-        addXPadding(btnPanel,30);
-
-
-        groupPanel.add(btnPanel);
         addYPadding(groupPanel,20);
 
         add(userPagePanel);
@@ -154,7 +129,7 @@ public class RecommendList extends JFrame {
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
     }
 
-    private void createProductPanel(JPanel parentPanel, Product product, String componentName, ArrayList arr[]) {
+    private void createProductPanel(JPanel parentPanel, Product product, String componentName) {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.X_AXIS));
         productPanel.setPreferredSize(new Dimension(370, 60));
@@ -194,18 +169,16 @@ public class RecommendList extends JFrame {
         priceLabel.setForeground(new Color(40, 40, 40));
         priceLabel.setBackground(Color.WHITE);
 
-        //TODO : Button에 입력받은 Type 받기
-        JButton detailsButton = new JButton("추천목록");
+        /**버튼패널**/
+        JButton detailsButton = new JButton("상세보기");
         detailsButton.setBackground(Color.WHITE);
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
         detailsButton.setForeground(new Color(40, 40, 40));
-        detailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                new PartsRecommendList(arr, componentName); // Open the main page
-            }
-        });
+
+        JButton chsButton = new JButton("제품선택");
+        chsButton.setBackground(Color.WHITE);
+        chsButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
+        chsButton.setForeground(new Color(40, 40, 40));
 
 
         JPanel namePricePanel = new JPanel();
