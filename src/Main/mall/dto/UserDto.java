@@ -22,6 +22,18 @@ public class UserDto {
         return address;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public static UserDto builder(User user){
         UserDto userDto = new UserDto();
         userDto.name = user.getName();

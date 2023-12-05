@@ -77,6 +77,16 @@ public class User implements Manageable{
         this.recommend = recommend;
     }
 
+    public UserDto getUserInfo(){
+        return UserDto.builder(this);
+    }
+
+    public void setUserInfo(UserDto userDto){
+        this.name = userDto.getName();
+        this.tel = userDto.getTel();
+        this.address = userDto.getAddress();
+    }
+
     public static User builder(UserDto userDto){
         User user = new User();
         user.name = userDto.getName();

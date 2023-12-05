@@ -102,6 +102,14 @@ public class MyPage extends JFrame{
         arrow.setForeground(Color.BLACK);
         settingInfo.add(arrow);
 
+        settingInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new SetMyInfoPage(admin); // Open the setting page
+            }
+        });
+
         groupPanel.add(settingInfo);
 
         addYPadding(groupPanel,30);
