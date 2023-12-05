@@ -15,7 +15,9 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 /*
 * 수정 추가할 기능
 * 수량 조절을 했을때 총 가격이 원래 가격 + 수량 조절된 가격으로 됨 예를 들어 원래 총가격이 286650 이였는데 제품 1개의 수량을 올리면
-* 수량을 올려서 조절된 총 가격 + 286650 의 결과로 총 가격이 나옴
+* 수량을 올려서 조절된 총 가격 + 286650 의 결과로 총 가격이 나옴 (조금 해결)
+* +는 해결됐는데 1제품의 수량을 늘리면 다른 제품의 수량이 1로 바뀜, 삭제, 마이페이지를 눌러도 마찬가지
+* -는 총 가격에서 가격 조정이 안됨
 * +는 1개씩 늘어나는데 - 누르면 바로 1로 돌아옴
 * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦
 * 상품이 7개 이상 담기면 정보가 안 뜸
@@ -227,8 +229,8 @@ public class ShoppingListPage extends JFrame {
         int newTotalPrice = product.getPrice() * quantity;
         System.out.println("New total price for " + product.getName() + ": " + newTotalPrice);
 
-        // 전체 총 가격만 해당 제품에 대해 업데이트
-        totalPrice = totalPrice - currentTotalPrice + newTotalPrice;
+        //이러면 + 눌렀을때 가격 계산은 됨
+        totalPrice = currentTotalPrice;
         System.out.println("Updated total price: " + totalPrice);
 
         // 쇼핑 목록 페이지 업데이트
