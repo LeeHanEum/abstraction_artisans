@@ -52,4 +52,20 @@ public class Cpu extends Product{
     public String getRamType(){
         return ramType;
     }
+
+    public float getClock() {
+        return clock;
+    }
+
+    public int getCore() {
+        return core;
+    }
+
+    public float getCache() {
+        return cache;
+    }
+
+    public String getSocket() {
+        return socket;
+    }
 }

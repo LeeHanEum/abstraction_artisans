@@ -11,16 +11,21 @@ import java.util.Objects;
 
 public class Cart {
 
-    private Long cartId;
+    private final User user;
 
-    private User user;
+    private final List<Product> productList;
 
-    private static List<Product> productList = new ArrayList<>();
+    private final LocalDateTime createdAt;
 
-    private LocalDateTime createdAt;
+    public Cart(User user) {
+        this.user = user;
+        this.productList = new ArrayList<>();
+        this.createdAt = LocalDateTime.now();
+    }
+
 
     // 장바구니에 상품 담기
-    public static void addItemToCart(Product product) {
+    public void addItemToCart(Product product) {
         productList.add(product);
         System.out.println("장바구니에 상품을 담았습니다.");
     }
@@ -36,7 +41,7 @@ public class Cart {
     }
 
     // 장바구니에서 상품 수량 조절
-    public void editQuantityFromCart(Long productId, int quantity) {
+    public void EditQuantityFromCart(Long productId, int quantity) {
         Product product = null;
         for (Product p : productList){
             if (Objects.equals(p.getProductId(), productId)){
@@ -78,7 +83,7 @@ public class Cart {
         return selectedProductList;
     }
 
-    private int getQuantityInCart(Product product){
+    public int getQuantityInCart(Product product){
         int quantityInCart = 0;
         for (Product p : productList){
             if (Objects.equals(p.getProductId(), product.getProductId())){
@@ -100,11 +105,12 @@ public class Cart {
         return createdAt;
     }
 
-    public static Cart builder(CartDto cartDto){
-        Cart cart = new Cart();
-        cart.user = cartDto.getUser();
-        cart.productList = cartDto.getProductList();
-        cart.createdAt = LocalDateTime.now();
-        return cart;
-    }
+//    public static Cart builder(CartDto cartDto){
+//        Cart cart = new Cart();
+//        cart.user = cartDto.getUser();
+//        cart.productList = cartDto.getProductList();
+//        cart.createdAt = LocalDateTime.now();
+//        return cart;
+//    }
+
 }

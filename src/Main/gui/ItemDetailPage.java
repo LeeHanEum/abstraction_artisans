@@ -1,7 +1,15 @@
 package Main.gui;
 
 import Main.mall.Admin;
+import Main.mall.Item.Case;
+import Main.mall.Item.Cpu;
+import Main.mall.Item.GraphicsCard;
+import Main.mall.Item.MainBoard;
+import Main.mall.Item.Power;
 import Main.mall.Item.Product;
+import Main.mall.Item.Ram;
+import Main.mall.Item.Storage;
+import Main.mall.Login;
 import Main.mgr.Manageable;
 
 import javax.swing.*;
@@ -51,9 +59,29 @@ public class ItemDetailPage extends JFrame {
         JButton cartButton = createStyledButton("src/Main/resource/cart.png");
         menuBar.add(cartButton);
 
+        cartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 장바구니 액션 처리
+                System.out.println("장바구니 버튼이 클릭되었습니다.");
+                dispose();
+                new MyCartPage(admin);
+            }
+        });
+
         // 마이페이지 이미지 버튼
         JButton userButton = createStyledButton("src/Main/resource/user.png");
         menuBar.add(userButton);
+
+        userButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 마이페이지 액션 처리
+                System.out.println("마이페이지 버튼이 클릭되었습니다.");
+                dispose();
+                new MyPage(admin);
+            }
+        });
 
         // 비활성화된 투명한 경계선 없애기
         menuBar.setFloatable(false);
@@ -110,7 +138,93 @@ public class ItemDetailPage extends JFrame {
 
         panel.add(buttonPanel);
 
+        JLabel productInfoLabel = new JLabel("제품 스펙 정보");
+        productInfoLabel.setBounds(15, 530 + productNameHeight, 420, 20);
+        productInfoLabel.setHorizontalAlignment(JLabel.LEFT);
+        panel.add(productInfoLabel);
 
+        JLabel specLabel = new JLabel();
+        specLabel.setBounds(15, 490 + productNameHeight, 420, 200);
+        specLabel.setHorizontalAlignment(JLabel.LEFT);
+        panel.add(specLabel);
+
+        switch (type) {
+            case "CPU":
+                specLabel.setText("<html>캐시: " + ((Cpu) product).getCache() + "<br>" +
+                        "클럭: " + ((Cpu) product).getClock() + "<br>" +
+                        "코어: " + ((Cpu) product).getCore() + "<br>" +
+                        "RAM 타입: " + ((Cpu) product).getRamType() + "<br>" +
+                        "소켓: " + ((Cpu) product).getSocket() + "</html>");
+                break;
+            case "Mainboard":
+                specLabel.setText("<html>보드 타입: " + ((MainBoard) product).getBoardType() + "<br>" +
+                        "RAM 타입: " + ((MainBoard) product).getRamType() + "<br>" +
+                        "소켓: " + ((MainBoard) product).getSocket() + "</html>");
+                break;
+            case "RAM":
+                specLabel.setText("<html>용량: " + ((Ram) product).getCapacity() + "<br>" +
+                        "RAM 타입: " + ((Ram) product).getRamType() + "<br>" +
+                        "속도: " + ((Ram) product).getSpeed() + "</html>");
+                break;
+            case "Graphics Card":
+                specLabel.setText("<html>베이스 클럭: " + ((GraphicsCard) product).getBaseClock() + "<br>" +
+                        "메모리 용량: " + ((GraphicsCard) product).getMemoryCapacity() + "<br>" +
+                        "출력 단자: " + ((GraphicsCard) product).getOutputTerminal() + "<br>" +
+                        "파워: " + ((GraphicsCard) product).getPower() + "</html>");
+                break;
+            case "Storage":
+                specLabel.setText("<html>용량: " + ((Storage) product).getCapacity() + "<br>" +
+                        "평균 속도: " + ((Storage) product).getSpeedAvg() + "</html>");
+                break;
+            case "Power":
+                specLabel.setText("<html>파워: " + ((Power) product).getPower() + "</html>");
+                break;
+            case "Case":
+                specLabel.setText("<html>색상: " + ((Case) product).getColor() + "<br>" +
+                        "보드 타입: " + ((Case) product).getBoardType() + "</html>");
+                break;
+            default:
+                specLabel.setText("스펙 정보 없음");
+                break;
+        }
+        // 장바구니 담기 버튼
+        JButton addToCartButton = new JButton("장바구니 담기");
+        addToCartButton.setBounds(20, 690, 180, 60); // 크기 조절
+        addToCartButton.setOpaque(true);
+        addToCartButton.setBackground(new Color(64, 64, 64));
+        addToCartButton.setForeground(Color.WHITE);
+        addToCartButton.setFocusPainted(true);
+        addToCartButton.setBorderPainted(false);
+
+        addToCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 장바구니 담기 액션 처리
+                Login.currentUser.getCart().addItemToCart(product);
+                JOptionPane.showMessageDialog(null, "상품이 장바구니에 담겼습니다.");
+            }
+        });
+
+        panel.add(addToCartButton);
+
+// 바로 구매 버튼
+        JButton buyNowButton = new JButton("바로 구매");
+        buyNowButton.setBounds(250, 690, 180, 60); // 크기 조절
+        buyNowButton.setOpaque(true);
+        buyNowButton.setBackground(new Color(64, 64, 64));
+        buyNowButton.setForeground(Color.WHITE);
+        buyNowButton.setFocusPainted(true);
+        buyNowButton.setBorderPainted(false);
+
+        buyNowButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 바로 구매 액션 처리
+                System.out.println("바로 구매 버튼이 클릭되었습니다.");
+            }
+        });
+
+        panel.add(buyNowButton);
 
         // 뒤로가기 버튼 액션
         backButton.addActionListener(new ActionListener() {
@@ -140,6 +254,7 @@ public class ItemDetailPage extends JFrame {
         // 프레임 표시
         setVisible(true);
     }
+
 
     // 이미지 버튼 스타일 적용 메소드
     private JButton createStyledButton(String imagePath) {

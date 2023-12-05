@@ -4,6 +4,7 @@ import Main.mall.dto.UserDto;
 import Main.mgr.Manageable;
 import Main.mgr.Manager;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User implements Manageable{
@@ -14,6 +15,8 @@ public class User implements Manageable{
     private String address;
 
     private Cart cart;
+
+    private ArrayList[] recommend;
 
     static Manager interestMgr = new Manager();
 
@@ -26,6 +29,7 @@ public class User implements Manageable{
         name = scan.next();
         tel = scan.next();
         address = scan.next();
+        cart = new Cart(this);
     }
     @Override
     public boolean matches(String kwd) {
@@ -64,6 +68,24 @@ public class User implements Manageable{
 
     public Cart getCart() {
         return cart;
+    }
+
+    public ArrayList[] getRecommend() {
+        return recommend;
+    }
+
+    public void setRecommend(ArrayList[] recommend){
+        this.recommend = recommend;
+    }
+
+    public UserDto getUserInfo(){
+        return UserDto.builder(this);
+    }
+
+    public void setUserInfo(UserDto userDto){
+        this.name = userDto.getName();
+        this.tel = userDto.getTel();
+        this.address = userDto.getAddress();
     }
 
     public static User builder(UserDto userDto){

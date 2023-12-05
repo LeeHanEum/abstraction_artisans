@@ -38,8 +38,8 @@ public class ItemListPage extends JFrame {
 
         // 여러 경계선 및 여백 조정
         pcAndTitleLabel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 5, 0, new Color(240, 240, 240)), // 밑에 subtile 경계선
-            BorderFactory.createEmptyBorder(10, 20, 20, 20))); // 여백 조정
+                BorderFactory.createMatteBorder(0, 0, 5, 0, new Color(240, 240, 240)), // 밑에 subtile 경계선
+                BorderFactory.createEmptyBorder(10, 20, 20, 20))); // 여백 조정
 
         userPagePanel.add(pcAndTitleLabel, BorderLayout.NORTH);
 
@@ -71,8 +71,8 @@ public class ItemListPage extends JFrame {
         backButton.setBorderPainted(false);
 
         backButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
+                BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
+                BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
 
         JPanel backButtonPanel = new JPanel(new BorderLayout());
         backButtonPanel.setBackground(new Color(240, 240, 240));
@@ -108,8 +108,8 @@ public class ItemListPage extends JFrame {
         arrowButton.setPreferredSize(new Dimension(150, 30)); // Fixed width
 
         arrowButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
+                BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
+                BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
 
 // 마우스 호버 효과 추가
         componentButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -198,7 +198,7 @@ public class ItemListPage extends JFrame {
         currentComponentPanel.add(componentNameLabel);
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JTextField searchField = new JTextField(25);
+        JTextField searchField = new JTextField(21);
         searchField.setPreferredSize(new Dimension(searchField.getPreferredSize().width, 30));
         JButton searchButton = new JButton("검색");
 
