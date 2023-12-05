@@ -36,22 +36,27 @@ public class SetMyInfoPage extends JFrame {
         String address = userDto.getAddress();
         String name = userDto.getName();
 
+        JLabel titleLabel = new JLabel("내 정보 수정");
+        titleLabel.setBounds(50, 20, 300, 30);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        userPagePanel.add(titleLabel);
+
         // 텍스트 필드 생성 및 위치 지정
         nameField = new JTextField(name);
-        nameField.setBounds(50, 50, 300, 30);
+        nameField.setBounds(50, 100, 300, 30);
         userPagePanel.add(nameField);
 
         telField = new JTextField(tel);
-        telField.setBounds(50, 100, 300, 30);
+        telField.setBounds(50, 150, 300, 30);
         userPagePanel.add(telField);
 
         addressField = new JTextField(address);
-        addressField.setBounds(50, 150, 300, 30);
+        addressField.setBounds(50, 200, 300, 30);
         userPagePanel.add(addressField);
 
         // 저장 버튼
         JButton saveButton = new JButton("변경 사항 저장");
-        saveButton.setBounds(50, 200, 150, 30);
+        saveButton.setBounds(50, 250, 150, 30);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
