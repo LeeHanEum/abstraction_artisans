@@ -426,9 +426,4 @@ public class Admin {
 
         return imagePathList;
     }
-
-
-    public Cart getCart() {
-        return new Cart();
-    }
 }

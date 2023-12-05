@@ -1,4 +1,4 @@
-package Main.gui;
+/*package Main.gui;
 
 import Main.mall.Admin;
 import Main.mall.Item.Product;
@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.plaf.basic.BasicScrollBarUI;*/
 /*
  * 수정 추가할 기능
  * 수량 조절을 했을때 총 가격이 원래 가격 + 수량 조절된 가격으로 됨 예를 들어 원래 총가격이 286650 이였는데 제품 1개의 수량을 올리면
@@ -29,7 +29,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
  * 쓰다보니 한게 없는거 같네,,,임시로 ltemlistpage에 부품 리스트에 장바구니 추가 넣어놨어
  * admin에 카드 클래스 불러올 수 있는 getCart() 함수도 만들어놨어
- */
+ *//*
 public class ShoppingListPage extends JFrame {
 
     private final Cart cart;
@@ -376,4 +376,4 @@ public class ShoppingListPage extends JFrame {
         // 메인 페이지 열기
         new MyPage(admin);
     }
-}
+}*/

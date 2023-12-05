@@ -190,7 +190,7 @@ public class MyPage extends JFrame{
         textLabel4.setForeground(Color.BLACK);
         myCart.add(textLabel4);
 
-        addXPadding(qnaInfo,250);
+        addXPadding(myCart,250);
 
         // >
         JLabel arrow3 = new JLabel(">");
