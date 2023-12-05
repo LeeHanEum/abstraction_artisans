@@ -15,7 +15,7 @@ public class User implements Manageable{
 
     private Cart cart;
 
-    static Manager interestMgr = new Manager();
+    public static Manager interestMgr = new Manager();
 
     static Manager paymentMgr = new Manager();
 

@@ -9,6 +9,8 @@ import Main.mall.Item.Power;
 import Main.mall.Item.Product;
 import Main.mall.Item.Ram;
 import Main.mall.Item.Storage;
+import Main.mall.Login;
+import Main.mall.User;
 import Main.mgr.Manageable;
 
 import javax.swing.*;
@@ -114,6 +116,14 @@ public class ItemDetailPage extends JFrame {
         wishlistButton.setPreferredSize(new Dimension(32, 32));
         wishlistButton.setIcon(new ImageIcon(new ImageIcon("src/Main/resource/heart.png").getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
         buttonPanel.add(wishlistButton);
+
+        wishlistButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 찜하기 액션 처리
+                User.interestMgr.mList.add(product);
+            }
+        });
 
         panel.add(buttonPanel);
 

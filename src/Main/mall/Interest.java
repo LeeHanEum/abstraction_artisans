@@ -19,7 +19,7 @@ public class Interest {
     // 상품 찜하기
     public void markInterest(Product product) {
         this.user = Login.currentUser;
-        user.interestMgr.mList.add(product);
+        User.interestMgr.mList.add(product);
         System.out.println("상품 찜하기");
     }
 
