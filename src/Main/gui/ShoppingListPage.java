@@ -16,11 +16,12 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * -는 총 가격에서 가격 조정이 안됨  (해결)
  * +는 1개씩 늘어나는데 - 누르면 바로 1로 돌아옴 (해결)
  *
- * 마이페이지를 누르면 수량이 1로 돌아옴
- * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦
+ * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦 (반정도 풀린거 같음)
+ * (체크 박스 해제하면 가격은 빠지는데 체크박스 눌러서 추가하는건 안되고 체크박스 해제하고 난 후엔 수량 조절 버튼으로 해야 다시 체크박스가 체크되고 가격이 더해짐)
+ *
  * 상품이 7개 이상 담기면 정보가 안 뜸
  * 같은 이름과 가격의 상품이 담기면 수량만 늘게 만드는 기능도 필요함
- *
+ * 마이페이지를 누르면 수량이 1로 돌아옴
  *
  * 쓰다보니 한게 없는거 같네,,,임시로 ltemlistpage에 부품 리스트에 장바구니 추가 넣어놨어
  * admin에 카드 클래스 불러올 수 있는 getCart() 함수도 만들어놨어
@@ -76,7 +77,7 @@ public class ShoppingListPage extends JFrame {
 
         // 업데이트된 목록을 기반으로 제품 패널 생성
         for (Product product : productList) {
-            System.out.println("Creating panel for product: " + product.getName());
+
             createProductPanel(product);
         }
 
@@ -143,7 +144,19 @@ public class ShoppingListPage extends JFrame {
         JButton decreaseButton = new JButton("-");
         JButton deleteButton = new JButton("삭제");
         JCheckBox checkBox = new JCheckBox(); // 체크박스 생성
-        checkBox.setSelected(true);
+        //체크박스 상태보고 바꿔주기
+        checkBox.setSelected(productQuantityMap.getOrDefault(product, 1) != 0); // 변경된 부분
+        checkBox.addActionListener(e -> {
+            // 체크박스가 어떤 상태인지 보고 값 설정
+            boolean isChecked = checkBox.isSelected();
+            System.out.println("Checkbox state: " + isChecked);
+            //체크박스 눌러서 상태가 false가 되면 quantity 값 0으로 설정
+            int quantity = isChecked ? Integer.parseInt(quantityTextField.getText()) : 0;
+            productQuantityMap.put(product, quantity);
+
+            // 총 가격 다시 설정
+            updateQuantityAndTotalPrice(product, quantity, isChecked);
+        });
 
         int initialQuantity = Integer.parseInt(quantityTextField.getText());
         int initialTotalPrice = product.getPrice() * initialQuantity;
@@ -223,7 +236,7 @@ public class ShoppingListPage extends JFrame {
     private void updateQuantityAndTotalPrice(Product product, int quantity, boolean isChecked) {
         // 현재 장바구니의 제품에 대한 현재 총 가격 가져오기
         int currentTotalPrice = product.getPrice() * Integer.parseInt(productQuantityMap.get(product).toString());
-        System.out.println("Current total price for " + product.getName() + ": " + currentTotalPrice);
+
 
         // 장바구니에서 수량 업데이트
         cart.editQuantityFromCart(product.getProductId(), quantity);
@@ -291,7 +304,7 @@ public class ShoppingListPage extends JFrame {
         } else {
             // 업데이트된 목록을 기반으로 제품 패널 생성
             for (Product product : productList) {
-                System.out.println("Creating panel for product: " + product.getName());
+
                 createProductPanel(product);
             }
         }
@@ -317,7 +330,6 @@ public class ShoppingListPage extends JFrame {
     private void navigateToMainPage() {
         // 현재 창 닫기
         dispose();
-
         // 메인 페이지 열기
         new MyPage(admin);
     }
