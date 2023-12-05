@@ -59,10 +59,6 @@ public class RecommendList extends JFrame {
 
         }
 
-
-
-
-
         userPagePanel.add(groupPanel);
         add(userPagePanel);
         setVisible(true);
