@@ -4,6 +4,7 @@ import Main.mall.Admin;
 import Main.mall.Item.Product;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ final class TYPE{
 }
 
 public class PartsRecommendList extends JFrame {
-    public PartsRecommendList(ArrayList recommend[], String Type){
+    public PartsRecommendList(ArrayList recommend[], String Type,Admin admin){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용
@@ -38,11 +39,20 @@ public class PartsRecommendList extends JFrame {
         groupPanel.setBackground(Color.WHITE);
         groupPanel.setLayout(new BoxLayout(groupPanel, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(groupPanel);
+        JPanel sandbox2 = new JPanel();
+
+        //Scrollable 하게 만듬
+        JScrollPane scrollPane = new JScrollPane(sandbox2);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.setBounds(30, 110, 450, 560);
-        //padding
+        scrollPane.setBounds(30, 110, 390, 560);
+
+        //sandbox 2
+        sandbox2.setLayout(new BoxLayout(sandbox2,BoxLayout.Y_AXIS));
+        sandbox2.setBackground(Color.LIGHT_GRAY);
+        sandbox2.setBounds(30,110,390,560);
+
+
         addYPadding(groupPanel,30);
 
         /***title Panel***/
@@ -74,6 +84,7 @@ public class PartsRecommendList extends JFrame {
         groupPanel.add(titlePane);
 
         addYPadding(groupPanel,10);
+        groupPanel.add(scrollPane);
 
         /** 물풍 출력 **/
         ArrayList<Product> a;
@@ -104,7 +115,8 @@ public class PartsRecommendList extends JFrame {
         }
         try {
             for(int i=0;i<10;i++){
-                createProductPanel(groupPanel,a.get(i),a.get(i).getType());
+                createProductPanel(sandbox2,a.get(i),i,recommend,a,admin);
+                addYPadding(sandbox2,10);
             }
             addYPadding(groupPanel,10);
         }
@@ -112,10 +124,32 @@ public class PartsRecommendList extends JFrame {
 
         }
 
+        /************메인으로 버튼***********/
+        JPanel outerContainer = new JPanel();
+        outerContainer.setLayout(null);
+        outerContainer.setPreferredSize(new Dimension(76,44));
+        outerContainer.setAlignmentX(400);
+        outerContainer.setBackground(Color.WHITE); // Change the background color to white
+
+        JButton mainButton = new JButton("이전으로");
+        mainButton.setForeground(Color.BLACK); // Change the text color to black
+        mainButton.setFont(new Font("Inter", Font.BOLD, 12));
+        mainButton.setBounds(0, 0, 76, 34);
+        mainButton.setBackground(Color.WHITE); // Change the background color to white
+
+        outerContainer.add(mainButton);
+        mainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                new RecommendList(recommend,admin);
+            }
+        });
+        groupPanel.add(outerContainer);
 
         userPagePanel.add(groupPanel);
 
-        addYPadding(groupPanel,20);
+        addYPadding(groupPanel,30);
 
         add(userPagePanel);
         setVisible(true);
@@ -129,11 +163,14 @@ public class PartsRecommendList extends JFrame {
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
     }
 
-    private void createProductPanel(JPanel parentPanel, Product product, String componentName) {
+    private void createProductPanel(JPanel parentPanel, Product product, int isFirst, ArrayList arr[],ArrayList<Product> pd,Admin admin) {
         JPanel productPanel = new JPanel();
+
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.X_AXIS));
-        productPanel.setPreferredSize(new Dimension(370, 60));
+        productPanel.setPreferredSize(new Dimension(370, 80));
+
         productPanel.setBackground(new Color(230, 230, 230));
+
         addXPadding(productPanel,10);
 
         JPanel imagePane = new JPanel();
@@ -152,7 +189,12 @@ public class PartsRecommendList extends JFrame {
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        textPanel.setBackground(Color.WHITE);
+        if(isFirst == 0){
+            textPanel.setBackground(new Color(255, 231, 111, 255));
+        }
+        else {
+            textPanel.setBackground(Color.WHITE);
+        }
 
         String name = product.getName();
         if(name.length() > 30){
@@ -162,29 +204,48 @@ public class PartsRecommendList extends JFrame {
         JLabel nameLabel = new JLabel(name);
         nameLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
         nameLabel.setForeground(Color.BLACK);
-        nameLabel.setBackground(Color.WHITE);
+        if(isFirst == 0){
+            nameLabel.setBackground(new Color(255, 220, 65, 205));
+        }
+        else {
+            nameLabel.setBackground(Color.WHITE);
+        }
 
         JLabel priceLabel = new JLabel("가격: " + product.getPrice() + "원");
         priceLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
         priceLabel.setForeground(new Color(40, 40, 40));
-        priceLabel.setBackground(Color.WHITE);
+        if(isFirst == 0){
+            priceLabel.setBackground(new Color(255, 220, 65, 205));
+        }
+        else {
+            priceLabel.setBackground(Color.WHITE);
+        }
 
-        /**버튼패널**/
-        JButton detailsButton = new JButton("상세보기");
-        detailsButton.setBackground(Color.WHITE);
+        //TODO : Button에 입력받은 Type 받기
+        JButton detailsButton = new JButton("제품 선택");
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
         detailsButton.setForeground(new Color(40, 40, 40));
 
-        JButton chsButton = new JButton("제품선택");
-        chsButton.setBackground(Color.WHITE);
-        chsButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
-        chsButton.setForeground(new Color(40, 40, 40));
-
+        detailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pd.remove(product);
+                pd.add(0,product);
+                dispose(); // Close the current window
+                new RecommendList(arr,admin);
+            }
+        });
 
         JPanel namePricePanel = new JPanel();
         namePricePanel.setPreferredSize(new Dimension(300,70));
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
-        namePricePanel.setBackground(Color.WHITE);
+        if(isFirst == 0){
+            namePricePanel.setBackground(new Color(255, 231, 111, 255));
+        }
+        else {
+            namePricePanel.setBackground(Color.WHITE);
+        }
+
         namePricePanel.add(nameLabel);
         namePricePanel.add(priceLabel);
         namePricePanel.add(detailsButton);

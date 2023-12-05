@@ -69,7 +69,7 @@ public class RecommendList extends JFrame {
         addYPadding(groupPanel,10);
         for(ArrayList<Product> a : recommend){
             try {
-                createProductPanel(groupPanel,a.get(0),a.get(0).getType(),recommend);
+                createProductPanel(groupPanel,a.get(0),a.get(0).getType(),recommend,admin);
 
                 addYPadding(groupPanel,10);
             }
@@ -154,7 +154,7 @@ public class RecommendList extends JFrame {
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
     }
 
-    private void createProductPanel(JPanel parentPanel, Product product, String componentName, ArrayList arr[]) {
+    private void createProductPanel(JPanel parentPanel, Product product, String componentName, ArrayList arr[],Admin admin) {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.X_AXIS));
         productPanel.setPreferredSize(new Dimension(370, 60));
@@ -203,7 +203,7 @@ public class RecommendList extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close the current window
-                new PartsRecommendList(arr, componentName); // Open the main page
+                new PartsRecommendList(arr, componentName, admin); // Open the main page
             }
         });
 
