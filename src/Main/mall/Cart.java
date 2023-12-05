@@ -107,4 +107,9 @@ public class Cart {
         cart.createdAt = LocalDateTime.now();
         return cart;
     }
+
+    //프로덕트 리스트 비우기
+    public void removeProductList(){
+        productList.removeAll(productList);
+    }
 }

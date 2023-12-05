@@ -15,7 +15,9 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * 수량을 올려서 조절된 총 가격 + 286650 의 결과로 총 가격이 나옴 (해결)
  * -는 총 가격에서 가격 조정이 안됨  (해결)
  * +는 1개씩 늘어나는데 - 누르면 바로 1로 돌아옴 (해결)
+ * 레이아웃 변경해서 마이페이지 버튼 수정
  *
+ * 로그아웃하면 productlist 비우게 설정(다시 로그인해도 사라지긴 함)
  * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦 (반정도 풀린거 같음)
  * (체크 박스 해제하면 가격은 빠지는데 체크박스 눌러서 추가하는건 안되고 체크박스 해제하고 난 후엔 수량 조절 버튼으로 해야 다시 체크박스가 체크되고 가격이 더해짐)
  *
@@ -46,18 +48,34 @@ public class ShoppingListPage extends JFrame {
 
         JPanel cartPanel = new JPanel();
         cartPanel.setBackground(new Color(240, 240, 240));
-        cartPanel.setLayout(new BorderLayout());
+        cartPanel.setLayout(new GridBagLayout());
 
         JLabel titleLabel = new JLabel("<html><span style='font-size:15px; color:#282828;'>장바구니</span></html>");
         titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        cartPanel.add(titleLabel, BorderLayout.NORTH);
+
+        // 레이아웃 변경 후 위치 변경
+        GridBagConstraints titleConstraints = new GridBagConstraints();
+        titleConstraints.gridx = 0;
+        titleConstraints.gridy = 0;
+        titleConstraints.anchor = GridBagConstraints.NORTHWEST;
+
+        cartPanel.add(titleLabel, titleConstraints);
 
         contentPanel = new JPanel();
-        contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // FlowLayout 사용
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.getVerticalScrollBar().setUnitIncrement(30);
         customizeScrollBar(scrollPane);
-        cartPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // 레이아웃 변경 후 위치 변경
+        GridBagConstraints scrollConstraints = new GridBagConstraints();
+        scrollConstraints.gridx = 0;
+        scrollConstraints.gridy = 1;
+        scrollConstraints.fill = GridBagConstraints.BOTH;
+        scrollConstraints.weightx = 1.0;
+        scrollConstraints.weighty = 1.0;
+
+        cartPanel.add(scrollPane, scrollConstraints);
 
         JButton backButton = new JButton("마이페이지");
         backButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
@@ -65,7 +83,15 @@ public class ShoppingListPage extends JFrame {
         backButton.setForeground(Color.BLACK);
         backButton.addActionListener(e -> navigateToMainPage());
         backButton.setBorderPainted(false);
-        cartPanel.add(backButton, BorderLayout.SOUTH);
+
+        // 레이아웃 변경 후 백버튼 위치변경
+        GridBagConstraints backConstraints = new GridBagConstraints();
+        backConstraints.gridx = 0;
+        backConstraints.gridy = 0;
+        backConstraints.anchor = GridBagConstraints.NORTHEAST;
+
+        cartPanel.add(backButton, backConstraints);
+        backButton.setPreferredSize(new Dimension(120, 30));
 
         add(cartPanel);
         setLocationRelativeTo(null);
