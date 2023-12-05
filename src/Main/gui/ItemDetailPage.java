@@ -9,6 +9,7 @@ import Main.mall.Item.Power;
 import Main.mall.Item.Product;
 import Main.mall.Item.Ram;
 import Main.mall.Item.Storage;
+import Main.mall.Login;
 import Main.mgr.Manageable;
 
 import javax.swing.*;
@@ -58,9 +59,29 @@ public class ItemDetailPage extends JFrame {
         JButton cartButton = createStyledButton("src/Main/resource/cart.png");
         menuBar.add(cartButton);
 
+        cartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 장바구니 액션 처리
+                System.out.println("장바구니 버튼이 클릭되었습니다.");
+                dispose();
+                new MyCartPage(admin);
+            }
+        });
+
         // 마이페이지 이미지 버튼
         JButton userButton = createStyledButton("src/Main/resource/user.png");
         menuBar.add(userButton);
+
+        userButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 마이페이지 액션 처리
+                System.out.println("마이페이지 버튼이 클릭되었습니다.");
+                dispose();
+                new MyPage(admin);
+            }
+        });
 
         // 비활성화된 투명한 경계선 없애기
         menuBar.setFloatable(false);
@@ -179,6 +200,7 @@ public class ItemDetailPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 장바구니 담기 액션 처리
+                Login.currentUser.getCart().addItemToCart(product);
                 JOptionPane.showMessageDialog(null, "상품이 장바구니에 담겼습니다.");
             }
         });

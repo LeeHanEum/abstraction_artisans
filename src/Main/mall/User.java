@@ -29,6 +29,7 @@ public class User implements Manageable{
         name = scan.next();
         tel = scan.next();
         address = scan.next();
+        cart = new Cart(this);
     }
     @Override
     public boolean matches(String kwd) {

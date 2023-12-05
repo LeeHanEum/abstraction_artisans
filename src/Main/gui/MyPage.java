@@ -198,6 +198,14 @@ public class MyPage extends JFrame{
         arrow3.setForeground(Color.BLACK);
         myCart.add(arrow3);
 
+        myCart.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new MyCartPage(admin); // Open the cart page
+            }
+        });
+
         groupPanel.add(myCart);
         addYPadding(groupPanel,30);
 

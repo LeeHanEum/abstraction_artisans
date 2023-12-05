@@ -11,13 +11,17 @@ import java.util.Objects;
 
 public class Cart {
 
-    private Long cartId;
+    private final User user;
 
-    private User user;
+    private final List<Product> productList;
 
-    private List<Product> productList;
+    private final LocalDateTime createdAt;
 
-    private LocalDateTime createdAt;
+    public Cart(User user) {
+        this.user = user;
+        this.productList = new ArrayList<>();
+        this.createdAt = LocalDateTime.now();
+    }
 
 
     // 장바구니에 상품 담기
@@ -79,7 +83,7 @@ public class Cart {
         return selectedProductList;
     }
 
-    private int getQuantityInCart(Product product){
+    public int getQuantityInCart(Product product){
         int quantityInCart = 0;
         for (Product p : productList){
             if (Objects.equals(p.getProductId(), product.getProductId())){
@@ -101,12 +105,12 @@ public class Cart {
         return createdAt;
     }
 
-    public static Cart builder(CartDto cartDto){
-        Cart cart = new Cart();
-        cart.user = cartDto.getUser();
-        cart.productList = cartDto.getProductList();
-        cart.createdAt = LocalDateTime.now();
-        return cart;
-    }
+//    public static Cart builder(CartDto cartDto){
+//        Cart cart = new Cart();
+//        cart.user = cartDto.getUser();
+//        cart.productList = cartDto.getProductList();
+//        cart.createdAt = LocalDateTime.now();
+//        return cart;
+//    }
 
 }

@@ -54,7 +54,7 @@ public class RecommendList extends JFrame {
         subPanel.setLayout(new BoxLayout(subPanel,BoxLayout.Y_AXIS));
 
         /***title text***/
-        JLabel title = new JLabel("추상화장인들이 추천하는 콤퓨타!!");
+        JLabel title = new JLabel("모두나와PC가 추천하는 콤퓨타!!");
         title.setForeground(Color.BLACK);
         title.setFont(new Font("Inter", Font.PLAIN, 20));
         subPanel.add(title);
@@ -125,13 +125,23 @@ public class RecommendList extends JFrame {
         logoutButton.setForeground(Color.BLACK); // Change the text color to black
         logoutButton.setFont(new Font("Inter", Font.BOLD, 12));
         logoutButton.setBounds(0, 0, 76, 44);
-        logoutButton.setBackground(Color.WHITE); // Change the background color to white
+        logoutButton.setBackground(Color.WHITE); // Change t동e background color to white
 
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Close the current window
-                new LoginPage(admin); // Open the login page
+                JOptionPane.showMessageDialog(null, "이 조합이 장바구니에 담겼습니다.");
+                for(ArrayList<Product> a : recommend){
+                    try {
+                        Login.currentUser.getCart().addItemToCart(a.get(0));
+                    }
+                    catch (IndexOutOfBoundsException ex){
+
+                    }
+
+                }
+                dispose();
+                new MyCartPage(admin);
             }
         });
 
