@@ -260,8 +260,6 @@ public class MyPage extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose(); // Close the current window
-                //로그아웃하면 productlist 비우기
-                admin.getCart().removeProductList();
                 new LoginPage(admin); // Open the login page
             }
         });

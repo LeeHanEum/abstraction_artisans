@@ -1,7 +1,6 @@
 package Main.gui;
 
 import Main.mall.Admin;
-import Main.mall.Cart;
 import Main.mall.Item.Product;
 import Main.mgr.Manageable;
 
@@ -35,18 +34,17 @@ public class ItemListPage extends JFrame {
         userPagePanel.setLayout(new BorderLayout());
         userPagePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JLabel pcAndTitleLabel = new JLabel("<html><span style='font-size:10px; color:#008000'>모두나와PC</span><br/>"
-            + "<span style='font-size:23px; color:#282828;'>제품 리스트</span></html>");
+        JLabel pcAndTitleLabel = new JLabel("<html><span style='font-size:23px; color:#282828;'>제품 리스트</span></html>");
 
         // 여러 경계선 및 여백 조정
         pcAndTitleLabel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 5, 0, new Color(200, 200, 200)), // 밑에 subtile 경계선
+            BorderFactory.createMatteBorder(0, 0, 5, 0, new Color(240, 240, 240)), // 밑에 subtile 경계선
             BorderFactory.createEmptyBorder(10, 20, 20, 20))); // 여백 조정
 
         userPagePanel.add(pcAndTitleLabel, BorderLayout.NORTH);
 
         componentPanel = new JPanel(new GridLayout(0, 1, 10, 10)); // Adjust as needed
-        componentPanel.setBackground(new Color(255, 255, 255));
+        componentPanel.setBackground(new Color(240, 240, 240));
 
         // 각 부품 버튼과 화살표를 추가
         addButton("CPU");
@@ -77,7 +75,7 @@ public class ItemListPage extends JFrame {
             BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
 
         JPanel backButtonPanel = new JPanel(new BorderLayout());
-        backButtonPanel.setBackground(new Color(255, 255, 255));
+        backButtonPanel.setBackground(new Color(240, 240, 240));
         backButtonPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         backButtonPanel.add(backButton, BorderLayout.EAST);
 
@@ -85,70 +83,69 @@ public class ItemListPage extends JFrame {
     }
 
     private void addButton(String componentName) {
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        buttonPanel.setBackground(new Color(255, 255, 255));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        buttonPanel.setBackground(new Color(240, 240, 240));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        buttonPanel.setPreferredSize(new Dimension(200, 90));
+        buttonPanel.setPreferredSize(new Dimension(0, 30)); // Adjust as needed
 
         JButton componentButton = new JButton("<html><center>" + componentName + "</center></html>");
         componentButton.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-        componentButton.setBackground(new Color(255, 255, 255));
+        componentButton.setBackground(new Color(240, 240, 240));
         componentButton.setForeground(new Color(40, 40, 40));
         componentButton.setBorderPainted(false);
         componentButton.setFocusPainted(false);
+        componentButton.setPreferredSize(new Dimension(150, 30)); // Fixed width
+        componentButton.setHorizontalAlignment(SwingConstants.LEFT);
         componentButton.addActionListener(e -> showProductList(componentName));
 
-        // 버튼에 그림자 효과 추가
-        componentButton.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
-            BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
-
-        // 레이아웃 매니저를 사용하여 가운데 정렬
-        buttonPanel.add(componentButton, BorderLayout.CENTER);
+        buttonPanel.add(componentButton);
 
         JButton arrowButton = new JButton("▶");
         arrowButton.addActionListener(e -> showArrowButtonAction(componentName));
         arrowButton.setBorderPainted(false);
-        arrowButton.setBackground(new Color(255, 255, 255));
+        arrowButton.setHorizontalAlignment(SwingConstants.CENTER); // Set text alignment to center
+        arrowButton.setBackground(new Color(240, 240, 240));
+        arrowButton.setPreferredSize(new Dimension(150, 30)); // Fixed width
 
         arrowButton.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(240, 240, 240), 5),
             BorderFactory.createLineBorder(new Color(240, 240, 240), 5)));
 
-        // 마우스 호버 효과 추가
+// 마우스 호버 효과 추가
         componentButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 componentButton.setBackground(new Color(230, 230, 230));
-                arrowButton.setBackground(new Color(230,230,230));
+                arrowButton.setBackground(new Color(230, 230, 230));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                componentButton.setBackground(new Color(255, 255, 255));
-                arrowButton.setBackground(new Color(255,255,255));
+                componentButton.setBackground(new Color(240, 240, 240));
+                arrowButton.setBackground(new Color(240, 240, 240));
             }
         });
         arrowButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 componentButton.setBackground(new Color(230, 230, 230));
-                arrowButton.setBackground(new Color(230,230,230));
+                arrowButton.setBackground(new Color(230, 230, 230));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                componentButton.setBackground(new Color(255, 255, 255));
-                arrowButton.setBackground(new Color(255,255,255));
+                componentButton.setBackground(new Color(240, 240, 240));
+                arrowButton.setBackground(new Color(240, 240, 240));
             }
         });
 
-        // 레이아웃 매니저를 사용하여 오른쪽 정렬
-        buttonPanel.add(arrowButton, BorderLayout.EAST);
+        buttonPanel.add(arrowButton);
+        buttonPanel.add(Box.createHorizontalGlue()); // Add glue to push components to the right
+
+        int thickness = 2; // Set the thickness as needed (e.g., 1)
+        Color color = Color.BLACK; // Set the color of the line
+        MatteBorder matteBorder = new MatteBorder(0, 0, thickness, thickness, color);
+
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), matteBorder));
 
         componentPanel.add(buttonPanel);
-        if (componentPanel.getComponentCount() > 0) {
-            int thickness = 2; // 줄의 두께
-            Color color = Color.BLACK; // 줄의 색상
-            MatteBorder matteBorder = new MatteBorder(0, 0, thickness, 0, color);
-            buttonPanel.setBorder(BorderFactory.createCompoundBorder(buttonPanel.getBorder(), matteBorder));
-        }
     }
 
     private void showArrowButtonAction(String componentName) {
@@ -317,19 +314,11 @@ public class ItemListPage extends JFrame {
 
         detailsButton.addActionListener(e -> displayProductDetails(product, componentName));
 
-        addToCartButton = new JButton("장바구니에 추가");
-        addToCartButton.setBackground(new Color(120, 200, 120)); // Customize the color as needed
-        addToCartButton.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-        addToCartButton.setForeground(Color.WHITE);
-
-        addToCartButton.addActionListener(e -> addToCart(product));
-
         JPanel namePricePanel = new JPanel();
         namePricePanel.setLayout(new BoxLayout(namePricePanel, BoxLayout.Y_AXIS));
         namePricePanel.add(nameLabel);
         namePricePanel.add(priceLabel);
         namePricePanel.add(detailsButton);
-        namePricePanel.add(addToCartButton);
 
         textPanel.add(namePricePanel);
 
@@ -436,17 +425,5 @@ public class ItemListPage extends JFrame {
     private void navigateToMainPage() {
         dispose(); // Close the current window
         new MainPage(admin);
-    }
-    private void addToCart(Product product) {
-        //이미 있는 상품이면 안 담기게 설정
-        if (admin.getCart().getProductList().contains(product)) {
-            JOptionPane.showMessageDialog(this, "이미 담겨있는 상품입니다.", "알림", JOptionPane.WARNING_MESSAGE);
-        } else {
-            // Add the product to the shopping cart
-            admin.getCart().addItemToCart(product);
-
-            // Provide visual feedback or confirmation (optional)
-            JOptionPane.showMessageDialog(this, "상품이 장바구니에 추가되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-        }
     }
 }
