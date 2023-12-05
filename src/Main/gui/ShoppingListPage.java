@@ -4,36 +4,34 @@ import Main.mall.Admin;
 import Main.mall.Item.Product;
 import Main.mall.Cart;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 import java.util.List;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-
 /*
-* 수정 추가할 기능
-* 수량 조절을 했을때 총 가격이 원래 가격 + 수량 조절된 가격으로 됨 예를 들어 원래 총가격이 286650 이였는데 제품 1개의 수량을 올리면
-* 수량을 올려서 조절된 총 가격 + 286650 의 결과로 총 가격이 나옴 (조금 해결)
-* +는 해결됐는데 1제품의 수량을 늘리면 다른 제품의 수량이 1로 바뀜, 삭제, 마이페이지를 눌러도 마찬가지
-* -는 총 가격에서 가격 조정이 안됨
-* +는 1개씩 늘어나는데 - 누르면 바로 1로 돌아옴
-* 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦
-* 상품이 7개 이상 담기면 정보가 안 뜸
-* 같은 이름과 가격의 상품이 담기면 수량만 늘게 만드는 기능도 필요함
-*
-*
-* 쓰다보니 한게 없는거 같네,,,임시로 ltemlistpage에 부품 리스트에 장바구니 추가 넣어놨어
-* admin에 카드 클래스 불러올 수 있는 getCart() 함수도 만들어놨어
-*/
+ * 수정 추가할 기능
+ * 수량 조절을 했을때 총 가격이 원래 가격 + 수량 조절된 가격으로 됨 예를 들어 원래 총가격이 286650 이였는데 제품 1개의 수량을 올리면
+ * 수량을 올려서 조절된 총 가격 + 286650 의 결과로 총 가격이 나옴 (해결)
+ * -는 총 가격에서 가격 조정이 안됨  (해결)
+ * +는 1개씩 늘어나는데 - 누르면 바로 1로 돌아옴 (해결)
+ *
+ * 마이페이지를 누르면 수량이 1로 돌아옴
+ * 체크 박스는 만들었는데 이걸 총 가격에 반환시키는 기능을 아직 못 만듦
+ * 상품이 7개 이상 담기면 정보가 안 뜸
+ * 같은 이름과 가격의 상품이 담기면 수량만 늘게 만드는 기능도 필요함
+ *
+ *
+ * 쓰다보니 한게 없는거 같네,,,임시로 ltemlistpage에 부품 리스트에 장바구니 추가 넣어놨어
+ * admin에 카드 클래스 불러올 수 있는 getCart() 함수도 만들어놨어
+ */
 public class ShoppingListPage extends JFrame {
 
     private final Cart cart;
     private final Admin admin;
     private final JPanel contentPanel;
     private int totalPrice = 0; // 총 가격을 저장할 변수
-    private Map<Product, JTextField> productQuantityMap = new HashMap<>();
+    private Map<Product, Integer> productQuantityMap = new HashMap<>(); // 변경된 부분
 
     public ShoppingListPage(Admin admin) {
         this.cart = admin.getCart();
@@ -136,8 +134,8 @@ public class ShoppingListPage extends JFrame {
 
         JLabel quantityLabel = new JLabel("수량");
 
-        JTextField quantityTextField = new JTextField("1", 1);
-        productQuantityMap.put(product, quantityTextField);
+        JTextField quantityTextField = new JTextField(String.valueOf(productQuantityMap.getOrDefault(product, 1)), 1); // 변경된 부분
+        productQuantityMap.put(product, Integer.parseInt(quantityTextField.getText()));
 
         quantityTextField.setPreferredSize(new Dimension(30, 20)); // 필요에 따라 너비와 높이 조정
 
@@ -166,26 +164,31 @@ public class ShoppingListPage extends JFrame {
         quantityPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         // 수량 조절
         increaseButton.addActionListener(e -> {
-            int quantity = Integer.parseInt(productQuantityMap.get(product).getText());
+            int quantity = Integer.parseInt(quantityTextField.getText());
             quantity++;
             System.out.println("Increased quantity for product " + product.getName() + " to: " + quantity);
 
-            // 수량 맵 업데이트
-            productQuantityMap.put(product, quantityTextField);
+            // Update quantity for the current product
+            productQuantityMap.put(product, quantity);
 
-            // 총 가격 및 GUI 업데이트
+            // Update total price and GUI
             updateQuantityAndTotalPrice(product, quantity, checkBox.isSelected());
-            productQuantityMap.get(product).setText(String.valueOf(quantity));
+            quantityTextField.setText(String.valueOf(quantity));
         });
 
         // decreaseButton의 action listener 내부
         decreaseButton.addActionListener(e -> {
-            int quantity = Integer.parseInt(productQuantityMap.get(product).getText());
+            int quantity = Integer.parseInt(quantityTextField.getText());
             if (quantity > 1) {
                 quantity--;
                 System.out.println("Decreased quantity for product " + product.getName() + " to: " + quantity);
-                productQuantityMap.get(product).setText(String.valueOf(quantity));
+
+                // Update quantity for the current product
+                productQuantityMap.put(product, quantity);
+
+                // Update total price and GUI
                 updateQuantityAndTotalPrice(product, quantity, checkBox.isSelected());
+                quantityTextField.setText(String.valueOf(quantity));
             }
         });
 
@@ -219,24 +222,30 @@ public class ShoppingListPage extends JFrame {
     // +, - 버튼 누르고 총 가격 업데이트
     private void updateQuantityAndTotalPrice(Product product, int quantity, boolean isChecked) {
         // 현재 장바구니의 제품에 대한 현재 총 가격 가져오기
-        int currentTotalPrice = product.getPrice() * Integer.parseInt(productQuantityMap.get(product).getText());
+        int currentTotalPrice = product.getPrice() * Integer.parseInt(productQuantityMap.get(product).toString());
         System.out.println("Current total price for " + product.getName() + ": " + currentTotalPrice);
 
         // 장바구니에서 수량 업데이트
         cart.editQuantityFromCart(product.getProductId(), quantity);
 
-        // 해당 제품에 대한 새로운 총 가격 계산
-        int newTotalPrice = product.getPrice() * quantity;
-        System.out.println("New total price for " + product.getName() + ": " + newTotalPrice);
-
-        //이러면 + 눌렀을때 가격 계산은 됨
-        totalPrice = currentTotalPrice;
-        System.out.println("Updated total price: " + totalPrice);
+        // 모든 상품에 대한 가격의 합 다시 계산
+        recalculateTotalPrice();
 
         // 쇼핑 목록 페이지 업데이트
         updateShoppingListPage();
         // 총 가격 라벨 업데이트
         updateTotalPriceLabel();
+    }
+
+    // 총 가격 다시 계산
+    private void recalculateTotalPrice() {
+        totalPrice = 0;
+        for (Product product : cart.getProductList()) {
+            int retotal = 0;
+            retotal -= totalPrice;
+            retotal += product.getPrice();
+        }
+       // System.out.println("Recalculated total price: " + );
     }
 
     // 총 가격 라벨
