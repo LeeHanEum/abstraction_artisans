@@ -166,6 +166,43 @@ public class ItemDetailPage extends JFrame {
                 specLabel.setText("스펙 정보 없음");
                 break;
         }
+        // 장바구니 담기 버튼
+        JButton addToCartButton = new JButton("장바구니 담기");
+        addToCartButton.setBounds(20, 690, 180, 60); // 크기 조절
+        addToCartButton.setOpaque(true);
+        addToCartButton.setBackground(new Color(64, 64, 64));
+        addToCartButton.setForeground(Color.WHITE);
+        addToCartButton.setFocusPainted(true);
+        addToCartButton.setBorderPainted(false);
+
+        addToCartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 장바구니 담기 액션 처리
+                JOptionPane.showMessageDialog(null, "상품이 장바구니에 담겼습니다.");
+            }
+        });
+
+        panel.add(addToCartButton);
+
+// 바로 구매 버튼
+        JButton buyNowButton = new JButton("바로 구매");
+        buyNowButton.setBounds(250, 690, 180, 60); // 크기 조절
+        buyNowButton.setOpaque(true);
+        buyNowButton.setBackground(new Color(64, 64, 64));
+        buyNowButton.setForeground(Color.WHITE);
+        buyNowButton.setFocusPainted(true);
+        buyNowButton.setBorderPainted(false);
+
+        buyNowButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 바로 구매 액션 처리
+                System.out.println("바로 구매 버튼이 클릭되었습니다.");
+            }
+        });
+
+        panel.add(buyNowButton);
 
         // 뒤로가기 버튼 액션
         backButton.addActionListener(new ActionListener() {
