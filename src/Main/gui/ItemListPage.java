@@ -200,7 +200,7 @@ public class ItemListPage extends JFrame {
         currentComponentPanel.add(componentNameLabel);
 
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JTextField searchField = new JTextField(25);
+        JTextField searchField = new JTextField(21);
         searchField.setPreferredSize(new Dimension(searchField.getPreferredSize().width, 30));
         JButton searchButton = new JButton("검색");
 
