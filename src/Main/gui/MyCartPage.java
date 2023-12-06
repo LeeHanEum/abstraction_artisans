@@ -129,8 +129,7 @@ public class MyCartPage extends JFrame {
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Additional checkout logic can be added here
-                JOptionPane.showMessageDialog(panel, "결제가 완료되었습니다!", "결제 완료", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "결제가 완료되었습니다. 총 결제 금액: " + Login.currentUser.getCart().getTotalPrice() + "원");
             }
         });
         panel.add(checkoutButton);

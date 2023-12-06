@@ -105,6 +105,14 @@ public class Cart {
         return createdAt;
     }
 
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for (Product p : productList){
+            totalPrice += p.getPrice();
+        }
+        return totalPrice;
+    }
+
 //    public static Cart builder(CartDto cartDto){
 //        Cart cart = new Cart();
 //        cart.user = cartDto.getUser();
