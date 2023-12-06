@@ -72,8 +72,8 @@ public class RecommendList extends JFrame {
         addYPadding(groupPanel,10);
         for(ArrayList<Product> a : recommend){
             try {
-                createProductPanel(groupPanel,a.get(0),a.get(0).getType(),recommend,admin);
-
+                //타입도 받아감
+                createProductPanel(groupPanel,a.get(0),a.get(0).getType(),recommend,admin, a.get(0).getType());
                 addYPadding(groupPanel,10);
             }
             catch (IndexOutOfBoundsException e){
@@ -167,7 +167,7 @@ public class RecommendList extends JFrame {
         mainPane.add(Box.createRigidArea(new Dimension(width, mainPane.getHeight())));
     }
 
-    private void createProductPanel(JPanel parentPanel, Product product, String componentName, ArrayList arr[],Admin admin) {
+    private void createProductPanel(JPanel parentPanel, Product product, String componentName, ArrayList arr[],Admin admin,String componentType) {
         JPanel productPanel = new JPanel();
         productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.X_AXIS));
         productPanel.setPreferredSize(new Dimension(370, 60));
@@ -197,7 +197,8 @@ public class RecommendList extends JFrame {
             String sub = name.substring(0,29) + "...";
             name = sub;
         }
-        JLabel nameLabel = new JLabel(name);
+        //타입: 제품명 나오게 수정
+        JLabel nameLabel = new JLabel(componentType + ": " + name);
         nameLabel.setFont(new Font("맑은 고딕", Font.BOLD, 17));
         nameLabel.setForeground(Color.BLACK);
         nameLabel.setBackground(Color.WHITE);
@@ -208,10 +209,12 @@ public class RecommendList extends JFrame {
         priceLabel.setBackground(Color.WHITE);
 
         //TODO : Button에 입력받은 Type 받기
-        JButton detailsButton = new JButton("추천목록");
+        //추천 목록 버튼에도 타입 추가
+        JButton detailsButton = new JButton( componentType + " 추천목록");
         detailsButton.setBackground(Color.WHITE);
         detailsButton.setFont(new Font("맑은 고딕", Font.BOLD, 11));
         detailsButton.setForeground(new Color(40, 40, 40));
+        detailsButton.setPreferredSize(new Dimension(450, 30));
         detailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,6 +223,10 @@ public class RecommendList extends JFrame {
             }
         });
 
+        //버튼 크기 통일 위해 다 필요해요 하나씩 다 지워봤는데 다 달라져요 자꾸
+        detailsButton.setMaximumSize(new Dimension(145, 25));
+        detailsButton.setPreferredSize(new Dimension(145, 25));
+        detailsButton.setMinimumSize(new Dimension(145, 25));
 
         JPanel namePricePanel = new JPanel();
         namePricePanel.setPreferredSize(new Dimension(300,70));
