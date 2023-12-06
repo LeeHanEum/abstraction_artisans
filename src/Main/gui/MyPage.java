@@ -225,7 +225,7 @@ public class MyPage extends JFrame{
         munInfo.setLayout(new BoxLayout(munInfo, BoxLayout.X_AXIS));
         munInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         //str
-        JLabel textLabel5 = new JLabel("엡 문의");
+        JLabel textLabel5 = new JLabel("앱 문의");
         textLabel5.setSize(new Dimension(100,80));
         textLabel5.setFont(new Font("Inter", Font.PLAIN, 21));
         textLabel5.setForeground(Color.BLACK);

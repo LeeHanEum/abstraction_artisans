@@ -42,7 +42,7 @@ class MainPage extends JFrame {
             button.setOpaque(true);
             button.setBackground(new Color(64, 64, 64));
             button.setForeground(Color.WHITE);
-            button.setFocusPainted(true);
+            button.setFocusPainted(false);
             button.setBorderPainted(false);
 
             if (buttonLabels[i].equals("로그아웃")) {

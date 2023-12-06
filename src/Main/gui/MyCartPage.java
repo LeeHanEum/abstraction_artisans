@@ -8,24 +8,44 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MyCartPage extends JFrame {
 
     private final Admin admin;
+    private JPanel panel;  // Declare panel as an instance variable
 
     public MyCartPage(Admin admin) {
         this.admin = admin;
 
         setTitle("내 장바구니");
-        setSize(450, 800); // Adjusted size for better visibility
+        setSize(450, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel for product list
-        JPanel panel = new JPanel(null);
+        // Initialize the panel
+        panel = new JPanel(null);
         panel.setBackground(Color.WHITE);
 
+        // Build the initial UI
+        buildUI();
+
+        // Set up JScrollPane
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        // Set the content pane of the frame to the scroll pane
+        setContentPane(scrollPane);
+
+        // Display the frame
+        setVisible(true);
+    }
+
+    private void buildUI() {
         // Get the product list from the user's cart
         List<Product> productList = Login.currentUser.getCart().getProductList();
 
@@ -64,21 +84,43 @@ public class MyCartPage extends JFrame {
 
             JTextField quantityField = new JTextField(String.valueOf(1));
             quantityField.setBounds(250, yPosition + 40, 50, 20);
+            quantityField.setFocusable(false);
             panel.add(quantityField);
 
             JButton removeButton = new JButton("삭제");
             removeButton.setBounds(350, yPosition + 40, 80, 20);
+            panel.add(removeButton);
+
             removeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Remove button clicked
                     Login.currentUser.getCart().deleteItemFromCart(product.getProductId());
-                    refreshUI();
+
+                    // Create a copy of the productList
+                    List<Product> productListCopy = new ArrayList<>(productList);
+
+                    // Use Iterator to safely iterate and remove from the list
+                    Iterator<Product> iterator = productListCopy.iterator();
+                    while (iterator.hasNext()) {
+                        if (iterator.next().getProductId() == product.getProductId()) {
+                            iterator.remove();
+                            break;
+                        }
+                    }
+
+                    // Clear the panel and rebuild the UI on the event dispatch thread
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            panel.removeAll();
+                            buildUI();
+                        }
+                    });
                 }
             });
-            panel.add(removeButton);
 
-            yPosition += 150; // Increased the gap to accommodate the image
+            yPosition += 150;
         }
 
         // Checkout button
@@ -110,28 +152,9 @@ public class MyCartPage extends JFrame {
         // Set the preferred size for the panel
         panel.setPreferredSize(new Dimension(450, preferredHeight));
 
-        // JScrollPane
-        JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        // Increase scroll speed
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
-        // Set the content pane of the frame to the scroll pane
-        setContentPane(scrollPane);
-
-        // Display the frame
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
-    // Refresh the UI
-    private void refreshUI() {
-        getContentPane().removeAll();
-        revalidate();
-        repaint();
-        new MyCartPage(admin);
+        // Revalidate and repaint the panel
+        panel.revalidate();
+        panel.repaint();
     }
 
     // Navigate to the main page

@@ -237,7 +237,7 @@ public class ItemDetailPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 바로 구매 액션 처리
-                System.out.println("바로 구매 버튼이 클릭되었습니다.");
+                JOptionPane.showMessageDialog(null, "결제 페이지로 이동합니다.");
             }
         });
 
