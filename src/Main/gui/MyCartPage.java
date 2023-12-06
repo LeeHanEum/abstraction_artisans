@@ -123,9 +123,15 @@ public class MyCartPage extends JFrame {
             yPosition += 150;
         }
 
+        // Display the total price
+        JLabel totalPriceLabel = new JLabel("총 결제 금액: " + Login.currentUser.getCart().getTotalPrice() + "원");
+        totalPriceLabel.setBounds(300, yPosition, 200, 20);
+        totalPriceLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        panel.add(totalPriceLabel);
+
         // Checkout button
         JButton checkoutButton = new JButton("결제하기");
-        checkoutButton.setBounds(50, yPosition + 20, 150, 30);
+        checkoutButton.setBounds(50, yPosition + 40, 150, 30);
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +142,7 @@ public class MyCartPage extends JFrame {
 
         // Main page button
         JButton mainButton = new JButton("메인으로");
-        mainButton.setBounds(250, yPosition + 20, 150, 30);
+        mainButton.setBounds(250, yPosition + 40, 150, 30);
         mainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
