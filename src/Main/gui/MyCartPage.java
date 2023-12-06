@@ -11,12 +11,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class MyCartPage extends JFrame {
 
     private final Admin admin;
     private JPanel panel;  // Declare panel as an instance variable
-
+    private JLabel totalLabel;
+    private int total = 0;
     public MyCartPage(Admin admin) {
         this.admin = admin;
 
@@ -119,18 +122,27 @@ public class MyCartPage extends JFrame {
                     });
                 }
             });
-
+            total += product.getPrice();
             yPosition += 150;
         }
-
+        // 총 가격 반환시켜서 출력
+        totalLabel = new JLabel("총 가격: $" + total);
+        totalLabel.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+        totalLabel.setBounds(250, yPosition-20, 200, 40);
+        panel.add(totalLabel);
+        
         // Checkout button
         JButton checkoutButton = new JButton("결제하기");
         checkoutButton.setBounds(50, yPosition + 20, 150, 30);
         checkoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 결제 완료 메세지 수정
+                String message = String.format("결제가 완료되었습니다!\n총 결제 금액: $%d", total);
+
                 // Additional checkout logic can be added here
-                JOptionPane.showMessageDialog(panel, "결제가 완료되었습니다!", "결제 완료", JOptionPane.INFORMATION_MESSAGE);
+
+                JOptionPane.showMessageDialog(panel, message, "결제 완료", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         panel.add(checkoutButton);
@@ -162,5 +174,4 @@ public class MyCartPage extends JFrame {
         dispose();
         new MainPage(admin);
     }
-
 }
