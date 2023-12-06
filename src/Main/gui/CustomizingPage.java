@@ -60,7 +60,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
         textField.setBounds(93, 281, 258, 48);
         contentPane.add(textField);
 
-        // "다음" 버튼
+        // "다음" 버튼 크기랑 위치조정
         nextButton = new JButton("다음");
         nextButton.addActionListener(this);
         nextButton.setOpaque(true);
@@ -68,10 +68,10 @@ public class CustomizingPage extends JFrame implements ActionListener {
         nextButton.setForeground(Color.WHITE);
         nextButton.setFocusPainted(true);
         nextButton.setBorderPainted(false);
-        nextButton.setBounds(310, 594, 85, 55);
+        nextButton.setBounds(280, 594, 120, 50);
         contentPane.add(nextButton);
 
-        // "이전" 버튼
+        // "이전" 버튼 크기랑 위치조정
         backButton = new JButton("이전");
         backButton.addActionListener(this);
         backButton.setOpaque(true);
@@ -79,7 +79,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
         backButton.setForeground(Color.WHITE);
         backButton.setFocusPainted(true);
         backButton.setBorderPainted(false);
-        backButton.setBounds(35, 594, 85, 55);
+        backButton.setBounds(40, 594, 120, 50);
         contentPane.add(backButton);
 
 
@@ -115,8 +115,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
         if (e.getSource() == backButton) {
             if (current == 0) {
                 navigateToMain();
-            }
-            else if (current == 1) {
+            } else if (current == 1) {
                 for (int i = 0; i < 6; i++) {
                     choiceRadioButton[i].setVisible(false);
                 }
@@ -125,23 +124,26 @@ public class CustomizingPage extends JFrame implements ActionListener {
                 limitLabel.setVisible(true);
                 choiceLabel.setVisible(false);
                 current--;
-            }
-            else if (current == 2) {
+            } else if (current == 2) {
                 for (int i = 0; i < 6; i++) {
                     choiceRadioButton[i].setVisible(false);
                 }
                 current--;
+                choiceLabel.setText("사용 용도 선택"); // 초기화 추가
                 choiceRadioButton[0].setText("1. 게임용");
                 choiceRadioButton[1].setText("2. 작업용");
                 choiceRadioButton[2].setText("3. 사무용");
                 choiceRadioButton[3].setText("4. 취미용");
-                for (int i = 0; i < 4; i++){
+                for (int i = 0; i < 4; i++) {
                     choiceRadioButton[i].setVisible(true);
                 }
+                // "다음"으로 버튼 텍스트 변경
+                nextButton.setText("다음");
             }
         }
+
         if (e.getSource() == nextButton) {
-            if(current == 0) {
+            if (current == 0) {
                 textField.setVisible(false);
                 maxLabel.setVisible(false);
                 limitLabel.setVisible(false);
@@ -149,33 +151,31 @@ public class CustomizingPage extends JFrame implements ActionListener {
                 setChoiceRadioButton(0);
                 try {
                     userChoices[current] = Integer.parseInt(textField.getText());
-                }
-                catch (NumberFormatException e1){
+                } catch (NumberFormatException e1) {
                     System.out.println("숫자가 아님!");
                 }
                 current++;
-                //입력받은 값을 userChoiceHandler 에게 전달 구현
-            }
-            else if(current == 1){
+                // 입력받은 값을 userChoiceHandler 에게 전달 구현
+            } else if (current == 1) {
                 c1 = choiceCheck();
                 userChoices[current] = c1;
-                if(!choiceRadioButton[5].isSelected()) {
+                if (!choiceRadioButton[5].isSelected()) {
                     for (int i = 0; i < 6; i++) {
                         choiceRadioButton[i].setVisible(false);
                     }
                     setChoiceRadioButton(c1);
                     current++;
                 }
-                //입력받은 값을 userChoiceHandler 에게 전달 구현
-            }
-            else if(current == 2){
+                // 입력받은 값을 userChoiceHandler 에게 전달 구현
+                // "결과"로 버튼 텍스트 변경
+                nextButton.setText("결과 확인");
+            } else if (current == 2) {
                 userChoices[current] = choiceCheck();
-                nextButton.setText("결과");
-                System.out.println("" + userChoices[0] + userChoices[1] +userChoices[2]);
+                System.out.println("" + userChoices[0] + userChoices[1] + userChoices[2]);
                 UserChoiceHandler usr = new UserChoiceHandler();
-                ArrayList rec[] =  usr.recommends(userChoices);
+                ArrayList rec[] = usr.recommends(userChoices);
                 dispose();
-                new RecommendList(rec,admin);
+                new RecommendList(rec, admin);
             }
         }
     }
