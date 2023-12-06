@@ -137,6 +137,14 @@ public class MyPage extends JFrame{
         arrow1.setForeground(Color.BLACK);
         zimInfo.add(arrow1);
 
+        //찜목록으로 바꿔주는 액션 추가
+        zimInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new MyInterestPage(admin); // Open the setting page
+            }
+        });
         groupPanel.add(zimInfo);
 
         addYPadding(groupPanel,30);
@@ -191,7 +199,7 @@ public class MyPage extends JFrame{
         textLabel4.setForeground(Color.BLACK);
         myCart.add(textLabel4);
 
-        addXPadding(myCart,250);
+        addXPadding(myCart,200);
 
         // >
         JLabel arrow3 = new JLabel(">");

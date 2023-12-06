@@ -136,6 +136,15 @@ public class ItemDetailPage extends JFrame {
         wishlistButton.setPreferredSize(new Dimension(32, 32));
         wishlistButton.setIcon(new ImageIcon(new ImageIcon("src/Main/resource/heart.png").getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
         buttonPanel.add(wishlistButton);
+        //하트 버튼 누르면 찜 목록에 추가되게 액션리스너 추가
+        wishlistButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 장바구니 담기 액션 처리
+                Login.currentUser.getInterest().markInterest(product);
+                JOptionPane.showMessageDialog(null, "상품이 찜 목록에 담겼습니다.");
+            }
+        });
 
         panel.add(buttonPanel);
 
