@@ -17,6 +17,7 @@ public class AdminMainPage extends JFrame{
         setTitle("쇼핑몰 메인 페이지");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
+        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(null);
 

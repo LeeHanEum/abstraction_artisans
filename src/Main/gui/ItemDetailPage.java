@@ -30,6 +30,7 @@ public class ItemDetailPage extends JFrame {
         setTitle("제품 상세페이지");
         setSize(450, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(null);
         panel.setBackground(Color.WHITE);

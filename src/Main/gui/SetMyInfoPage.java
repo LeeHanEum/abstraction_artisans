@@ -24,6 +24,7 @@ public class SetMyInfoPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);
+        setLocationRelativeTo(null);
 
         // 전체 패널
         JPanel userPagePanel = new JPanel();
