@@ -86,13 +86,55 @@ public class RecommendList extends JFrame {
 
         /*****Button 2개 Panel******/
         JPanel btnPanel = new JPanel();
-        btnPanel.setPreferredSize(new Dimension(350,50));
+        btnPanel.setPreferredSize(new Dimension(450,50));
         btnPanel.setBackground(Color.WHITE);
         btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
 
-        addXPadding(btnPanel,230);
+        addXPadding(btnPanel,170);
 
-        /************메인으로 버튼***********/
+        /************Info 버튼***********/
+        JPanel outerContainerInfo = new JPanel();
+        outerContainerInfo.setLayout(null);
+        outerContainerInfo.setBounds(0, 0, 76, 44);
+        outerContainerInfo.setBackground(Color.WHITE); // Change the background color to white
+
+        JButton infoButton = new JButton("Info");
+        infoButton.setForeground(Color.BLACK); // Change the text color to black
+        infoButton.setFont(new Font("Inter", Font.BOLD, 12));
+        infoButton.setBounds(0, 0, 76, 44);
+        infoButton.setBackground(Color.WHITE); // Change the background color to white
+
+        infoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,
+                    "물건을 선택할 때에는 여러 가지 중요한 기준을 고려해야 합니다.\n"
+                        + "CPU, 그래픽 카드, RAM, SSD 등의 주요 구성품을 고를 때에는\n"
+                        + "예산을 고려하면서도 권장 사양을 초과하는 제품을 선택하는 것이 핵심입니다.\n"
+                        + "메인보드를 선택할 때에는 램의 타입과 호환성을 신중히 고려해야 하며,\n"
+                        + "파워 공급 장치는 그래픽 카드의 요구 사양을 충족시키는 정격 파워 이상의 제품을 선택해야 합니다. \n"
+                        + "케이스는 메인보드의 보드 타입과 호환되어야 하며,\n"
+                        + "전체적인 디자인과 냉각 시스템을 고려하여 선정되어야 합니다.\n"
+                        + "이러한 요소들을 고려하여 부품을 선택하시면,\n"
+                        + "예산 내에서도 최상의 성능과 안정성을 얻을 수 있을 것입니다.\n"
+                        + "\n"
+                        + "부품추천기준\n"
+                        + "비용에 부합하며 용도별 권장 사양을 만족하는 부품을 선별\n"
+                        + "※의존성 체크※\n"
+                        + "메인보드 : 램 타입 호환성\n"
+                        + "파워 : 그래픽카드 정격용량 기준치 이상\n"
+                        + "케이스 : 메인보드 타입 호환성\n"
+                        + "\n"
+                        + "\uFEFF간단한 질문만으로 최적의 컴퓨터 주요 부품들을 추천!!\n"
+                        + "여러분들의 컴퓨터 구매에 대한 어려움을 해소시켜드립니다!"
+                    , "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        outerContainerInfo.add(infoButton);
+        btnPanel.add(outerContainerInfo);
+        addXPadding(btnPanel,0);
+/************메인으로 버튼***********/
         JPanel outerContainer = new JPanel();
         outerContainer.setLayout(null);
         outerContainer.setBounds(0, 0, 76, 44);
@@ -115,7 +157,7 @@ public class RecommendList extends JFrame {
         outerContainer.add(mainButton);
         btnPanel.add(outerContainer);
         /************메인으로 버튼 끝 ***********/
-        addXPadding(btnPanel,15);
+        addXPadding(btnPanel,0);
         /************종료 버튼***********/
         JPanel outerContainer1 = new JPanel();
         outerContainer1.setLayout(null);
