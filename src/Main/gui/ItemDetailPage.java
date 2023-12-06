@@ -137,12 +137,19 @@ public class ItemDetailPage extends JFrame {
         wishlistButton.setIcon(new ImageIcon(new ImageIcon("src/Main/resource/heart.png").getImage().getScaledInstance(28, 28, Image.SCALE_SMOOTH)));
         buttonPanel.add(wishlistButton);
         //하트 버튼 누르면 찜 목록에 추가되게 액션리스너 추가
+        //이미 담긴건 또 안 담기게 수정
         wishlistButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 장바구니 담기 액션 처리
-                Login.currentUser.getInterest().markInterest(product);
-                JOptionPane.showMessageDialog(null, "상품이 찜 목록에 담겼습니다.");
+                // Check if the product is already in the interest list
+                if (!Login.currentUser.getInterest().getInterestList().contains(product)) {
+                    // Product is not in the wishlist, mark it
+                    Login.currentUser.getInterest().markInterest(product);
+                    JOptionPane.showMessageDialog(null, "상품이 찜 목록에 담겼습니다.");
+                } else {
+                    // Product is already in the wishlist
+                    JOptionPane.showMessageDialog(null, "이미 찜한 상품입니다.");
+                }
             }
         });
 

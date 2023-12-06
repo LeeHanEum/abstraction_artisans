@@ -20,11 +20,16 @@ public class Interest {
     }
 
     // 상품 찜하기
+    // 이미 담긴 상품은 다시 안 들어가게 수정
     public void markInterest(Product product) {
-        interestList.add(product);  // Add the interest to the interest list
-        System.out.println("상품 찜하기");
+        // Check if the product is not already in the interest list
+        if (!interestList.contains(product)) {
+            interestList.add(product);  // Add the interest to the interest list
+            System.out.println("상품 찜하기");
+        } else {
+            System.out.println("이미 찜한 상품입니다.");
+        }
     }
-
     public List<Product> getInterestList() {
         return interestList;
     }
@@ -34,7 +39,8 @@ public class Interest {
             if (Objects.equals(p.getProductId(), productId)){
                 interestList.remove(p);
             }
-        }        System.out.println("찜한 상품 삭제");
+        }
+        System.out.println("찜한 상품 삭제");
     }
 
     public User getUser() {
