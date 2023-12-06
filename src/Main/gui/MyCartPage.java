@@ -20,6 +20,7 @@ public class MyCartPage extends JFrame {
         setTitle("내 장바구니");
         setSize(450, 800); // Adjusted size for better visibility
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         // Panel for product list
         JPanel panel = new JPanel(null);

@@ -30,6 +30,7 @@ public class CustomizingPage extends JFrame implements ActionListener {
         setTitle("CustomizingPage");
         setSize(450, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         // contentPane 레이아웃 설정
         contentPane.setLayout(null); // 배치 관리자를 null로 설정

@@ -24,6 +24,7 @@ public class PartsRecommendList extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(null);  // Absolute positioning 사용
+        setLocationRelativeTo(null);
 
         // 전체 패널
         JPanel userPagePanel = new JPanel();

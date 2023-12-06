@@ -28,6 +28,7 @@ public class ItemListPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(450, 800);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
         userPagePanel = new JPanel();
         userPagePanel.setBackground(new Color(240, 240, 240));
