@@ -16,12 +16,12 @@ public class User implements Manageable{
 
     private Cart cart;
 
+    private Interest interest;
+
     private ArrayList[] recommend;
 
-    static Manager interestMgr = new Manager();
-
     static Manager paymentMgr = new Manager();
-
+    //interest 클래스 불러오기
     @Override
     public void read(Scanner scan) {
         id = scan.next();
@@ -30,6 +30,7 @@ public class User implements Manageable{
         tel = scan.next();
         address = scan.next();
         cart = new Cart(this);
+        interest = new Interest(this);
     }
     @Override
     public boolean matches(String kwd) {
@@ -68,6 +69,11 @@ public class User implements Manageable{
 
     public Cart getCart() {
         return cart;
+    }
+
+    //interest 부르는 메서드 추가
+    public Interest getInterest(){
+        return interest;
     }
 
     public ArrayList[] getRecommend() {

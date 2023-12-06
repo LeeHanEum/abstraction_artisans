@@ -411,7 +411,7 @@ public class Admin {
         ArrayList<String> imagePathList = new ArrayList<>();
         String folderPath = System.getProperty("user.dir") + "/src/Main/resource/Case/";
 
-        for (int i = 1; i <= 51; i++) {
+        for (int i = 327; i <= 377; i++) {
             String fileName = i + "번.png";
             String filePath = folderPath + fileName;
 

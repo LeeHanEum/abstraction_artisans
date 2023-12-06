@@ -137,6 +137,14 @@ public class MyPage extends JFrame{
         arrow1.setForeground(Color.BLACK);
         zimInfo.add(arrow1);
 
+        //찜목록으로 바꿔주는 액션 추가
+        zimInfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                new MyInterestPage(admin); // Open the setting page
+            }
+        });
         groupPanel.add(zimInfo);
 
         addYPadding(groupPanel,30);
@@ -216,8 +224,8 @@ public class MyPage extends JFrame{
         munInfo.setBackground(Color.WHITE);
         munInfo.setLayout(new BoxLayout(munInfo, BoxLayout.X_AXIS));
         munInfo.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-//str
-        JLabel textLabel5 = new JLabel("앱 문의");
+        //str
+        JLabel textLabel5 = new JLabel("엡 문의");
         textLabel5.setSize(new Dimension(100,80));
         textLabel5.setFont(new Font("Inter", Font.PLAIN, 21));
         textLabel5.setForeground(Color.BLACK);
@@ -225,7 +233,7 @@ public class MyPage extends JFrame{
 
         addXPadding(munInfo,250);
 
-// >
+        // >
         JLabel arrow4 = new JLabel(">");
         arrow4.setFont(new Font("Inter", Font.BOLD, 21));
         arrow4.setForeground(Color.BLACK);

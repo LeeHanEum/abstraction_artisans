@@ -5,35 +5,41 @@ import Main.mall.dto.InterestDto;
 import Main.mgr.Manageable;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+//전체코드 cart와 유사하게 수정
 public class Interest {
-
-    private Long interestId;
-
-    private User user;
-
-    private Product product;
-
-    private LocalDateTime createdAt;
+    private final User user;
+    private final LocalDateTime createdAt;
+    private final List<Product> interestList;
+    public Interest(User user) {
+        this.user = user;
+        this.createdAt = LocalDateTime.now();
+        this.interestList = new ArrayList<>();
+    }
 
     // 상품 찜하기
+    // 이미 담긴 상품은 다시 안 들어가게 수정
     public void markInterest(Product product) {
-        this.user = Login.currentUser;
-        user.interestMgr.mList.add(product);
-        System.out.println("상품 찜하기");
-    }
-
-    // 찜한 상품 조회
-    public void getInterestList() {
-        for (Manageable product : user.interestMgr.mList) {
-            product.print();
+        // Check if the product is not already in the interest list
+        if (!interestList.contains(product)) {
+            interestList.add(product);  // Add the interest to the interest list
+            System.out.println("상품 찜하기");
+        } else {
+            System.out.println("이미 찜한 상품입니다.");
         }
-        System.out.println("찜한 상품 조회");
+    }
+    public List<Product> getInterestList() {
+        return interestList;
     }
 
-    // 찜한 상품 삭제
-    public void deleteInterest(Product product) {
-        user.interestMgr.mList.remove(product);
+    public void deleteInterest(Long productId) {
+        for (Product p : interestList){
+            if (Objects.equals(p.getProductId(), productId)){
+                interestList.remove(p);
+            }
+        }
         System.out.println("찜한 상품 삭제");
     }
 
@@ -41,19 +47,15 @@ public class Interest {
         return user;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public static Interest builder(InterestDto interestDto){
+ /*   public static Interest builder(InterestDto interestDto) {
         Interest interest = new Interest();
         interest.user = interestDto.getUser();
         interest.product = interestDto.getProduct();
         interest.createdAt = interestDto.getCreatedAt();
         return interest;
-    }
+    }*/
 }
